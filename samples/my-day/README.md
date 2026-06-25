@@ -152,12 +152,12 @@ samples/my-day/
 - [Heft Documentation](https://heft.rushstack.io/)
 - [PnPjs](https://pnp.github.io/pnpjs/)
 - [PnP React controls](https://pnp.github.io/sp-dev-fx-controls-react/)
-- [Microsoft 365 Patterns and Practices](https://aka.ms/m365pnp) - Guidance, tooling, samples and open-source controls for your Microsoft 365 development
+- [Microsoft 365 & Power Platform Community](https://aka.ms/community/home) - Guidance, tooling, samples and open-source controls for your Copilot, Microsoft 365 & Power Platform development
 
 ---
 
 > Notice that better pictures and documentation will increase the sample usage and the value you are providing for others. Thanks for your submissions in advance.
 
-> Share your solution with others through the Microsoft 365 Patterns and Practices program to get visibility and exposure. More details on the community, open-source projects and other activities from http://aka.ms/m365pnp.
+> Share your solution with others through the Microsoft 365 Patterns and Practices program to get visibility and exposure. More details on the community, open-source projects and other activities from http://aka.ms/community/home.
 
 _Part of the **SharePoint Copilot Apps** sample gallery — complex UX in the Copilot canvas, powered by SPFx. See [aka.ms/spfx](https://aka.ms/spfx)._
