@@ -1,0 +1,9 @@
+{
+  "$schema": "https://aka.ms/json-schemas/copilot-extensions/v2.1/plugin.schema.json",
+  "schema_version": "v2.4",
+  "namespace": "myDay",
+  "name_for_human": "MyDay Agent",
+  "description_for_human": "MyDay description",
+  "description_for_model": "MyDay description",
+  "contact_email": "publisher@contoso.com"
+}

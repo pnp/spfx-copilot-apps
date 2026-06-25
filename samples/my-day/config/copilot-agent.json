@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "MyDay Agent"
+      },
+      "description": {
+        "default": "MyDay description"
+      },
+      "components": [
+        "5daff8b9-9c39-4c9c-a32b-98ab4ab6c8da"
+      ]
+    }
+  ]
+}

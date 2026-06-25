@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "my-day-client-side-solution",
+    "id": "20739318-a47a-41d4-93a8-a9739e34fe95",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.24.0-dev.5"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "my-day description"
+      },
+      "longDescription": {
+        "default": "my-day description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "my-day Feature",
+        "description": "The feature that activates elements of the my-day solution.",
+        "id": "a10d8f25-fef4-4fd3-8993-eea59db3e54c",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/my-day.sppkg"
+  }
+}

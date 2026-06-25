@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.14.0",
+    "sdksVersions": {},
+    "version": "1.24.0-dev.5",
+    "libraryName": "my-day",
+    "libraryId": "20739318-a47a-41d4-93a8-a9739e34fe95",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "my-day",
+    "solutionShortDescription": "my-day description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "copilotComponent"
+  }
+}

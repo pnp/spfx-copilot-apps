@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "5daff8b9-9c39-4c9c-a32b-98ab4ab6c8da",
+  "alias": "MyDayCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "MyDayTool",
+      "description": {
+        "default": "MyDay description"
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/myDay/MyDayCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

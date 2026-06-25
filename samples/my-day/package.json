@@ -1,0 +1,39 @@
+{
+  "name": "my-day",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=22.14.0 < 23.0.0"
+  },
+  "scripts": {
+    "build": "heft test --clean --production && heft package-solution --production",
+    "clean": "heft clean",
+    "eject-webpack": "heft eject-webpack",
+    "start": "heft start --clean"
+  },
+  "dependencies": {
+    "@microsoft/sp-copilot-component": "1.24.0-dev.5",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "tslib": "2.3.1",
+    "zod": "3.24.1",
+    "zod-to-json-schema": "3.24.1"
+  },
+  "devDependencies": {
+    "@microsoft/eslint-config-spfx": "1.24.0-dev.5",
+    "@microsoft/eslint-plugin-spfx": "1.24.0-dev.5",
+    "@microsoft/spfx-heft-plugins": "1.24.0-dev.5",
+    "@microsoft/spfx-web-build-rig": "1.24.0-dev.5",
+    "@rushstack/heft": "1.2.17",
+    "@types/jest": "30.0.0",
+    "@types/react": "17.0.45",
+    "@types/react-dom": "17.0.17",
+    "@types/webpack-env": "~1.15.2",
+    "css-loader": "~7.1.2",
+    "eslint": "9.37.0",
+    "typescript": "~5.8.0"
+  },
+  "overrides": {
+    "@rushstack/heft": "1.2.17"
+  }
+}

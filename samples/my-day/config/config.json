@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "my-day-copilot-component": {
+      "components": [
+        {
+          "entrypoint": "./lib/copilotComponents/myDay/MyDayCopilotComponent.js",
+          "manifest": "./src/copilotComponents/myDay/MyDayCopilotComponent.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "MyDayCopilotComponentStrings": "lib/copilotComponents/myDay/loc/{locale}.js"
+  }
+}
