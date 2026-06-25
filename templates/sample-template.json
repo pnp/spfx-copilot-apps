@@ -1,0 +1,60 @@
+[
+  {
+    "name": "pnp-spfx-copilot-apps-YOUR-SAMPLE-NAME",
+    "source": "pnp",
+    "title": "YOUR-SAMPLE-TITLE",
+    "shortDescription": "YOUR-SHORT-DESCRIPTION",
+    "url": "https://github.com/pnp/spfx-copilot-apps/tree/main/samples/YOUR-SAMPLE-NAME",
+    "downloadUrl": "https://pnp.github.io/download-partial/?url=https://github.com/pnp/spfx-copilot-apps/tree/main/samples/YOUR-SAMPLE-NAME",
+    "longDescription": [
+      "YOUR-LONG-DESCRIPTION"
+    ],
+    "creationDateTime": "2026-01-01",
+    "updateDateTime": "2026-01-01",
+    "products": [
+      "SharePoint",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "SAMPLE-TYPE",
+        "value": "SPFx-WebPart"
+      },
+      {
+        "key": "CLIENT-SIDE-DEV",
+        "value": "React"
+      },
+      {
+        "key": "SPFX-VERSION",
+        "value": "1.22.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/YOUR-SAMPLE-NAME/assets/preview.png",
+        "alt": "Sample preview"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "YOUR-GITHUB-ACCOUNT",
+        "pictureUrl": "https://github.com/YOUR-GITHUB-ACCOUNT.png",
+        "name": "YOUR-NAME"
+      }
+    ],
+    "references": [
+      {
+        "name": "Build agents for Microsoft 365 Copilot",
+        "description": "Extend Microsoft 365 Copilot with declarative agents, plugins, and connectors to tailor Copilot to your organization's needs.",
+        "url": "https://learn.microsoft.com/microsoft-365-copilot/extensibility/"
+      },
+      {
+        "name": "Overview of the SharePoint Framework",
+        "description": "The SharePoint Framework (SPFx) is a page and web part model that provides full support for client-side SharePoint development.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/sharepoint-framework-overview"
+      }
+    ]
+  }
+]
