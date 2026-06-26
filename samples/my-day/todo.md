@@ -5,6 +5,13 @@ Mapped to the commitments in [README.md](./README.md) and the current code basel
 
 > Status legend: `[ ]` not started · `[~]` in progress · `[x]` done
 
+> **Progress (latest):** Phase 1 mock-data layer and the **inline experience** are
+> implemented and building cleanly (`heft build` ✓). Inline ships a time-aware
+> greeting, three navigable summary tiles, and meetings / tasks / news drill-downs
+> with Fluent UI v9 theming driven by the host theme. Remaining inline polish:
+> container-width breakpoints and a visual contrast pass. Phase 3 (full-screen)
+> and the deferred API integration are still open.
+
 ## Approach & sequencing
 
 **UX first, with mocked data.** We build the full inline and full-screen
@@ -38,33 +45,33 @@ Order of work:
 
 ### Graph-aligned raw mock (one bundled TS module per source, shaped like the Graph response)
 
-- [ ] `mockData/meetings.ts` → `export const mockEvents: GraphEvent[]` → Graph **`event`** (`/me/events`, `/me/calendarView`):
+- [x] `mockData/meetings.ts` → `export const mockEvents: GraphEvent[]` → Graph **`event`** (`/me/events`, `/me/calendarView`):
   - `id`, `subject`, `start: { dateTime, timeZone }`, `end: { dateTime, timeZone }`
   - `location: { displayName }`, `isOnlineMeeting`, `onlineMeeting: { joinUrl }`, `onlineMeetingProvider`
   - `organizer: { emailAddress: { name, address } }`, `attendees: [{ emailAddress, status, type }]`
   - `importance` (`low`|`normal`|`high`), `showAs`, `isAllDay`, `webLink` (Outlook deep link)
-- [ ] `mockData/tasks.ts` → `export const mockTasks: GraphTodoTask[]` → Graph **`todoTask`** (`/me/todo/lists/{id}/tasks`):
+- [x] `mockData/tasks.ts` → `export const mockTasks: GraphTodoTask[]` → Graph **`todoTask`** (`/me/todo/lists/{id}/tasks`):
   - `id`, `title`, `status` (`notStarted`|`inProgress`|`completed`|…)
   - `importance` (`low`|`normal`|`high`), `dueDateTime: { dateTime, timeZone }`, `completedDateTime`, `categories`
-- [ ] `mockData/news.ts` → `export const mockNews: GraphSitePage[]` → Graph **`sitePage`** (`/sites/{id}/pages/microsoft.graph.sitePage`, SharePoint news):
+- [x] `mockData/news.ts` → `export const mockNews: GraphSitePage[]` → Graph **`sitePage`** (`/sites/{id}/pages/microsoft.graph.sitePage`, SharePoint news):
   - `id`, `title`, `name`, `webUrl`, `description`, `thumbnailWebUrl`, `bannerImageWebUrl`
   - `createdDateTime`, `lastModifiedDateTime`, `promotionKind` (`newsPost`)
   - category derived from a custom column / managed property (not a standard `sitePage` field — note in mapper)
-- [ ] `mockData/mail.ts` → `export const mockMail: GraphMessage[]` → Graph **`message`** (`/me/messages`, used by full-screen "Important mail"):
+- [x] `mockData/mail.ts` → `export const mockMail: GraphMessage[]` → Graph **`message`** (`/me/messages`, used by full-screen "Important mail"):
   - `id`, `subject`, `bodyPreview`, `from: { emailAddress: { name, address } }`
   - `receivedDateTime`, `isRead`, `importance` (`low`|`normal`|`high`), `hasAttachments`
   - `flag: { flagStatus }`, `webLink` (Outlook deep link)
-- [ ] `mockData/user.ts` → `export const mockUser: GraphUser` → Graph **`user`** (`/me`): `id`, `displayName`, `givenName`, `mail`, `userPrincipalName` (+ photo from `/me/photo/$value`)
-- [ ] `mockData/index.ts` — barrel re-exporting all mock arrays for a single import
+- [x] `mockData/user.ts` → `export const mockUser: GraphUser` → Graph **`user`** (`/me`): `id`, `displayName`, `givenName`, `mail`, `userPrincipalName` (+ photo from `/me/photo/$value`)
+- [x] `mockData/index.ts` — barrel re-exporting all mock arrays for a single import
 
 ### View models (lean projections the components use)
 
-- [ ] `IMyDayData`: `{ user, meetings: IMeeting[], tasks: ITask[], news: INewsItem[], mail: IMailItem[] }` (quickActions, weather → full-screen phase)
-- [ ] `IMeeting`: `{ id, subject, start, end, location?, isOnline, joinUrl?, importance, webLink? }`
-- [ ] `ITask`: `{ id, title, due, importance: 'low'|'normal'|'high', completed, webLink? }`
-- [ ] `INewsItem`: `{ id, title, category, publishedAt, imageUrl?, webUrl? }`
-- [ ] `IMailItem`: `{ id, subject, preview, from, fromEmail?, receivedAt, isRead, importance: 'low'|'normal'|'high', hasAttachments, flagged, webLink? }`
-- [ ] Mapper `graph → view model` (e.g. flatten `start.dateTime`, `status === 'completed' → completed`, `from.emailAddress.name → from`, pick `thumbnailWebUrl → imageUrl`) — reused later by `GraphMyDayDataService`
+- [x] `IMyDayData`: `{ user, meetings: IMeeting[], tasks: ITask[], news: INewsItem[], mail: IMailItem[] }` (quickActions, weather → full-screen phase)
+- [x] `IMeeting`: `{ id, subject, start, end, location?, isOnline, joinUrl?, importance, webLink? }`
+- [x] `ITask`: `{ id, title, due, importance: 'low'|'normal'|'high', completed, webLink? }`
+- [x] `INewsItem`: `{ id, title, category, publishedAt, imageUrl?, webUrl? }`
+- [x] `IMailItem`: `{ id, subject, preview, from, fromEmail?, receivedAt, isRead, importance: 'low'|'normal'|'high', hasAttachments, flagged, webLink? }`
+- [x] Mapper `graph → view model` (e.g. flatten `start.dateTime`, `status === 'completed' → completed`, `from.emailAddress.name → from`, pick `thumbnailWebUrl → imageUrl`) — reused later by `GraphMyDayDataService`
 
 ### Dynamic date/time resolution (always live, future-biased)
 
@@ -72,18 +79,18 @@ Order of work:
 > **at render against the user's local clock**, so the data shifts with the time of day and stays in
 > the future where it should be.
 
-- [ ] Author mock entities with **relative offsets from `now`** (not hardcoded absolute dates), e.g. a companion field per item: meetings `startOffsetMin`/`durationMin`, tasks `dueOffsetMin`, news `publishedOffsetMin`, mail `receivedOffsetMin`
-- [ ] `resolveMockData(now = new Date())` computes Graph-shaped absolute `dateTime` values (`now + offset`) so the raw objects still match the Graph shape after resolution
-- [ ] **Future-biased** schedule: meetings ahead of now (e.g. +12m, +45m, +2h, +4h, tomorrow +1d); tasks due today-later / +1d / +2d; news & mail in the **recent past** (−10m … −1d) so "1h ago" reads naturally
-- [ ] **Time-of-day aware**: filter/sort so the "next" meeting is the first one still in the future; past meetings drop out as the day progresses (greeting morning/afternoon/evening already follows the clock)
-- [ ] Resolve **on every render / data load** (pass `now` in) so re-opening later in the day refreshes relative times ("in 18 min", "in 2h") and the next-up item
-- [ ] Keep timezone handling consistent (resolve to local; emit `dateTime` + `timeZone` like Graph)
+- [x] Author mock entities with **relative offsets from `now`** (not hardcoded absolute dates), e.g. a companion field per item: meetings `startOffsetMin`/`durationMin`, tasks `dueOffsetMin`, news `publishedOffsetMin`, mail `receivedOffsetMin`
+- [x] `resolveMockData(now = new Date())` computes Graph-shaped absolute `dateTime` values (`now + offset`) so the raw objects still match the Graph shape after resolution
+- [x] **Future-biased** schedule: meetings ahead of now (e.g. +12m, +45m, +2h, +4h, tomorrow +1d); tasks due today-later / +1d / +2d; news & mail in the **recent past** (−10m … −1d) so "1h ago" reads naturally
+- [x] **Time-of-day aware**: filter/sort so the "next" meeting is the first one still in the future; past meetings drop out as the day progresses (greeting morning/afternoon/evening already follows the clock)
+- [x] Resolve **on every render / data load** (pass `now` in) so re-opening later in the day refreshes relative times ("in 18 min", "in 2h") and the next-up item
+- [x] Keep timezone handling consistent (resolve to local; emit `dateTime` + `timeZone` like Graph)
 
 ### Data & wiring
 
-- [ ] Author imaginary mock data (≥5 meetings, several tasks incl. high importance + due today, ≥4 news items, ≥4 mail items incl. unread/important)
-- [ ] Internally consistent entries (online meeting ⇒ `joinUrl` + Teams provider; in-person ⇒ room `displayName`)
-- [ ] `MockMyDayDataService` imports the `mockData` arrays, calls `resolveMockData(now)`, runs the mapper, and returns a single `IMyDayData` the components consume as props
+- [x] Author imaginary mock data (≥5 meetings, several tasks incl. high importance + due today, ≥4 news items, ≥4 mail items incl. unread/important)
+- [x] Internally consistent entries (online meeting ⇒ `joinUrl` + Teams provider; in-person ⇒ room `displayName`)
+- [x] `MockMyDayDataService` imports the `mockData` arrays, calls `resolveMockData(now)`, runs the mapper, and returns a single `IMyDayData` the components consume as props
 
 ## Phase 2 — Inline experience (React component structure)
 
@@ -97,50 +104,50 @@ Order of work:
 
 ### Setup
 
-- [ ] Install Fluent UI v9 (`@fluentui/react-components`, `@fluentui/react-icons`) — React 17 compatible
+- [x] Install Fluent UI v9 (`@fluentui/react-components`, `@fluentui/react-icons`) — React 17 compatible
 
 ### Responsive layout (iframe-aware)
 
-- [ ] Root container fills `width: 100%` of the host iframe; no fixed pixel width
-- [ ] Fluid cards/tiles (`box-sizing: border-box`, `min-width: 0`, flexible text wrapping/truncation)
+- [x] Root container fills `width: 100%` of the host iframe; no fixed pixel width
+- [x] Fluid cards/tiles (`box-sizing: border-box`, `min-width: 0`, flexible text wrapping/truncation)
 - [ ] Responsive breakpoints driven by container width (CSS container queries or `hostContext.containerDimensions`), not the viewport
 - [ ] Verify layout from ~320px up to wide inline widths (no overflow, no clipped chevrons/badges)
 
 ### Shared helpers
 
-- [ ] `useGreeting()` — time bucket (morning/afternoon/evening/night) → label + icon, client-side clock
-- [ ] `formatRelativeTime()` — "in 18 min", "1h ago"
+- [x] `useGreeting()` — time bucket (morning/afternoon/evening/night) → label + icon, client-side clock
+- [x] `formatRelativeTime()` — "in 18 min", "1h ago"
 
 ### Reusable building blocks (`components/inline/`)
 
-- [ ] `SummaryTile` — icon + title + primary/secondary text + chevron + `onClick`
-- [ ] `InlineDetailHeader` — back arrow + title for drill-downs
+- [x] `SummaryTile` — icon + title + primary/secondary text + chevron + `onClick`
+- [x] `InlineDetailHeader` — back arrow + title for drill-downs
 
 ### Root summary (`InlineSummary`)
 
-- [ ] Intro line ("Here's your personalized summary for today.")
-- [ ] `GreetingCard` — time-aware greeting + first name + matching icon (sun/moon)
-- [ ] Next-meeting `SummaryTile` — subject, time range, "in X min", location/Teams
-- [ ] Tasks-due `SummaryTile` — count + high-importance count
-- [ ] Top-news `SummaryTile` — latest headline, category + relative time
+- [x] Intro line ("Here's your personalized summary for today.")
+- [x] `GreetingCard` — time-aware greeting + first name + matching icon (sun/moon)
+- [x] Next-meeting `SummaryTile` — subject, time range, "in X min", location/Teams
+- [x] Tasks-due `SummaryTile` — count + high-importance count
+- [x] Top-news `SummaryTile` — latest headline, category + relative time
 
 ### Drill-down views
 
-- [ ] `MeetingsList` — next 5 meetings, back to summary, rows no-op
-- [ ] `TasksList` — today's incomplete tasks with importance `Badge`, back to summary
-- [ ] `NewsList` — latest news with thumbnails (`Image`), back to summary
+- [x] `MeetingsList` — next 5 meetings, back to summary, rows no-op
+- [x] `TasksList` — today's incomplete tasks with importance `Badge`, back to summary
+- [x] `NewsList` — latest news with thumbnails (`Image`), back to summary
 
 ### Wiring
 
-- [ ] `MyDayInline` owns `view` state and routes summary ↔ drill-downs
-- [ ] Keep existing `onRequestFullscreen` expand affordance
+- [x] `MyDayInline` owns `view` state and routes summary ↔ drill-downs
+- [x] Keep existing `onRequestFullscreen` expand affordance
 
 ### Theming (host-driven dark/light)
 
-- [ ] Detect the Copilot host theme from `hostContext.theme` (`'light'` | `'dark'`) — passed down as a prop, never read inside components
-- [ ] Wrap the inline tree in `FluentProvider` with `webDarkTheme` for `'dark'`, `webLightTheme` otherwise (default to light when `theme` is undefined)
-- [ ] Use Fluent v9 theme tokens (no hardcoded colors) so icons, cards, badges and text adapt automatically
-- [ ] Re-render on host theme change (base class already re-renders on `onHostContextChanged`) — derive the provider theme from the prop on every render
+- [x] Detect the Copilot host theme from `hostContext.theme` (`'light'` | `'dark'`) — passed down as a prop, never read inside components
+- [x] Wrap the inline tree in `FluentProvider` with `webDarkTheme` for `'dark'`, `webLightTheme` otherwise (default to light when `theme` is undefined)
+- [x] Use Fluent v9 theme tokens (no hardcoded colors) so icons, cards, badges and text adapt automatically
+- [x] Re-render on host theme change (base class already re-renders on `onHostContextChanged`) — derive the provider theme from the prop on every render
 - [ ] Verify both modes have sufficient contrast (greeting icon, priority badges, news thumbnails)
 
 ## Phase 3 — Full-screen experience (React component structure)
