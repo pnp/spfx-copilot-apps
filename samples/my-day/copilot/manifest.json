@@ -14,12 +14,12 @@
     "outline": "outline.png"
   },
   "name": {
-    "short": "MyDay Agent",
-    "full": "MyDay Agent"
+    "short": "My Day",
+    "full": "My Day — Personal Cockpit for Microsoft 365 Copilot"
   },
   "description": {
-    "short": "MyDay description",
-    "full": "MyDay description"
+    "short": "Your personal daily cockpit — meetings, tasks, news and mail at a glance.",
+    "full": "My Day is a personalized daily cockpit that lives inside the Microsoft 365 Copilot canvas. It greets the signed-in user and surfaces their next meeting, tasks due today, latest SharePoint news and important mail — starting as a compact inline card and expanding into a full daily dashboard with an agenda timeline, a tasks completion ring, important mail, a news wall, quick actions, and a 'Plan my day' focus assistant that prioritizes what to work on next. This sample ships with demo (mock) data so it can be deployed and demoed in minutes."
   },
   "accentColor": "#FFFFFF",
   "copilotAgents": {

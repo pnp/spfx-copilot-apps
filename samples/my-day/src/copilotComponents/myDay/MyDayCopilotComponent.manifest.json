@@ -15,7 +15,7 @@
     {
       "name": "MyDayTool",
       "description": {
-        "default": "MyDay description"
+        "default": "Renders the signed-in user's personalized My Day summary (time-aware greeting, next meeting, tasks due today, latest news and important mail) on the Copilot canvas. Starts inline and expands to a full-screen daily dashboard with an agenda timeline, tasks completion ring, important mail, news wall, quick actions and a Plan my day focus assistant."
       },
       "propertiesSchema": {
         "id": "$../../../lib/copilotComponents/myDay/MyDayCopilotComponentProperties.js:default;"

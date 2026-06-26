@@ -1,13 +1,25 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.5/schema.json",
   "version": "v1.5",
-  "name": "MyDay Agent",
-  "description": "MyDay description",
+  "name": "My Day",
+  "description": "Your personal daily cockpit inside Microsoft 365 Copilot — see your next meeting, tasks due, latest news and important mail at a glance, then expand to a full daily dashboard with a Plan my day focus assistant.",
   "instructions": "$[file('instruction.txt')]",
   "conversation_starters": [
     {
-      "title": "Get started",
-      "text": "What can you do?"
+      "title": "Show my day",
+      "text": "What does my day look like?"
+    },
+    {
+      "title": "Next meeting",
+      "text": "What's my next meeting?"
+    },
+    {
+      "title": "Tasks due today",
+      "text": "What tasks are due today?"
+    },
+    {
+      "title": "Plan my day",
+      "text": "Help me plan my day and tell me what to focus on first."
     }
   ],
   "actions": [
