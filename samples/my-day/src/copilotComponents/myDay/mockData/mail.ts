@@ -1,16 +1,20 @@
 import type { IMockMailSeed } from '../models/seeds';
+import { people } from './people';
 
 /**
  * Mock messages shaped like Microsoft Graph `message`, with relative
  * `receivedOffsetMin` offsets resolved against `now`. Includes unread, important
- * and flagged items for the full-screen "Important mail" card.
+ * and flagged items for the full-screen "Important mail" card. Senders are the
+ * standard Microsoft 365 demo personas (see `people.ts`) and carry an embedded
+ * face photo (`senderPhotoUrl`) for the mail avatars.
  */
 export const mockMail: IMockMailSeed[] = [
   {
     id: 'mail-0',
     subject: 'Re: My Day demo script',
     bodyPreview: 'Looks great — I added a couple of notes to the inline section before the keynote run-through.',
-    from: { emailAddress: { name: 'Aria Patel', address: 'aria.patel@contoso.com' } },
+    from: { emailAddress: { name: people.megan.displayName, address: people.megan.email } },
+    senderPhotoUrl: people.megan.photoUrl,
     receivedOffsetMin: -10,
     isRead: false,
     importance: 'high',
@@ -22,7 +26,8 @@ export const mockMail: IMockMailSeed[] = [
     id: 'mail-1',
     subject: 'Q3 budget approval needed',
     bodyPreview: 'Can you approve the updated figures today? Finance needs sign-off before the close.',
-    from: { emailAddress: { name: 'Diego Martins', address: 'diego.martins@contoso.com' } },
+    from: { emailAddress: { name: people.diego.displayName, address: people.diego.email } },
+    senderPhotoUrl: people.diego.photoUrl,
     receivedOffsetMin: -45,
     isRead: false,
     importance: 'high',
@@ -34,7 +39,8 @@ export const mockMail: IMockMailSeed[] = [
     id: 'mail-2',
     subject: 'RFP response received',
     bodyPreview: 'Thank you for your submission. Our procurement team will review and follow up shortly.',
-    from: { emailAddress: { name: 'Contoso Procurement', address: 'procurement@contoso.com' } },
+    from: { emailAddress: { name: people.patti.displayName, address: people.patti.email } },
+    senderPhotoUrl: people.patti.photoUrl,
     receivedOffsetMin: -200,
     isRead: false,
     importance: 'normal',
@@ -46,7 +52,8 @@ export const mockMail: IMockMailSeed[] = [
     id: 'mail-3',
     subject: 'Lunch tomorrow?',
     bodyPreview: "There's a new place near the office — want to try it before the 1:1?",
-    from: { emailAddress: { name: 'Lena Hoffmann', address: 'lena.hoffmann@contoso.com' } },
+    from: { emailAddress: { name: people.joni.displayName, address: people.joni.email } },
+    senderPhotoUrl: people.joni.photoUrl,
     receivedOffsetMin: -120,
     isRead: true,
     importance: 'normal',
@@ -56,9 +63,10 @@ export const mockMail: IMockMailSeed[] = [
   },
   {
     id: 'mail-4',
-    subject: '[my-day] PR review requested',
-    bodyPreview: 'Aria Patel requested your review on pull request #482: Inline experience.',
-    from: { emailAddress: { name: 'GitHub', address: 'notifications@github.com' } },
+    subject: 'Quarterly report — review requested',
+    bodyPreview: 'I left a few comments on the draft. Could you take a pass before the 2:30 sync?',
+    from: { emailAddress: { name: people.miriam.displayName, address: people.miriam.email } },
+    senderPhotoUrl: people.miriam.photoUrl,
     receivedOffsetMin: -300,
     isRead: true,
     importance: 'normal',

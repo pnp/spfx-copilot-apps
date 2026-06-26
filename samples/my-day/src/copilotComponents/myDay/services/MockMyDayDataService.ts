@@ -1,4 +1,4 @@
-import { mockEvents, mockMail, mockNews, mockTasks, mockUser } from '../mockData';
+import { mockEvents, mockMail, mockNews, mockQuickActions, mockTasks, mockUser, mockWeather } from '../mockData';
 import type { IMyDayData } from '../models/myDay';
 import type { IMyDayDataService } from './IMyDayDataService';
 import { mapMail, mapMeeting, mapNews, mapTask, mapUser } from './mappers';
@@ -30,7 +30,9 @@ export class MockMyDayDataService implements IMyDayDataService {
       meetings,
       tasks,
       news,
-      mail
+      mail,
+      weather: mockWeather,
+      quickActions: mockQuickActions
     };
   }
 }

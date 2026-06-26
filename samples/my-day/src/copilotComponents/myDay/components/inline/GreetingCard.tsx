@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Avatar, makeStyles, tokens, Text } from '@fluentui/react-components';
 import {
+  FullScreenMaximize20Regular,
   WeatherMoon24Filled,
   WeatherSunny24Filled,
   WeatherPartlyCloudyDay24Filled
@@ -50,6 +51,28 @@ const useStyles = makeStyles({
   subtext: {
     color: tokens.colorNeutralForegroundOnBrand,
     opacity: 0.85
+  },
+  expand: {
+    flexShrink: 0,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '32px',
+    height: '32px',
+    padding: 0,
+    border: 'none',
+    borderRadius: tokens.borderRadiusCircular,
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
+    color: tokens.colorNeutralForegroundOnBrand,
+    cursor: 'pointer',
+    transitionDuration: tokens.durationFaster,
+    transitionProperty: 'background-color',
+    ':hover': {
+      backgroundColor: 'rgba(255, 255, 255, 0.28)'
+    },
+    ':active': {
+      backgroundColor: 'rgba(255, 255, 255, 0.12)'
+    }
   }
 });
 
@@ -67,12 +90,14 @@ const glyphFor = (timeOfDay: TimeOfDay): React.ReactElement => {
 export interface IGreetingCardProps {
   user: IUser;
   now: Date;
+  /** When provided, shows an expand affordance that requests fullscreen. */
+  onRequestFullscreen?: () => void;
 }
 
 /** Personalized, time-aware greeting banner with the user's avatar. */
 const GreetingCard: React.FunctionComponent<IGreetingCardProps> = (props) => {
   const styles = useStyles();
-  const { user, now } = props;
+  const { user, now, onRequestFullscreen } = props;
   const greeting = getGreeting(now);
 
   return (
@@ -87,6 +112,17 @@ const GreetingCard: React.FunctionComponent<IGreetingCardProps> = (props) => {
         </Text>
       </div>
       <Avatar name={user.displayName} image={user.photoUrl ? { src: user.photoUrl } : undefined} size={40} />
+      {onRequestFullscreen && (
+        <button
+          type="button"
+          className={styles.expand}
+          onClick={onRequestFullscreen}
+          title="Open full view"
+          aria-label="Open full view"
+        >
+          <FullScreenMaximize20Regular />
+        </button>
+      )}
     </div>
   );
 };

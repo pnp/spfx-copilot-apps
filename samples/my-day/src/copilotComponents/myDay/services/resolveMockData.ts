@@ -64,7 +64,8 @@ export const resolveNews = (seeds: IMockNewsSeed[], now: Date): IGraphSitePage[]
       createdDateTime: published.toISOString(),
       lastModifiedDateTime: published.toISOString(),
       promotionKind: s.promotionKind,
-      category: s.category
+      category: s.category,
+      author: s.author
     };
   });
 
@@ -79,5 +80,6 @@ export const resolveMail = (seeds: IMockMailSeed[], now: Date): IGraphMessage[] 
     importance: s.importance,
     hasAttachments: s.hasAttachments,
     flag: s.flag,
-    webLink: s.webLink
+    webLink: s.webLink,
+    senderPhotoUrl: s.senderPhotoUrl
   }));

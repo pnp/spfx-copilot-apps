@@ -40,7 +40,7 @@ const MyDayApp: React.FunctionComponent<IMyDayAppProps> = (props) => {
 
   const view =
     displayMode === 'fullscreen' ? (
-      <MyDayFullscreen message={message} theme={theme} />
+      <MyDayFullscreen message={message} currentUser={currentUser} theme={theme} />
     ) : (
       <MyDayInline
         message={message}

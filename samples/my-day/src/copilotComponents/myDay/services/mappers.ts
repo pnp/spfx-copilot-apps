@@ -48,7 +48,10 @@ export const mapNews = (p: IGraphSitePage): INewsItem => ({
   publishedAt: new Date(p.createdDateTime),
   summary: p.description,
   imageUrl: p.thumbnailWebUrl,
-  webUrl: p.webUrl
+  webUrl: p.webUrl,
+  author: p.author
+    ? { displayName: p.author.displayName, photoUrl: p.author.photoUrl }
+    : undefined
 });
 
 export const mapMail = (m: IGraphMessage): IMailItem => ({
@@ -62,5 +65,6 @@ export const mapMail = (m: IGraphMessage): IMailItem => ({
   importance: m.importance,
   hasAttachments: m.hasAttachments,
   flagged: m.flag?.flagStatus === 'flagged',
-  webLink: m.webLink
+  webLink: m.webLink,
+  senderPhotoUrl: m.senderPhotoUrl
 });

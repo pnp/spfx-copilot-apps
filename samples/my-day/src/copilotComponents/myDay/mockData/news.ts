@@ -1,10 +1,13 @@
 import type { IMockNewsSeed } from '../models/seeds';
+import { people } from './people';
 
 /**
  * Mock SharePoint news shaped like Microsoft Graph `sitePage` (news posts), with
- * relative `publishedOffsetMin` offsets resolved against `now`. Thumbnails use
- * the deterministic picsum.photos placeholder service; the UI degrades to a
- * gradient placeholder if an image fails to load.
+ * relative `publishedOffsetMin` offsets resolved against `now`. Authors are the
+ * standard Microsoft 365 demo personas (see `people.ts`) and carry an embedded
+ * face photo for the byline. Thumbnails use the deterministic picsum.photos
+ * placeholder service; the UI degrades to a gradient placeholder if an image
+ * fails to load.
  */
 export const mockNews: IMockNewsSeed[] = [
   {
@@ -18,7 +21,8 @@ export const mockNews: IMockNewsSeed[] = [
     bannerImageWebUrl: 'https://picsum.photos/seed/spfx-copilot/1280/480',
     publishedOffsetMin: -60,
     promotionKind: 'newsPost',
-    category: 'Company News'
+    category: 'Company News',
+    author: { displayName: people.megan.displayName, email: people.megan.email, photoUrl: people.megan.photoUrl }
   },
   {
     id: 'news-1',
@@ -30,7 +34,8 @@ export const mockNews: IMockNewsSeed[] = [
     bannerImageWebUrl: 'https://picsum.photos/seed/benefits/1280/480',
     publishedOffsetMin: -180,
     promotionKind: 'newsPost',
-    category: 'HR News'
+    category: 'HR News',
+    author: { displayName: people.patti.displayName, email: people.patti.email, photoUrl: people.patti.photoUrl }
   },
   {
     id: 'news-2',
@@ -42,7 +47,8 @@ export const mockNews: IMockNewsSeed[] = [
     bannerImageWebUrl: 'https://picsum.photos/seed/office/1280/480',
     publishedOffsetMin: -300,
     promotionKind: 'newsPost',
-    category: 'Facilities'
+    category: 'Facilities',
+    author: { displayName: people.nestor.displayName, email: people.nestor.email, photoUrl: people.nestor.photoUrl }
   },
   {
     id: 'news-3',
@@ -54,7 +60,8 @@ export const mockNews: IMockNewsSeed[] = [
     bannerImageWebUrl: 'https://picsum.photos/seed/engineering/1280/480',
     publishedOffsetMin: -1440,
     promotionKind: 'newsPost',
-    category: 'Engineering'
+    category: 'Engineering',
+    author: { displayName: people.lee.displayName, email: people.lee.email, photoUrl: people.lee.photoUrl }
   },
   {
     id: 'news-4',
@@ -66,6 +73,7 @@ export const mockNews: IMockNewsSeed[] = [
     bannerImageWebUrl: 'https://picsum.photos/seed/partnership/1280/480',
     publishedOffsetMin: -2880,
     promotionKind: 'newsPost',
-    category: 'Company News'
+    category: 'Company News',
+    author: { displayName: people.isaiah.displayName, email: people.isaiah.email, photoUrl: people.isaiah.photoUrl }
   }
 ];

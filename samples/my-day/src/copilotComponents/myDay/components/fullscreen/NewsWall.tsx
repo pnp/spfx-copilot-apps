@@ -1,37 +1,28 @@
 import * as React from 'react';
 
 import { Avatar, Badge, makeStyles, shorthands, tokens, Text } from '@fluentui/react-components';
-import { Image20Regular } from '@fluentui/react-icons';
+import { Image24Regular, News20Regular } from '@fluentui/react-icons';
 
 import type { INewsItem } from '../../models/myDay';
 import { formatTimeAgo } from '../../utils/datetime';
-import InlineDetailHeader from './InlineDetailHeader';
+import DashboardCard from './DashboardCard';
 
 const useStyles = makeStyles({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-    width: '100%',
-    boxSizing: 'border-box',
-    minWidth: 0
-  },
-  list: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px'
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+    gap: '12px',
+    width: '100%'
   },
   card: {
     display: 'flex',
-    gap: '12px',
-    width: '100%',
-    boxSizing: 'border-box',
+    flexDirection: 'column',
     minWidth: 0,
-    padding: '10px',
-    border: `1px solid ${tokens.colorNeutralStroke2}`,
     borderRadius: tokens.borderRadiusLarge,
+    border: `1px solid ${tokens.colorNeutralStroke2}`,
     backgroundColor: tokens.colorNeutralBackground1,
     boxShadow: tokens.shadow2,
+    overflow: 'hidden',
     transitionDuration: tokens.durationFaster,
     transitionProperty: 'background-color, border-color, box-shadow',
     ':hover': {
@@ -41,37 +32,43 @@ const useStyles = makeStyles({
     }
   },
   thumb: {
-    flexShrink: 0,
-    width: '72px',
-    height: '72px',
-    borderRadius: tokens.borderRadiusMedium,
+    width: '100%',
+    height: '110px',
     objectFit: 'cover',
-    backgroundColor: tokens.colorNeutralBackground3
+    backgroundColor: tokens.colorNeutralBackground3,
+    display: 'block'
   },
   thumbFallback: {
-    flexShrink: 0,
+    width: '100%',
+    height: '110px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '72px',
-    height: '72px',
-    borderRadius: tokens.borderRadiusMedium,
     backgroundColor: tokens.colorNeutralBackground3,
-    color: tokens.colorNeutralForeground3,
-    fontSize: '24px'
+    color: tokens.colorNeutralForeground3
   },
   body: {
-    flexGrow: 1,
-    minWidth: 0,
     display: 'flex',
     flexDirection: 'column',
-    gap: '4px'
+    gap: '6px',
+    padding: '10px 12px 12px',
+    minWidth: 0
   },
   metaRow: {
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
     flexWrap: 'wrap'
+  },
+  time: {
+    color: tokens.colorNeutralForeground3
+  },
+  title: {
+    fontWeight: tokens.fontWeightSemibold,
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden'
   },
   byline: {
     display: 'inline-flex',
@@ -85,38 +82,22 @@ const useStyles = makeStyles({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap'
   },
-  title: {
-    fontWeight: tokens.fontWeightSemibold,
-    display: '-webkit-box',
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: 'vertical',
-    overflow: 'hidden'
-  },
-  summary: {
-    color: tokens.colorNeutralForeground3,
-    display: '-webkit-box',
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: 'vertical',
-    overflow: 'hidden'
-  },
-  time: {
-    color: tokens.colorNeutralForeground3
-  },
   empty: {
-    padding: '16px',
-    textAlign: 'center',
-    color: tokens.colorNeutralForeground3
+    color: tokens.colorNeutralForeground3,
+    padding: '8px 0'
   }
 });
 
-const NewsThumb: React.FunctionComponent<{ src?: string; alt: string; className: string; fallbackClassName: string }> = (
-  props
-) => {
+const NewsThumb: React.FunctionComponent<{
+  src?: string;
+  className: string;
+  fallbackClassName: string;
+}> = (props) => {
   const [failed, setFailed] = React.useState(false);
   if (!props.src || failed) {
     return (
       <span className={props.fallbackClassName} aria-hidden="true">
-        <Image20Regular />
+        <Image24Regular />
       </span>
     );
   }
@@ -124,36 +105,33 @@ const NewsThumb: React.FunctionComponent<{ src?: string; alt: string; className:
     <img
       className={props.className}
       src={props.src}
-      alt={props.alt}
+      alt=""
       loading="lazy"
       onError={() => setFailed(true)}
     />
   );
 };
 
-export interface INewsListProps {
+export interface INewsWallProps {
   news: INewsItem[];
   now: Date;
-  onBack: () => void;
 }
 
-/** Drill-down: latest news posts with thumbnails. */
-const NewsList: React.FunctionComponent<INewsListProps> = (props) => {
+/** 2-up news wall with image thumbnails, source and author byline. */
+const NewsWall: React.FunctionComponent<INewsWallProps> = ({ news, now }) => {
   const styles = useStyles();
-  const { news, now, onBack } = props;
+  const items = news.slice(0, 4);
 
   return (
-    <div className={styles.root}>
-      <InlineDetailHeader title="News" onBack={onBack} />
-      {news.length === 0 ? (
+    <DashboardCard title="News" icon={<News20Regular />} action={{ label: 'View all' }}>
+      {items.length === 0 ? (
         <Text className={styles.empty}>No news to show right now.</Text>
       ) : (
-        <div className={styles.list}>
-          {news.map((n) => (
+        <div className={styles.grid}>
+          {items.map((n) => (
             <div key={n.id} className={styles.card}>
               <NewsThumb
                 src={n.imageUrl}
-                alt=""
                 className={styles.thumb}
                 fallbackClassName={styles.thumbFallback}
               />
@@ -169,11 +147,6 @@ const NewsList: React.FunctionComponent<INewsListProps> = (props) => {
                 <Text size={300} className={styles.title}>
                   {n.title}
                 </Text>
-                {n.summary && (
-                  <Text size={200} className={styles.summary}>
-                    {n.summary}
-                  </Text>
-                )}
                 {n.author && (
                   <span className={styles.byline}>
                     <Avatar
@@ -191,8 +164,8 @@ const NewsList: React.FunctionComponent<INewsListProps> = (props) => {
           ))}
         </div>
       )}
-    </div>
+    </DashboardCard>
   );
 };
 
-export default NewsList;
+export default NewsWall;

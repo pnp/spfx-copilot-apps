@@ -53,3 +53,16 @@ export const formatTimeRange = (start: Date, end: Date): string => {
     d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
   return `${fmt(start)} – ${fmt(end)}`;
 };
+
+/** Format a single clock time, e.g. "10:00". */
+export const formatTime = (date: Date): string =>
+  date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+
+/** Format a full, human date line, e.g. "Wednesday, June 25, 2026" (user locale). */
+export const formatFullDate = (date: Date): string =>
+  date.toLocaleDateString(undefined, {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });

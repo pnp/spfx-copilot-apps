@@ -46,6 +46,8 @@ export interface INewsItem {
   summary?: string;
   imageUrl?: string;
   webUrl?: string;
+  /** Post author (name + optional face photo) for the news byline. */
+  author?: { displayName: string; photoUrl?: string };
 }
 
 export interface IMailItem {
@@ -61,6 +63,8 @@ export interface IMailItem {
   hasAttachments: boolean;
   flagged: boolean;
   webLink?: string;
+  /** Sender face photo (base64 data URI in the mock) for the mail avatar. */
+  senderPhotoUrl?: string;
 }
 
 /** Aggregate consumed by the My Day views. */
@@ -70,4 +74,25 @@ export interface IMyDayData {
   tasks: ITask[];
   news: INewsItem[];
   mail: IMailItem[];
+  weather?: IWeather;
+  quickActions?: IQuickAction[];
+}
+
+/** Current-conditions weather shown in the full-screen hero (mock only). */
+export interface IWeather {
+  temperatureC: number;
+  temperatureF: number;
+  condition: string;
+  location: string;
+  airQualityIndex: number;
+  airQualityLabel: string;
+}
+
+/** A quick-action tile in the full-screen view (mock / no-op). */
+export interface IQuickAction {
+  id: string;
+  title: string;
+  description: string;
+  /** Icon key the UI maps to a Fluent icon. */
+  icon: 'room' | 'note' | 'timeoff';
 }

@@ -12,6 +12,7 @@ import type {
   IGraphLocation,
   IGraphMessage,
   IGraphOnlineMeetingInfo,
+  IGraphPerson,
   IGraphRecipient,
   IGraphSitePage,
   IGraphTodoTask,
@@ -64,6 +65,7 @@ export interface IMockNewsSeed {
   publishedOffsetMin: number;
   promotionKind?: 'newsPost' | 'page' | 'template';
   category?: string;
+  author?: IGraphPerson;
 }
 
 export interface IMockMailSeed {
@@ -78,6 +80,7 @@ export interface IMockMailSeed {
   hasAttachments: boolean;
   flag?: { flagStatus: 'notFlagged' | 'flagged' | 'complete' };
   webLink?: string;
+  senderPhotoUrl?: string;
 }
 
 export type IMockUserSeed = IGraphUser;

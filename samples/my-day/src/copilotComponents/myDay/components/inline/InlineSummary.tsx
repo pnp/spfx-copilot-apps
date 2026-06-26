@@ -4,7 +4,6 @@ import { makeStyles, tokens, Text } from '@fluentui/react-components';
 import {
   CalendarLtr20Filled,
   CheckmarkCircle20Filled,
-  Open16Regular,
   News20Filled
 } from '@fluentui/react-icons';
 
@@ -30,25 +29,6 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px'
-  },
-  expand: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '4px',
-    alignSelf: 'flex-start',
-    marginTop: '2px',
-    padding: '4px 8px',
-    border: 'none',
-    borderRadius: tokens.borderRadiusMedium,
-    backgroundColor: 'transparent',
-    color: tokens.colorBrandForegroundLink,
-    cursor: 'pointer',
-    fontFamily: tokens.fontFamilyBase,
-    fontSize: tokens.fontSizeBase200,
-    ':hover': {
-      backgroundColor: tokens.colorSubtleBackgroundHover,
-      textDecorationLine: 'underline'
-    }
   }
 });
 
@@ -84,7 +64,7 @@ const InlineSummary: React.FunctionComponent<IInlineSummaryProps> = (props) => {
 
   return (
     <div className={styles.root}>
-      <GreetingCard user={data.user} now={now} />
+      <GreetingCard user={data.user} now={now} onRequestFullscreen={onRequestFullscreen} />
       <Text size={300} className={styles.intro}>
         Here’s your personalized summary for today.
       </Text>
@@ -115,13 +95,6 @@ const InlineSummary: React.FunctionComponent<IInlineSummaryProps> = (props) => {
           onClick={() => onNavigate('news')}
         />
       </div>
-
-      {onRequestFullscreen && (
-        <button type="button" className={styles.expand} onClick={onRequestFullscreen}>
-          <Open16Regular />
-          Open full view
-        </button>
-      )}
     </div>
   );
 };

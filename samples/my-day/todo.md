@@ -5,12 +5,18 @@ Mapped to the commitments in [README.md](./README.md) and the current code basel
 
 > Status legend: `[ ]` not started · `[~]` in progress · `[x]` done
 
-> **Progress (latest):** Phase 1 mock-data layer and the **inline experience** are
-> implemented and building cleanly (`heft build` ✓). Inline ships a time-aware
-> greeting, three navigable summary tiles, and meetings / tasks / news drill-downs
-> with Fluent UI v9 theming driven by the host theme. Remaining inline polish:
-> container-width breakpoints and a visual contrast pass. Phase 3 (full-screen)
-> and the deferred API integration are still open.
+> **Progress (latest):** Phase 1 mock-data layer, the **inline experience**, and the
+> **full-screen experience (Phase 3)** are implemented and building cleanly
+> (`heft test --production` ✓). Inline ships a time-aware greeting (with the **real
+> signed-in user** name + profile photo via `userphoto.aspx`), three navigable summary
+> tiles, and meetings / tasks / news drill-downs with a consistent hover-lift treatment
+> and Fluent UI v9 theming driven by the host theme. Full-screen ships a responsive
+> dashboard (hero + live date + weather, agenda timeline, tasks completion ring,
+> important mail with sender **face avatars**, news wall, quick actions), a showcase
+> **Settings** drawer, and the headline **"Plan my day"** focus assistant (deterministic
+> mock engine + simulated thinking + read-only briefing). Persona **face photos** are
+> embedded as base64 data URIs (CSP-safe, bundled into the `.sppkg`). Remaining: inline
+> container-width breakpoints + a light/dark contrast pass, and the deferred API integration.
 
 ## Approach & sequencing
 
@@ -61,16 +67,18 @@ Order of work:
   - `id`, `subject`, `bodyPreview`, `from: { emailAddress: { name, address } }`
   - `receivedDateTime`, `isRead`, `importance` (`low`|`normal`|`high`), `hasAttachments`
   - `flag: { flagStatus }`, `webLink` (Outlook deep link)
+  - [x] **Sender face photos** for the Important mail avatars: add a `senderPhoto` companion per item referencing a **bundled local face image** (CSP-safe, no external fetch). In live Graph this comes from `/users/{id}/photo/$value` (not a `message` field) — note in mapper. Provide a graceful **initials fallback** (Fluent `Avatar`) when absent
+  - [x] Bundle the face images under `assets/` (`assets/faces/*.jpeg`) and **embed them as base64 data URIs** (`mockData/faces.ts`) so webpack bundles them into the component JS — fully self-contained, no external fetch, no static-asset copy
 - [x] `mockData/user.ts` → `export const mockUser: GraphUser` → Graph **`user`** (`/me`): `id`, `displayName`, `givenName`, `mail`, `userPrincipalName` (+ photo from `/me/photo/$value`)
 - [x] `mockData/index.ts` — barrel re-exporting all mock arrays for a single import
 
 ### View models (lean projections the components use)
 
-- [x] `IMyDayData`: `{ user, meetings: IMeeting[], tasks: ITask[], news: INewsItem[], mail: IMailItem[] }` (quickActions, weather → full-screen phase)
+- [x] `IMyDayData`: `{ user, meetings: IMeeting[], tasks: ITask[], news: INewsItem[], mail: IMailItem[], weather?, quickActions? }` (weather + quickActions added in the full-screen phase)
 - [x] `IMeeting`: `{ id, subject, start, end, location?, isOnline, joinUrl?, importance, webLink? }`
 - [x] `ITask`: `{ id, title, due, importance: 'low'|'normal'|'high', completed, webLink? }`
-- [x] `INewsItem`: `{ id, title, category, publishedAt, imageUrl?, webUrl? }`
-- [x] `IMailItem`: `{ id, subject, preview, from, fromEmail?, receivedAt, isRead, importance: 'low'|'normal'|'high', hasAttachments, flagged, webLink? }`
+- [x] `INewsItem`: `{ id, title, category, publishedAt, summary?, imageUrl?, webUrl?, author? }` (author = name + optional face photo, for the byline)
+- [x] `IMailItem`: `{ id, subject, preview, from, fromEmail?, receivedAt, isRead, importance: 'low'|'normal'|'high', hasAttachments, flagged, webLink? }` (+ optional `senderPhotoUrl?` for the Important mail face avatar)
 - [x] Mapper `graph → view model` (e.g. flatten `start.dateTime`, `status === 'completed' → completed`, `from.emailAddress.name → from`, pick `thumbnailWebUrl → imageUrl`) — reused later by `GraphMyDayDataService`
 
 ### Dynamic date/time resolution (always live, future-biased)
@@ -152,14 +160,106 @@ Order of work:
 
 ## Phase 3 — Full-screen experience (React component structure)
 
-> Build out `MyDayFullscreen.tsx` from the UX design, consuming the mock data. Add todos here as the design is detailed.
+> Build out `MyDayFullscreen.tsx` from the concept mockup (`assets/concept-mockup.png`),
+> consuming the **same mock data** as the inline view. A full-width, responsive dashboard
+> with a headline **"Plan my day"** focus assistant. Theming inherits from the shared
+> `MyDayThemeProvider` (host light/dark) — no second `FluentProvider`. Reuse the
+> established card pattern (rounded corners, `shadow2` resting / `shadow8` hover) for
+> visual consistency with inline. All deep-links / actions are **no-op in the mock**.
 
-- [ ] Responsive card grid layout
-- [ ] Agenda timeline
-- [ ] Tasks (checklist + completion ring)
-- [ ] News wall (image cards)
-- [ ] Important mail
-- [ ] Quick-actions row
+### Layout shell & responsive grid
+
+- [x] `MyDayFullscreen` root: full-width, scrollable column filling the host iframe (no fixed pixel width); comfortable max content width with gutters
+- [x] Responsive dashboard grid (CSS grid): **Agenda** | **Tasks + Important mail** | **News + Quick actions**
+- [x] Collapse gracefully as width shrinks (3-col → 2-col → single column), driven by container width (CSS media/container queries)
+- [x] `components/fullscreen/` folder for the new building blocks
+
+### Hero / greeting row
+
+- [x] Large profile avatar — **real current user** via `resolveCurrentUser` (passed through props) — beside a time-aware greeting ("Good morning, Vesa! 👋") reusing `getGreeting`
+- [x] Full date line ("Wednesday, June 25, 2026") — **resolved dynamically from the live `now`** (`formatFullDate` via `toLocaleDateString` with weekday + long month, user locale); never hardcoded, always the current day
+- [x] Weather card (right): temperature, condition, location, AQI — **mock only** (see mock-data additions below)
+- [x] **Settings gear** aligned on the right of the hero row — opens the settings panel (see below)
+
+### Settings panel (showcase only — storytelling)
+
+> Right-side slide-in panel opened from the hero **gear**, showcasing the kind of
+> configuration a user could adjust for the full-screen mode. **Purely illustrative for the
+> demo** — the controls render and are interactive but **do not actually change anything**
+> (no persistence, no effect on the dashboard). Important for the storytelling.
+
+- [x] `SettingsPanel` — same slide-in right-side drawer pattern as the Plan my day panel (reuse the shared `RightPanel` drawer shell); header ("Settings" + gear) + dismiss affordance
+- [x] Mutually exclusive with the Plan my day panel (only one right-side panel open at a time)
+- [x] **Weather units** — °F / °C toggle (switch) — inert
+- [x] **Visible panels** — checkbox list to show/hide each primary panel (Agenda, Tasks, Important mail, News, Quick actions, **Plan my day**) — inert
+- [x] **Weather location** — simple **City** and **Country** text inputs — inert
+- [x] Add a subtle "settings are not saved in this demo" note so the inert behavior is clear
+
+### Agenda timeline (left column)
+
+- [x] `AgendaTimeline` — vertical time-rail with time labels and meeting entries (subject + location / Teams)
+- [x] Highlight the current / next meeting with a `Join` affordance (no-op)
+- [x] "View calendar" link + current/next badges
+- [x] Reuse the Phase 1 `IMeeting` view models (live-resolved `now`)
+
+### Tasks card (middle column, top)
+
+- [x] `TasksPanel` — completion **ring** ("60% completed") + "N due today / M total"
+- [x] Checklist rows: checkbox, title, importance label; completed rows struck through (tickable, local state)
+- [x] "View all tasks" link
+
+### Important mail card (middle column, bottom)
+
+- [x] `ImportantMail` — sender **face avatar** (bundled base64 photo, initials fallback), name, subject, preview, relative time
+- [x] Unread indicator dot; "Open Outlook" (no-op)
+- [x] Consume the Phase 1 `IMailItem` view models
+
+### News wall (right column, top)
+
+- [x] `NewsWall` — 2×2 image-card grid (thumbnail, title, source + relative time, author byline) with graceful image fallback (reuse the inline `NewsThumb` fallback)
+- [x] "View all" link
+
+### Quick actions (right column, bottom)
+
+- [x] `QuickActions` — tile row (Book room, New note, Time off): icon + title + description; **mock / no-op**
+
+### Footer
+
+- [x] Static footer: "AI-generated content may be incorrect" + "Powered by Microsoft Graph" + "Give feedback"
+
+### "Plan my day" — focus assistant (headline Phase 3 feature)
+
+> Full-width banner at the bottom of the dashboard with a **"Plan my day"** button.
+> Conceptually this triggers a **WorkIQ AI** call to decide what the user should focus on.
+> Clicking it opens a **right-side panel** over the full-screen view with a beautifully
+> formatted **prioritized focus summary** — **no chat**, just a read-only briefing.
+> **In the sample the recommendations are generated deterministically from the mock data**
+> (relevant + dynamic, shifting with the time of day) — **no real AI / WorkIQ API is called.**
+
+- [x] `PlanYourDayBanner` — full-width gradient marker: sparkle icon, "Start your day smart" headline, a **dynamic** one-liner derived from the data ("You have 4 meetings and 2 high-priority tasks ahead."), right-aligned `Plan my day` button
+- [x] Local UI state on `MyDayFullscreen`: `openPanel` + a brief **simulated "thinking"** state on click (spinner) before the summary renders — sells the AI feel without an API
+- [x] `PlanMyDayPanel` — slide-in right-side panel (Fluent drawer/overlay style): header ("Plan my day" + sparkle), dismiss affordance, scrollable body; the dashboard yields the remaining width while the panel is open
+  - reuse the **shared right-side drawer shell** (`RightPanel`) also used by the settings panel (one open at a time)
+- [x] **Recommendation engine (mock, deterministic)** — `planMyDay(data, now): IFocusPlan` pure function:
+  - rank the day's signals: high-importance tasks due today, the next/imminent meeting, unread important mail, available focus-time blocks
+  - emit a **prioritized list** (3–5 items), each with: title, why-it-matters one-liner, suggested time/slot, source chip (Meeting / Task / Mail / Focus), importance accent
+  - emit a one-paragraph **headline summary**
+  - fully derived from the live-resolved mock (reuses `now`) so it stays current
+- [x] `IFocusPlan` view model + render it as a **beautiful summary** (numbered cards, accent rails, source icons) — read-only, no chat input
+- [x] Empty / light-day state ("You're in good shape — nothing urgent right now.")
+- [x] Disclaimer line in the panel (mirrors the real experience)
+
+### Mock-data additions for full-screen
+
+- [x] `mockData/weather.ts` → static `weather` (temp, condition, location, AQI) + `IWeather` view model — **mock only**
+- [x] `mockData/quickActions.ts` → static quick-action tiles + `IQuickAction` view model — **mock only**
+- [x] Extend `IMyDayData` with optional `weather?` and `quickActions?`; `MockMyDayDataService` populates them
+
+### Wiring & theming
+
+- [x] Extend `IMyDayFullscreenProps` (like inline) with `currentUser` + `theme`; `MyDayApp` routes `displayMode === 'fullscreen'` → `MyDayFullscreen` and passes `currentUser`
+- [x] Inherit theming from `MyDayThemeProvider` (no second `FluentProvider`)
+- [ ] Verify light / dark contrast across the dashboard, banner, and plan panel
 
 ## Phase 4 — Shared UI building blocks & theming
 
@@ -189,6 +289,12 @@ Order of work:
   - mail → `/me/messages` (Graph `message`, e.g. `$filter=importance eq 'high'` / unread)
   - user → `/me` + `/me/photo/$value`
 - [ ] Service factory — selects mock vs. live from a `useMock` flag
+
+### "Plan my day" — live WorkIQ integration (replaces the mock recommendation engine)
+
+- [ ] Replace `planMyDay(data, now)` mock with a real **WorkIQ** call that returns the prioritized focus plan (same `IFocusPlan` shape, so the panel UI is unchanged)
+- [ ] Confirm the WorkIQ endpoint / auth path available from the Copilot component context; map its response to `IFocusPlan`
+- [ ] Keep the simulated "thinking" state as the real loading state; preserve the disclaimer line
 
 ### PnPjs initialization
 

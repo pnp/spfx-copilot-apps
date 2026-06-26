@@ -88,6 +88,12 @@ export interface IGraphSitePage {
    * column / managed property. Included here so the mock can carry a category.
    */
   category?: string;
+  /**
+   * Not a standard `sitePage` field — in a real tenant the author would be
+   * expanded from `createdBy` / a people field. Included here so the mock can
+   * carry an author with a photo.
+   */
+  author?: IGraphPerson;
 }
 
 /** Subset of Microsoft Graph `message` (`/me/messages`). */
@@ -102,6 +108,12 @@ export interface IGraphMessage {
   hasAttachments: boolean;
   flag?: { flagStatus: 'notFlagged' | 'flagged' | 'complete' };
   webLink?: string;
+  /**
+   * Not a standard `message` field — in a real tenant the sender photo comes
+   * from `/users/{id}/photo/$value`. Included here so the mock can carry a face
+   * for the "Important mail" avatars.
+   */
+  senderPhotoUrl?: string;
 }
 
 /** Subset of Microsoft Graph `user` (`/me`). */
@@ -111,5 +123,16 @@ export interface IGraphUser {
   givenName: string;
   mail?: string;
   userPrincipalName?: string;
+  photoUrl?: string;
+}
+
+/**
+ * Lightweight person reference (display name + optional photo). Not a single
+ * named Graph type — mirrors the shape returned when a people/`createdBy` field
+ * is expanded with a resolved photo.
+ */
+export interface IGraphPerson {
+  displayName: string;
+  email?: string;
   photoUrl?: string;
 }
