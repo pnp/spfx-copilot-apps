@@ -4,7 +4,7 @@
   "namespace": "myDay",
   "name_for_human": "My Day",
   "description_for_human": "Your personal daily cockpit — next meeting, tasks due, news and important mail at a glance, with a Plan my day focus assistant.",
-  "description_for_model": "Use the My Day tool to render the signed-in user's personalized daily summary directly on the Copilot canvas. It surfaces a time-aware greeting, the next/upcoming meetings, tasks due today (including high-importance items), the latest SharePoint news, and important or unread mail. Inline it shows a compact summary card; it can expand to a full-screen dashboard with an agenda timeline, a tasks completion ring, important mail, a news wall, quick actions, and a deterministic 'Plan my day' focus briefing that prioritizes what to work on next. Invoke this tool whenever the user asks about their day, schedule, agenda, what's next, what they should focus on, their tasks, recent news, or important mail.",
+  "description_for_model": "Renders the signed-in user's personalized daily summary on the Copilot canvas: greeting, upcoming meetings, tasks due today, latest SharePoint news, and important mail, plus a 'Plan my day' focus briefing. Invoke when the user asks about their day, schedule, agenda, what's next, what to focus on, their tasks, news, or important mail.",
   "contact_email": "publisher@contoso.com"
 }
 
