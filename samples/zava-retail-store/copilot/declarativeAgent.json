@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.5/schema.json",
+  "version": "v1.5",
+  "name": "ZavaRetail Agent",
+  "description": "ZavaRetail description",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Get started",
+      "text": "What can you do?"
+    }
+  ],
+  "actions": [
+    {
+      "id": "zavaRetailAction",
+      "file": "ai-plugin.json"
+    }
+  ]
+}

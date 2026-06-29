@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "65077d59-dcde-48ef-96d8-25e36ff7848a",
+  "alias": "ZavaRetailCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "ZavaRetailTool",
+      "description": {
+        "default": "ZavaRetail description"
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/zavaRetail/ZavaRetailCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

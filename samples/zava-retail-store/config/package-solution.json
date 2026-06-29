@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "zava-retail-store-client-side-solution",
+    "id": "5d0a8f8a-2c29-4154-af18-d8ad17c693cd",
+    "version": "1.0.0.1",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.24.0-dev.6"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "zava-retail-store description"
+      },
+      "longDescription": {
+        "default": "zava-retail-store description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "zava-retail-store Feature",
+        "description": "The feature that activates elements of the zava-retail-store solution.",
+        "id": "edc8481e-573d-4142-971f-702e391a0da6",
+        "version": "1.0.0.1"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/zava-retail-store.sppkg"
+  }
+}

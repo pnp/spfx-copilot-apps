@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "ZavaRetail Agent"
+      },
+      "description": {
+        "default": "ZavaRetail description"
+      },
+      "components": [
+        "65077d59-dcde-48ef-96d8-25e36ff7848a"
+      ]
+    }
+  ]
+}
