@@ -1,0 +1,9 @@
+{
+  "$schema": "https://aka.ms/json-schemas/copilot-extensions/v2.1/plugin.schema.json",
+  "schema_version": "v2.4",
+  "namespace": "zavaRetail",
+  "name_for_human": "ZavaRetail Agent",
+  "description_for_human": "ZavaRetail description",
+  "description_for_model": "ZavaRetail description",
+  "contact_email": "publisher@zava.com"
+}

@@ -1,0 +1,23 @@
+{
+  "extends": "./node_modules/@microsoft/spfx-web-build-rig/profiles/default/tsconfig-base.json",
+  "watchOptions": {
+    // The copilot-agent build task re-stages `temp/copilot` and rewrites the
+    // `teams/*.zip` package on every build. Because the TypeScript program's
+    // `rootDirs` includes `temp/static-asset-ts`, tsc's watcher also watches the
+    // `temp/` tree and would treat that churn as a source change, retriggering an
+    // endless rebuild loop under `heft start`. Exclude the generated output dirs.
+    "excludeDirectories": [
+      "**/node_modules",
+      "temp/copilot",
+      "teams",
+      "dist",
+      "lib",
+      "lib-commonjs",
+      "lib-dts",
+      "lib-esm",
+      "release",
+      "sharepoint",
+      "solution"
+    ]
+  }
+}

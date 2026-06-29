@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.17.0",
+    "sdksVersions": {},
+    "version": "1.24.0-dev.6",
+    "libraryName": "zava-retail-store",
+    "libraryId": "5d0a8f8a-2c29-4154-af18-d8ad17c693cd",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "zava-retail-store",
+    "solutionShortDescription": "zava-retail-store description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "copilotComponent"
+  }
+}
