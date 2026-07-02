@@ -1,0 +1,81 @@
+Update the implementation of this SharePoint Framework customization using React 17.0.1 and Fluent UI v9 updating the logic of the render method of the #sym:ZavaRetailCopilotComponent in the attached ZavaRetailCopilotComponent.ts file. Take inspiration from the attached image to render both the INLINE (on the left of the image) and FULL SCREEN (on the big right side of the image) renderings. Switch between INLINE and FULL SCREEN using the value of the this.hostContext.displayMode provided to the React component as a configuration property. Take inspiration from the implementation of the attached MyDayCopilotComponent.ts.
+Implement the solution so that it can work without any actual API, simply relying on mock data generated on startup and with any date and time always updated in the rage of the datetime when you render the components. Generate a set of images for the clothing products to showcase in the "Top Products" section and embed those generated images into the solution and into the package that will be deployed. Generate a list of products bigger than the actual 5 items shown in the UI, generate at least 8 products,  and implement a carousell to scroll across the various products. 
+Provide a custom configuration property in ZavaRetailCopilotComponentProperties.ts to switch between rendering mock data and actual data. Call the property useMock. When useMock is false, require to configure an additional property with name dataServiceUrl.
+Right now do not implement the actual solution to read data from an external and real API, but simply structure code so that it will be easy to switch from mock to real data.
+When loading data (mock or real) show a data loading spinner before showing the actual output and handle that using a related state property with name isDataLoading.
+Allow to configure the properties through a settings panel that can be activated by selecting a gear icon in the upper right corner of the FULL SCREEN experience.
+Always render a static footer: "AI-generated content may be incorrect" + "Powered by Microsoft 365 and Work IQ" + "Give feedback".
+Support light and dark theme and allow selecting the theme in the settings panel with a dedicated property with name theme and values light/dark.
+Document all the phases of the development in sorted manner and generating a todo.md file in the root folder of the solution.
+When rendering the current user's data, image, etc. use mock data there, too. But when mockData is false rely on Microsoft Graph to read the current user's name, picture, etc.
+Generate React functional components and not class components.
+-----
+Generate real PNG images, instead of SVG placeholders for the products
+-----
+Replace the programmatically images with photorealistic AI-generated images of the represented products.
+-----
+The quality of the rendering is not comparable to the image that I originally pasted as an attachment and that I attached again here now. Please review the rendering of the React functional components and make it consistent with the actual desired output.
+Also, split the React functional components in different and dedicated files and put them in a folder with name components
+-----
+When I run the command:
+
+heft start --nobrowser --clean
+
+the console starts iterating as like as there is a continous refresh of files. Can you stop it from doing so? 
+-----
+The component that renders the "Sales by category" doesn't render the bars, they are all gray, while they should represent the actual value
+-----
+Improve the quality of the configuration panel, when selecting the gear in the upper right corner, so that it will show up as a side panel, instead of a full screen panel, and it will allow me to select the values while still watching the component.
+-----
+The configuration panel still covers the whole screen when showing, while it should simply fly in from the right side and show as a side panel, without removing the actual rendering of the main component
+-----
+In the settings, the value for useMock should be true by default and not false. When I toggle the switch the UI of the settings panel raises an exception and the whole rendering stops working. 
+-----
+The switching between light and dark theme doesn't work. When I try to select the dark theme in settings, all the screen becomes gray and I don't see anything.
+-----
+Still when I try to switch to light dark theme, as soon as I select the dropdown to switch, I see a full screen gray and all disappears. I need to collapse to INLINE view to see again the interface. Fix it.
+-----
+The issue is still there. I noticed that when I click to select light/dark in theme option the whole screen becomes gray, but as soon as I click anywhere else it goes back to normal with light theme.
+-----
+Convert all the properties into strings and when they contain values other than strings, like for example a boolean or a choice, add inner logic in the application to parse the string and get the actual type value (boolean, enum, etc.).
+-----
+When I click on the gear to show the settings panel, the first time it looks like in the attached image, with all controls in boxes. Then, when I select to change the theme it changes to rounded corners (like in the second screenshot attached). I want it to always have rounded corners.
+-----
+The rendering issue is still there
+-----
+The fix did not work
+-----
+I still face the same issue
+-----
+The issue is still there, the fix did not work
+-----
+Here you can see the boxed and squared layout of the settings panel, compared to the correct one with rounded corners.
+
+And here is the output you are looking for in the console:
+
+{
+"foundControlClass": "fui-Switch r2i81i2",
+"insideFluentProvider": true,
+"fluentProviderClass": "fui-FluentProvider fui-FluentProvider1 ___rk954t0 f19n0e5 f3e3pzq f1o700av fk6fouc fkhj508 figsok6 f1i3iumi",
+"borderRadiusMediumVar": "4px",
+"colorNeutralBg1Var": "#ffffff",
+"switchStyleTagCount": 0,
+"fluentProviderTokenTagCount": 0,
+"ownerDocIsTopDoc": true,
+"inIframe": false
+}
+-----
+Here is the output:
+
+{
+    "resetRuleExistsInCSSOM": true,
+    "sheetIndex": 0,
+    "ruleTextSample": ".r2i81i2 { align-items: flex-start; box-sizing: border-box; display: inline-flex; position: relative; }",
+    "totalStyleSheets": 40,
+    "totalStyleElements": 40,
+    "griffelLikeStyleElements": 13,
+    "adoptedStyleSheetCount": 0,
+    "makeStylesBucketEls": 11
+}
+-----
+Yes this last fix works!
