@@ -90,6 +90,41 @@ npm install @pnp/sp @pnp/graph @pnp/logging --save
 > 9.x, `@fluentui/react-icons` 2.x). Confirm the exact `@microsoft/sp-copilot-component` /
 > `@microsoft/spfx-*` dev-preview versions from what the generator produced for the target SPFx build.
 
+### 0.3 Example human kickoff prompt (design pic + high-level README)
+
+Once the solution is scaffolded and the objectives + design are in the repo, kick the agent off with a
+prompt like the one below. **Attach the design image(s) in the chat** (multimodal) and/or reference them
+by path so the agent can read the intended layout. Keep the prompt short - the README and the design are
+the real brief; this prompt just points the agent at them and sets the sequence.
+
+```text
+Follow agentic-creation-rules.md for this sample.
+
+Context:
+- I've scaffolded the SPFx solution with the Yeoman generator. It has <N> Copilot Component(s):
+  <ComponentName(s)>. Each needs <X> inline and <Y> full-screen experience(s).
+- The high-level objectives are in README.md.
+- The UX design is attached (and saved at assets/<design-inline>.png / assets/<design-fullscreen>.png).
+
+Please:
+1. Do the initial configuration - add the React 17 + Fluent v9 baseline packages and confirm the
+   build (heft test --clean).
+2. Read the README objectives and the attached design, then generate todo.md (phased, using the
+   ▢ / 🔶 / ✅ legend) for me to review. Do NOT start coding until I approve the plan.
+3. After I confirm, implement phase by phase against mock data - fully offline, Graph-shaped data,
+   Fluent v9, the signature "wow" feature, and the polish defined in the rules.
+```
+
+**Why this works:** it (a) anchors the agent to these rules, (b) states the scaffolded component
+count/names so the agent mirrors them (never re-scaffolds), (c) hands over the **design image + README**
+as the source of truth for layout and objectives, and (d) enforces the sequence - *initial config →
+`todo.md` for approval → phased implementation*. If you only want the plan first, stop after step 2 and
+review `todo.md` before greenlighting the build.
+
+> Tip: for a **single** iteration on one screen you can be more direct - e.g. "Build the full-screen view
+> from this design pic, using mock data per `agentic-creation-rules.md`." But for a full sample, prefer
+> the plan-first flow above so `todo.md` stays the shared tracker.
+
 ---
 
 ## 1. Golden rules (non-negotiable)
