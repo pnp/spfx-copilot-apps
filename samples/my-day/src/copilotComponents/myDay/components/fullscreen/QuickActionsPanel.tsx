@@ -29,6 +29,7 @@ const useStyles = makeStyles({
     borderRadius: tokens.borderRadiusLarge,
     border: `1px solid ${tokens.colorNeutralStroke2}`,
     backgroundColor: tokens.colorNeutralBackground1,
+    color: tokens.colorNeutralForeground1,
     boxShadow: tokens.shadow2,
     cursor: 'pointer',
     fontFamily: tokens.fontFamilyBase,
@@ -57,6 +58,7 @@ const useStyles = makeStyles({
     minWidth: 0
   },
   title: {
+    color: tokens.colorNeutralForeground1,
     fontWeight: tokens.fontWeightSemibold
   },
   description: {

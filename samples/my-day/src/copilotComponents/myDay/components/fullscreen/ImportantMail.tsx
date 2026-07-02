@@ -118,7 +118,7 @@ const ImportantMail: React.FunctionComponent<IImportantMailProps> = ({ mail, now
   return (
     <DashboardCard title="Important mail" icon={<Mail20Regular />} action={{ label: 'Open Outlook' }}>
       {items.length === 0 ? (
-        <Text className={styles.empty}>No important mail right now.</Text>
+        <Text className={styles.empty}>You&apos;re all caught up on important mail.</Text>
       ) : (
         <div className={styles.list}>
           {items.map((m) => (

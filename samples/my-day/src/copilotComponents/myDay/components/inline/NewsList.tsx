@@ -146,7 +146,7 @@ const NewsList: React.FunctionComponent<INewsListProps> = (props) => {
     <div className={styles.root}>
       <InlineDetailHeader title="News" onBack={onBack} />
       {news.length === 0 ? (
-        <Text className={styles.empty}>No news to show right now.</Text>
+        <Text className={styles.empty}>No news right now — check back later.</Text>
       ) : (
         <div className={styles.list}>
           {news.map((n) => (

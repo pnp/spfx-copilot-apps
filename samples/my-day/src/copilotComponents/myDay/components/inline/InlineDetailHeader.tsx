@@ -22,11 +22,11 @@ const useStyles = makeStyles({
 });
 
 export interface IInlineDetailHeaderProps {
-  title: string;
+  title?: string;
   onBack: () => void;
 }
 
-/** Drill-down header with a back affordance and the section title. */
+/** Drill-down header with a back affordance and an optional section title. */
 const InlineDetailHeader: React.FunctionComponent<IInlineDetailHeaderProps> = (props) => {
   const styles = useStyles();
   return (
@@ -38,9 +38,11 @@ const InlineDetailHeader: React.FunctionComponent<IInlineDetailHeaderProps> = (p
         aria-label="Back to summary"
         onClick={props.onBack}
       />
-      <Text size={400} className={styles.title}>
-        {props.title}
-      </Text>
+      {props.title && (
+        <Text size={400} className={styles.title}>
+          {props.title}
+        </Text>
+      )}
     </div>
   );
 };

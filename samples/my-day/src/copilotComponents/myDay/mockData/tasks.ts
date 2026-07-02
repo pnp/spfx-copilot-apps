@@ -17,11 +17,11 @@ export const mockTasks: IMockTaskSeed[] = [
   },
   {
     id: 'task-1',
-    title: 'Finish Q3 roadmap deck',
+    title: 'Polish the My Day demo script',
     status: 'inProgress',
     importance: 'high',
     dueOffsetMin: 180,
-    categories: ['Planning'],
+    categories: ['Launch'],
     webLink: 'https://to-do.office.com/tasks/id/task-1/details'
   },
   {

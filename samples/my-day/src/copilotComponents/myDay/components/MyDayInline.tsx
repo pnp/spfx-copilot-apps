@@ -6,10 +6,12 @@ import type { SPCopilotTheme } from '@microsoft/sp-copilot-component';
 import type { IMyDayCopilotComponentProperties } from '../MyDayCopilotComponentProperties';
 import type { IUser } from '../models/myDay';
 import { MockMyDayDataService } from '../services/MockMyDayDataService';
+import { fadeIn } from '../utils/motion';
+import AgendaTimeline from './fullscreen/AgendaTimeline';
+import TasksPanel from './fullscreen/TasksPanel';
+import InlineDetailHeader from './inline/InlineDetailHeader';
 import InlineSummary from './inline/InlineSummary';
-import MeetingsList from './inline/MeetingsList';
 import NewsList from './inline/NewsList';
-import TasksList from './inline/TasksList';
 import type { InlineView } from './inline/views';
 
 /**
@@ -32,6 +34,16 @@ const useStyles = makeStyles({
     minWidth: 0,
     padding: '12px',
     fontFamily: tokens.fontFamilyBase
+  },
+  enter: {
+    animationName: fadeIn,
+    animationDuration: tokens.durationSlow,
+    animationTimingFunction: tokens.curveDecelerateMid,
+    animationFillMode: 'both',
+    '@media (prefers-reduced-motion: reduce)': {
+      animationName: 'none',
+      animationDuration: '1ms'
+    }
   }
 });
 
@@ -40,8 +52,10 @@ const dataService = new MockMyDayDataService();
 
 /**
  * Inline display-mode view. Owns the local drill-down navigation state and
- * renders the time-aware summary plus meetings / tasks / news detail views.
- * Theme is derived from the host-advertised `theme` prop (never mirrored).
+ * renders the time-aware summary plus meetings / tasks / news detail views. The
+ * meetings and tasks drill-downs reuse the full-screen `AgendaTimeline` and
+ * `TasksPanel` controls (news keeps its own inline listing). Theme is derived
+ * from the host-advertised `theme` prop (never mirrored).
  */
 const MyDayInline: React.FunctionComponent<IMyDayInlineProps> = (props) => {
   const styles = useStyles();
@@ -64,10 +78,20 @@ const MyDayInline: React.FunctionComponent<IMyDayInlineProps> = (props) => {
   let content: React.ReactNode;
   switch (view) {
     case 'meetings':
-      content = <MeetingsList meetings={data.meetings} now={now} onBack={back} />;
+      content = (
+        <>
+          <InlineDetailHeader onBack={back} />
+          <AgendaTimeline meetings={data.meetings} now={now} />
+        </>
+      );
       break;
     case 'tasks':
-      content = <TasksList tasks={data.tasks} now={now} onBack={back} />;
+      content = (
+        <>
+          <InlineDetailHeader onBack={back} />
+          <TasksPanel tasks={data.tasks} now={now} />
+        </>
+      );
       break;
     case 'news':
       content = <NewsList news={data.news} now={now} onBack={back} />;
@@ -85,7 +109,13 @@ const MyDayInline: React.FunctionComponent<IMyDayInlineProps> = (props) => {
 
   return (
     <div className={styles.surface} data-display-mode="inline">
-      {content}
+      {view === 'summary' ? (
+        content
+      ) : (
+        <div key={view} className={styles.enter}>
+          {content}
+        </div>
+      )}
     </div>
   );
 };

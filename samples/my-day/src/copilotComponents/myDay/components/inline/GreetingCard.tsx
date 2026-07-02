@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     padding: '16px',
     borderRadius: tokens.borderRadiusXLarge,
     color: tokens.colorNeutralForegroundOnBrand,
-    background: `linear-gradient(135deg, ${tokens.colorBrandBackground} 0%, ${tokens.colorPaletteBerryBackground3} 100%)`
+    backgroundImage: `linear-gradient(135deg, ${tokens.colorBrandBackground} 0%, ${tokens.colorPaletteBerryBackground3} 100%)`
   },
   glyph: {
     flexShrink: 0,

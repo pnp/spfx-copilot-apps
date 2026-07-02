@@ -1,13 +1,14 @@
 import type { IMockNewsSeed } from '../models/seeds';
+import { newsImages } from './newsImages';
 import { people } from './people';
 
 /**
  * Mock SharePoint news shaped like Microsoft Graph `sitePage` (news posts), with
  * relative `publishedOffsetMin` offsets resolved against `now`. Authors are the
  * standard Microsoft 365 demo personas (see `people.ts`) and carry an embedded
- * face photo for the byline. Thumbnails use the deterministic picsum.photos
- * placeholder service; the UI degrades to a gradient placeholder if an image
- * fails to load.
+ * face photo for the byline. Thumbnails are **bundled base64 images**
+ * (see `newsImages.ts`) so the sample is fully self-contained with no external
+ * fetch; the UI still degrades to a gradient placeholder if an image is absent.
  */
 export const mockNews: IMockNewsSeed[] = [
   {
@@ -17,8 +18,8 @@ export const mockNews: IMockNewsSeed[] = [
     webUrl: 'https://contoso.sharepoint.com/sites/intranet/SitePages/spfx-copilot-apps-early-access.aspx',
     description:
       'Build rich, interactive experiences that run directly inside Microsoft 365 Copilot using the SharePoint Framework.',
-    thumbnailWebUrl: 'https://picsum.photos/seed/spfx-copilot/640/360',
-    bannerImageWebUrl: 'https://picsum.photos/seed/spfx-copilot/1280/480',
+    thumbnailWebUrl: newsImages.spfxCopilot,
+    bannerImageWebUrl: newsImages.spfxCopilot,
     publishedOffsetMin: -60,
     promotionKind: 'newsPost',
     category: 'Company News',
@@ -30,8 +31,8 @@ export const mockNews: IMockNewsSeed[] = [
     name: 'fy26-benefits-enrollment.aspx',
     webUrl: 'https://contoso.sharepoint.com/sites/intranet/SitePages/fy26-benefits-enrollment.aspx',
     description: 'Review your options and complete enrollment before the window closes at month end.',
-    thumbnailWebUrl: 'https://picsum.photos/seed/benefits/640/360',
-    bannerImageWebUrl: 'https://picsum.photos/seed/benefits/1280/480',
+    thumbnailWebUrl: newsImages.benefits,
+    bannerImageWebUrl: newsImages.benefits,
     publishedOffsetMin: -180,
     promotionKind: 'newsPost',
     category: 'HR News',
@@ -43,8 +44,8 @@ export const mockNews: IMockNewsSeed[] = [
     name: 'office-hybrid-schedule.aspx',
     webUrl: 'https://contoso.sharepoint.com/sites/intranet/SitePages/office-hybrid-schedule.aspx',
     description: 'Three anchor days a week starting next month, with new bookable collaboration zones.',
-    thumbnailWebUrl: 'https://picsum.photos/seed/office/640/360',
-    bannerImageWebUrl: 'https://picsum.photos/seed/office/1280/480',
+    thumbnailWebUrl: newsImages.office,
+    bannerImageWebUrl: newsImages.office,
     publishedOffsetMin: -300,
     promotionKind: 'newsPost',
     category: 'Facilities',
@@ -56,8 +57,8 @@ export const mockNews: IMockNewsSeed[] = [
     name: 'engineering-all-hands-recap.aspx',
     webUrl: 'https://contoso.sharepoint.com/sites/intranet/SitePages/engineering-all-hands-recap.aspx',
     description: 'Highlights from the quarterly all-hands, including the platform reliability roadmap.',
-    thumbnailWebUrl: 'https://picsum.photos/seed/engineering/640/360',
-    bannerImageWebUrl: 'https://picsum.photos/seed/engineering/1280/480',
+    thumbnailWebUrl: newsImages.engineering,
+    bannerImageWebUrl: newsImages.engineering,
     publishedOffsetMin: -1440,
     promotionKind: 'newsPost',
     category: 'Engineering',
@@ -69,8 +70,8 @@ export const mockNews: IMockNewsSeed[] = [
     name: 'contoso-partnership.aspx',
     webUrl: 'https://contoso.sharepoint.com/sites/intranet/SitePages/contoso-partnership.aspx',
     description: 'A strategic partnership to accelerate AI-powered productivity for enterprise customers.',
-    thumbnailWebUrl: 'https://picsum.photos/seed/partnership/640/360',
-    bannerImageWebUrl: 'https://picsum.photos/seed/partnership/1280/480',
+    thumbnailWebUrl: newsImages.partnership,
+    bannerImageWebUrl: newsImages.partnership,
     publishedOffsetMin: -2880,
     promotionKind: 'newsPost',
     category: 'Company News',

@@ -1,6 +1,7 @@
 import type { IFocusItem, IFocusPlan } from '../models/focusPlan';
 import type { IMyDayData } from '../models/myDay';
 import { formatTimeRange, formatTimeUntil } from '../utils/datetime';
+import { getGreeting, type TimeOfDay } from '../utils/greeting';
 
 const joinWithAnd = (parts: string[]): string => {
   if (parts.length === 1) {
@@ -12,14 +13,34 @@ const joinWithAnd = (parts: string[]): string => {
   return `${parts.slice(0, -1).join(', ')}, and ${parts[parts.length - 1]}`;
 };
 
+/** Natural-language phrase for the current part of the day. */
+const timeOfDayPhrase = (timeOfDay: TimeOfDay): string => {
+  switch (timeOfDay) {
+    case 'morning':
+      return 'this morning';
+    case 'afternoon':
+      return 'this afternoon';
+    case 'evening':
+      return 'this evening';
+    default:
+      return 'today';
+  }
+};
+
 const buildHeadline = (
+  firstName: string,
+  now: Date,
   meetingCount: number,
   highTaskCount: number,
   importantMailCount: number,
   items: IFocusItem[]
 ): string => {
+  const greeting = getGreeting(now);
+  const name = firstName || 'there';
+  const lead = `${greeting.text}, ${name}.`;
+
   if (items.length === 0) {
-    return "You're in good shape — nothing urgent right now. Enjoy the focus time.";
+    return `${lead} You're in good shape — nothing urgent right now. Enjoy the focus time.`;
   }
 
   const parts: string[] = [];
@@ -33,12 +54,14 @@ const buildHeadline = (
     parts.push(`${importantMailCount} important message${importantMailCount === 1 ? '' : 's'}`);
   }
 
+  const when = timeOfDayPhrase(greeting.timeOfDay);
   const summary =
     parts.length > 0
-      ? `You have ${joinWithAnd(parts)} on your plate today.`
-      : 'Here is where to focus today.';
+      ? `You have ${joinWithAnd(parts)} ${when}.`
+      : `Here's where to focus ${when}.`;
 
-  return `${summary} Start with ${items[0].title.replace(/^Prepare for /, '').replace(/"/g, '')}.`;
+  const first = items[0].title.replace(/^Prepare for /, '').replace(/"/g, '');
+  return `${lead} ${summary} Start with ${first}.`;
 };
 
 /**
@@ -126,7 +149,14 @@ export const planMyDay = (data: IMyDayData, now: Date): IFocusPlan => {
 
   const top = items.slice(0, 5);
 
-  const headline = buildHeadline(upcomingMeetings.length, highTasks.length, importantMail.length, top);
+  const headline = buildHeadline(
+    data.user.firstName,
+    now,
+    upcomingMeetings.length,
+    highTasks.length,
+    importantMail.length,
+    top
+  );
 
   return { headline, items: top };
 };

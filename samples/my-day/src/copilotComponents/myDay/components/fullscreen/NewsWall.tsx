@@ -125,7 +125,7 @@ const NewsWall: React.FunctionComponent<INewsWallProps> = ({ news, now }) => {
   return (
     <DashboardCard title="News" icon={<News20Regular />} action={{ label: 'View all' }}>
       {items.length === 0 ? (
-        <Text className={styles.empty}>No news to show right now.</Text>
+        <Text className={styles.empty}>No news right now — check back later.</Text>
       ) : (
         <div className={styles.grid}>
           {items.map((n) => (

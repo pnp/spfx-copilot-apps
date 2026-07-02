@@ -139,7 +139,7 @@ const AgendaTimeline: React.FunctionComponent<IAgendaTimelineProps> = ({ meeting
       action={{ label: 'View calendar' }}
     >
       {sorted.length === 0 ? (
-        <Text className={styles.empty}>No meetings on your calendar today.</Text>
+        <Text className={styles.empty}>No meetings today — enjoy the open calendar.</Text>
       ) : (
         <div className={styles.list}>
           {sorted.map((m, index) => {

@@ -16,7 +16,6 @@ jest-output
 release
 solution
 temp
-*.sppkg
 .heft
 
 # Coverage directory used by tools like istanbul
@@ -36,3 +35,10 @@ obj
 
 # Styles Generated Code
 *.scss.ts
+
+# Keep the packaged solution so this scenario sample (mock data only) can be
+# deployed and demoed without building from source. Everything else under the
+# build-output solution folder stays ignored.
+!sharepoint/solution/
+sharepoint/solution/*
+!sharepoint/solution/my-day.sppkg

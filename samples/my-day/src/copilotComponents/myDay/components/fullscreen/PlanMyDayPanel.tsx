@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { makeStyles, Spinner, tokens, Text } from '@fluentui/react-components';
+import { makeStyles, mergeClasses, Spinner, tokens, Text } from '@fluentui/react-components';
 import {
   CalendarLtr20Regular,
   CheckmarkCircle20Regular,
@@ -13,6 +13,7 @@ import {
 import type { FocusSource, IFocusItem } from '../../models/focusPlan';
 import type { IMyDayData } from '../../models/myDay';
 import { planMyDay } from '../../services/planMyDay';
+import { fadeInUp } from '../../utils/motion';
 import RightPanel from './RightPanel';
 
 const useStyles = makeStyles({
@@ -24,6 +25,35 @@ const useStyles = makeStyles({
     gap: '12px',
     minHeight: '200px',
     color: tokens.colorNeutralForeground3
+  },
+  shimmer: {
+    height: '3px',
+    width: '100%',
+    marginBottom: '14px',
+    borderRadius: tokens.borderRadiusCircular,
+    backgroundImage: `linear-gradient(90deg, ${tokens.colorNeutralBackground3} 0%, ${tokens.colorBrandBackground} 50%, ${tokens.colorNeutralBackground3} 100%)`,
+    backgroundSize: '200% 100%',
+    backgroundRepeat: 'no-repeat',
+    animationName: {
+      from: { backgroundPositionX: '200%' },
+      to: { backgroundPositionX: '-200%' }
+    },
+    animationDuration: '1.3s',
+    animationIterationCount: 'infinite',
+    animationTimingFunction: 'linear',
+    '@media (prefers-reduced-motion: reduce)': {
+      animationName: 'none'
+    }
+  },
+  itemEnter: {
+    animationName: fadeInUp,
+    animationDuration: tokens.durationSlow,
+    animationTimingFunction: tokens.curveDecelerateMid,
+    animationFillMode: 'both',
+    '@media (prefers-reduced-motion: reduce)': {
+      animationName: 'none',
+      animationDuration: '1ms'
+    }
   },
   headline: {
     color: tokens.colorNeutralForeground2,
@@ -117,17 +147,46 @@ export interface IPlanMyDayPanelProps {
   onDismiss: () => void;
 }
 
-/** Right drawer that simulates an assistant briefing, then renders the focus plan. */
+/** Right drawer that simulates an assistant briefing, then streams the focus plan. */
 const PlanMyDayPanel: React.FunctionComponent<IPlanMyDayPanelProps> = ({ data, now, onDismiss }) => {
   const styles = useStyles();
-  const [thinking, setThinking] = React.useState(true);
+  const [phase, setPhase] = React.useState<'thinking' | 'streaming' | 'done'>('thinking');
+  const [revealed, setRevealed] = React.useState(0);
 
   const plan = React.useMemo(() => planMyDay(data, now), [data, now]);
 
+  // Kick off: a brief "thinking" pause, then stream the items in one by one.
+  // Honors reduced-motion by revealing everything at once.
   React.useEffect(() => {
-    const handle = window.setTimeout(() => setThinking(false), 900);
+    const reduced =
+      typeof window !== 'undefined' &&
+      !!window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduced) {
+      setRevealed(plan.items.length);
+      setPhase('done');
+      return;
+    }
+
+    const handle = window.setTimeout(() => setPhase('streaming'), 800);
     return () => window.clearTimeout(handle);
-  }, []);
+  }, [plan.items.length]);
+
+  // Streamed reveal: mount one recommendation at a time for the "composing" feel.
+  React.useEffect(() => {
+    if (phase !== 'streaming') {
+      return;
+    }
+    if (revealed >= plan.items.length) {
+      setPhase('done');
+      return;
+    }
+    const handle = window.setTimeout(() => setRevealed((count) => count + 1), 220);
+    return () => window.clearTimeout(handle);
+  }, [phase, revealed, plan.items.length]);
+
+  const generating = phase !== 'done';
 
   return (
     <RightPanel
@@ -136,10 +195,11 @@ const PlanMyDayPanel: React.FunctionComponent<IPlanMyDayPanelProps> = ({ data, n
       onDismiss={onDismiss}
       footnote="AI-generated suggestions for this demo are based on sample data and are not saved."
     >
-      {thinking ? (
+      {generating && <div className={styles.shimmer} aria-hidden="true" />}
+      {phase === 'thinking' ? (
         <div className={styles.thinking}>
           <Spinner size="medium" />
-          <Text>Analyzing your day…</Text>
+          <Text>Prioritizing what matters most…</Text>
         </div>
       ) : (
         <>
@@ -147,8 +207,8 @@ const PlanMyDayPanel: React.FunctionComponent<IPlanMyDayPanelProps> = ({ data, n
             {plan.headline}
           </Text>
           <div className={styles.list}>
-            {plan.items.map((item: IFocusItem, index: number) => (
-              <div key={item.id} className={styles.item}>
+            {plan.items.slice(0, revealed).map((item: IFocusItem, index: number) => (
+              <div key={item.id} className={mergeClasses(styles.item, styles.itemEnter)}>
                 <span className={styles.rail} />
                 <span className={styles.rank}>{index + 1}</span>
                 <div className={styles.content}>

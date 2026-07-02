@@ -49,13 +49,15 @@ export interface IFullscreenHeroProps {
   user: IUser;
   weather?: IWeather;
   now: Date;
+  /** When `true`, the weather card shows Fahrenheit as the primary unit. */
+  useFahrenheit?: boolean;
   onOpenSettings: () => void;
 }
 
 /** Full-screen header: avatar, time-aware greeting, live date, weather and settings. */
 const FullscreenHero: React.FunctionComponent<IFullscreenHeroProps> = (props) => {
   const styles = useStyles();
-  const { user, weather, now, onOpenSettings } = props;
+  const { user, weather, now, useFahrenheit, onOpenSettings } = props;
   const greeting = getGreeting(now);
 
   return (
@@ -72,7 +74,7 @@ const FullscreenHero: React.FunctionComponent<IFullscreenHeroProps> = (props) =>
         </div>
       </div>
       <div className={styles.right}>
-        {weather && <WeatherCard weather={weather} />}
+        {weather && <WeatherCard weather={weather} now={now} useFahrenheit={useFahrenheit} />}
         <Button
           appearance="subtle"
           shape="circular"

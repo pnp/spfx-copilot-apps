@@ -64,7 +64,7 @@ export const mockMail: IMockMailSeed[] = [
   {
     id: 'mail-4',
     subject: 'Quarterly report — review requested',
-    bodyPreview: 'I left a few comments on the draft. Could you take a pass before the 2:30 sync?',
+    bodyPreview: 'I left a few comments on the draft. Could you take a pass before our afternoon sync?',
     from: { emailAddress: { name: people.miriam.displayName, address: people.miriam.email } },
     senderPhotoUrl: people.miriam.photoUrl,
     receivedOffsetMin: -300,
