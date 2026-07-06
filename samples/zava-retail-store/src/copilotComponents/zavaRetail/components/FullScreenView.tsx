@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button } from '@fluentui/react-components';
-import { Settings24Regular, ChevronDown16Regular, MoreHorizontal20Regular, Filter16Regular } from '@fluentui/react-icons';
+import { Settings24Regular, MoreHorizontal20Regular, Filter16Regular } from '@fluentui/react-icons';
 import { useZavaStyles } from './useZavaStyles';
 import MetricsRow from './MetricsRow';
 import SalesTrendPanel from './SalesTrendPanel';
@@ -11,6 +11,7 @@ import ProductCarousel from './ProductCarousel';
 import StoreComparison from './StoreComparison';
 import AppRail from './AppRail';
 import SettingsDialog from './SettingsDialog';
+import FiltersPanel from './FiltersPanel';
 import DashboardFooter from './DashboardFooter';
 import type { IFullScreenViewProps } from './IComponentProps';
 
@@ -19,9 +20,14 @@ import type { IFullScreenViewProps } from './IComponentProps';
  */
 export default function FullScreenView(props: IFullScreenViewProps): React.ReactElement {
   const styles = useZavaStyles();
-  const { data } = props;
+  const { data, sectionVisibility } = props;
   const initials = (data.currentUser.displayName ?? 'SM').slice(0, 2).toUpperCase();
   const asOf = data.generatedAt.split(', ').slice(-1)[0];
+
+  const showSatisfaction = sectionVisibility.satisfaction;
+  const showChartRow = sectionVisibility.salesTrend || sectionVisibility.categorySales || showSatisfaction;
+  const showRightStack = sectionVisibility.feedback || sectionVisibility.storeComparison;
+  const showBottomRow = sectionVisibility.products || showRightStack;
 
   return (
     <div className={styles.fullScreenShell}>
@@ -36,14 +42,15 @@ export default function FullScreenView(props: IFullScreenViewProps): React.React
           </div>
 
           <div className={styles.topBarRight}>
-            <div className={styles.topPill}>
-              {data.generatedAt.split(',').slice(0, 2).join(',')}
-              <ChevronDown16Regular />
-            </div>
-            <div className={styles.topPill}>
+            <button
+              type="button"
+              className={`${styles.topPill} ${styles.clickablePill}`}
+              onClick={() => props.onFiltersOpenChange(true)}
+              aria-label="Open filters"
+            >
               <Filter16Regular />
               Filters
-            </div>
+            </button>
             <Button icon={<MoreHorizontal20Regular />} appearance="subtle" aria-label="More actions" />
             <div className={styles.avatar}>
               {data.currentUser.imageUrl ? (
@@ -56,28 +63,47 @@ export default function FullScreenView(props: IFullScreenViewProps): React.React
           </div>
         </div>
 
-        <MetricsRow data={data} />
+        {sectionVisibility.metrics ? <MetricsRow data={data} /> : undefined}
 
-        <div className={styles.chartRow}>
-          <SalesTrendPanel data={data} />
-          <SalesByCategory data={data} />
-          <SatisfactionPanel data={data} />
-        </div>
-
-        <div className={styles.bottomRow}>
-          <ProductCarousel
-            visibleProducts={props.visibleProducts}
-            onPrev={props.onPrevProducts}
-            onNext={props.onNextProducts}
-          />
-          <div className={styles.rightStack}>
-            <CustomerFeedback />
-            <StoreComparison data={data} />
+        {showChartRow ? (
+          <div className={styles.chartRow}>
+            {sectionVisibility.salesTrend ? <SalesTrendPanel data={data} /> : undefined}
+            {sectionVisibility.categorySales ? <SalesByCategory data={data} /> : undefined}
+            {showSatisfaction ? <SatisfactionPanel data={data} /> : undefined}
           </div>
-        </div>
+        ) : undefined}
+
+        {showBottomRow ? (
+          <div className={styles.bottomRow}>
+            {sectionVisibility.products ? (
+              <ProductCarousel
+                visibleProducts={props.visibleProducts}
+                onPrev={props.onPrevProducts}
+                onNext={props.onNextProducts}
+              />
+            ) : undefined}
+            {showRightStack ? (
+              <div className={styles.rightStack}>
+                {sectionVisibility.feedback ? <CustomerFeedback data={data} /> : undefined}
+                {sectionVisibility.storeComparison ? <StoreComparison data={data} /> : undefined}
+              </div>
+            ) : undefined}
+          </div>
+        ) : undefined}
 
         <DashboardFooter asOfLabel={`Data as of ${asOf}`} />
       </div>
+
+      <FiltersPanel
+        open={props.isFiltersOpen}
+        onOpenChange={props.onFiltersOpenChange}
+        targetStore={props.targetStore}
+        onTargetStoreChange={props.onTargetStoreChange}
+        dateOffset={props.dateOffset}
+        onDateOffsetChange={props.onDateOffsetChange}
+        sectionVisibility={props.sectionVisibility}
+        onSectionVisibilityChange={props.onSectionVisibilityChange}
+      />
 
       <SettingsDialog
         open={props.isSettingsOpen}
@@ -85,10 +111,8 @@ export default function FullScreenView(props: IFullScreenViewProps): React.React
         useMock={props.useMock}
         dataServiceUrl={props.dataServiceUrl}
         dataError={props.dataError}
-        theme={props.theme}
         onUseMockChange={props.onUseMockChange}
         onDataServiceUrlChange={props.onDataServiceUrlChange}
-        onThemeChange={props.onThemeChange}
       />
     </div>
   );

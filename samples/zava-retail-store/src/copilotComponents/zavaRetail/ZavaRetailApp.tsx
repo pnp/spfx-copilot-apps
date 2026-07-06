@@ -14,7 +14,7 @@ import {
 import type { CopilotComponentContext } from '@microsoft/sp-copilot-component';
 
 import { loadDashboardData } from './data/ZavaRetailDataService';
-import type { IDashboardData, ZavaTheme } from './ZavaRetailTypes';
+import type { DashboardSection, IDashboardData, SectionVisibility, StoreKey, ZavaTheme } from './ZavaRetailTypes';
 import {
   DashboardFooter,
   FullScreenView,
@@ -31,9 +31,23 @@ interface IZavaRetailAppProps {
   displayMode: string;
   initialUseMock: boolean;
   initialDataServiceUrl?: string;
-  initialTheme: ZavaTheme;
+  /** Store/city the dashboard reports on initially (from authored properties). */
+  initialTargetStore: StoreKey;
+  /** Color theme advertised by the Copilot host. */
+  theme: ZavaTheme;
   onRequestFullscreen: () => void;
 }
+
+/** Every dashboard section is visible by default. */
+const DEFAULT_SECTION_VISIBILITY: SectionVisibility = {
+  metrics: true,
+  salesTrend: true,
+  categorySales: true,
+  satisfaction: true,
+  products: true,
+  feedback: true,
+  storeComparison: true
+};
 
 /**
  * Root orchestrator: owns data loading + UI state and delegates rendering to the
@@ -45,12 +59,20 @@ export default function ZavaRetailApp(props: IZavaRetailAppProps): React.ReactEl
 
   const [useMock, setUseMock] = React.useState<boolean>(props.initialUseMock);
   const [dataServiceUrl, setDataServiceUrl] = React.useState<string>(props.initialDataServiceUrl ?? '');
-  const [theme, setTheme] = React.useState<ZavaTheme>(props.initialTheme);
+  const [targetStore, setTargetStore] = React.useState<StoreKey>(props.initialTargetStore);
+  const [dateOffset, setDateOffset] = React.useState<number>(0);
+  const theme = props.theme;
   const [dashboardData, setDashboardData] = React.useState<IDashboardData | undefined>();
   const [dataError, setDataError] = React.useState<string>('');
   const [isDataLoading, setIsDataLoading] = React.useState<boolean>(true);
   const [isSettingsOpen, setIsSettingsOpen] = React.useState<boolean>(false);
+  const [isFiltersOpen, setIsFiltersOpen] = React.useState<boolean>(false);
+  const [sectionVisibility, setSectionVisibility] = React.useState<SectionVisibility>(DEFAULT_SECTION_VISIBILITY);
   const [productStartIndex, setProductStartIndex] = React.useState<number>(0);
+
+  const handleSectionVisibilityChange = React.useCallback((section: DashboardSection, visible: boolean): void => {
+    setSectionVisibility((current) => ({ ...current, [section]: visible }));
+  }, []);
 
   const fluentTheme = theme === 'dark' ? webDarkTheme : webLightTheme;
 
@@ -94,7 +116,7 @@ export default function ZavaRetailApp(props: IZavaRetailAppProps): React.ReactEl
     setIsDataLoading(true);
     setDataError('');
 
-    loadDashboardData(props.context, { useMock, dataServiceUrl })
+    loadDashboardData(props.context, { useMock, dataServiceUrl, targetStore, dateOffset })
       .then((result) => {
         if (!isCancelled) {
           setDashboardData(result);
@@ -115,7 +137,7 @@ export default function ZavaRetailApp(props: IZavaRetailAppProps): React.ReactEl
     return () => {
       isCancelled = true;
     };
-  }, [props.context, useMock, dataServiceUrl]);
+  }, [props.context, useMock, dataServiceUrl, targetStore, dateOffset]);
 
   const visibleProducts = React.useMemo(() => {
     if (!dashboardData?.products?.length) {
@@ -162,7 +184,6 @@ export default function ZavaRetailApp(props: IZavaRetailAppProps): React.ReactEl
       return (
         <FullScreenView
           data={dashboardData}
-          theme={theme}
           useMock={useMock}
           dataServiceUrl={dataServiceUrl}
           dataError={dataError}
@@ -174,7 +195,14 @@ export default function ZavaRetailApp(props: IZavaRetailAppProps): React.ReactEl
           onSettingsOpenChange={setIsSettingsOpen}
           onUseMockChange={setUseMock}
           onDataServiceUrlChange={setDataServiceUrl}
-          onThemeChange={setTheme}
+          isFiltersOpen={isFiltersOpen}
+          onFiltersOpenChange={setIsFiltersOpen}
+          targetStore={targetStore}
+          onTargetStoreChange={setTargetStore}
+          dateOffset={dateOffset}
+          onDateOffsetChange={setDateOffset}
+          sectionVisibility={sectionVisibility}
+          onSectionVisibilityChange={handleSectionVisibilityChange}
         />
       );
     }

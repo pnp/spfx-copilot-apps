@@ -747,6 +747,55 @@ export const useZavaStyles = makeStyles({
     ...shorthands.overflow('hidden', 'auto'),
     ...shorthands.padding('16px')
   },
+  filtersPanel: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    width: '320px',
+    maxWidth: '85%',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: palette.surface,
+    ...shorthands.borderRight('1px', 'solid', palette.borderSoft),
+    boxShadow: '12px 0 32px rgba(15, 23, 42, 0.18)',
+    transform: 'translateX(-105%)',
+    transitionProperty: 'transform',
+    transitionDuration: '0.25s',
+    transitionTimingFunction: 'ease',
+    zIndex: 60,
+    willChange: 'transform'
+  },
+  filtersPanelOpen: {
+    transform: 'translateX(0)'
+  },
+  filtersSection: {
+    display: 'grid',
+    ...shorthands.gap('8px'),
+    ...shorthands.padding('0', '0', '18px'),
+    ...shorthands.borderBottom('1px', 'solid', palette.borderSoft),
+    marginBottom: '16px'
+  },
+  filtersSectionLabel: {
+    fontSize: '12px',
+    fontWeight: 600,
+    color: palette.inkMuted,
+    textTransform: 'uppercase',
+    letterSpacing: '0.04em'
+  },
+  filtersSwitchList: {
+    display: 'grid',
+    ...shorthands.gap('6px')
+  },
+  clickablePill: {
+    cursor: 'pointer',
+    fontFamily: 'inherit',
+    ...shorthands.margin('0'),
+    ':hover': {
+      backgroundColor: palette.brandSofter,
+      ...shorthands.borderColor(palette.brandStrong)
+    }
+  },
   linkText: {
     fontSize: '11px',
     color: palette.brandStrong,

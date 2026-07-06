@@ -1,28 +1,7 @@
 import * as React from 'react';
 import { Star16Filled, Star16Regular } from '@fluentui/react-icons';
 import { useZavaStyles } from './useZavaStyles';
-
-interface IFeedbackEntry {
-  name: string;
-  rating: number;
-  date: string;
-  text: string;
-}
-
-const FEEDBACK: IFeedbackEntry[] = [
-  {
-    name: 'Olivia M.',
-    rating: 5,
-    date: 'May 15',
-    text: 'The staff were incredibly helpful and the store looked beautiful. Found everything I needed.'
-  },
-  {
-    name: 'James T.',
-    rating: 4,
-    date: 'May 15',
-    text: 'Good selection and prices. Checkout was quick and easy on a busy afternoon.'
-  }
-];
+import type { IDashboardSectionProps } from './IComponentProps';
 
 function renderStars(rating: number, styles: ReturnType<typeof useZavaStyles>): React.ReactElement {
   return (
@@ -35,7 +14,7 @@ function renderStars(rating: number, styles: ReturnType<typeof useZavaStyles>): 
 /**
  * Recent customer feedback cards with star ratings and sentiment badges.
  */
-export default function CustomerFeedback(): React.ReactElement {
+export default function CustomerFeedback(props: IDashboardSectionProps): React.ReactElement {
   const styles = useZavaStyles();
 
   return (
@@ -46,7 +25,7 @@ export default function CustomerFeedback(): React.ReactElement {
       </div>
 
       <div className={styles.feedbackList}>
-        {FEEDBACK.map((entry) => (
+        {props.data.feedback.map((entry) => (
           <div key={entry.name} className={styles.feedbackCard}>
             <div className={styles.feedbackHead}>
               <span className={styles.feedbackName}>{entry.name}</span>
@@ -55,7 +34,7 @@ export default function CustomerFeedback(): React.ReactElement {
             <div className={styles.feedbackText}>{entry.text}</div>
             <div className={styles.feedbackMeta}>
               <span className={styles.feedbackDate}>{entry.date}</span>
-              <span className={styles.positiveBadge}>Positive</span>
+              <span className={styles.positiveBadge}>{entry.rating >= 4 ? 'Positive' : 'Neutral'}</span>
             </div>
           </div>
         ))}

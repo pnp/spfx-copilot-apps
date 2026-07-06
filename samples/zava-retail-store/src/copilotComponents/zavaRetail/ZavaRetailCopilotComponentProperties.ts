@@ -11,6 +11,10 @@ const propertiesSchema = z.object({
     .string()
     .default('Show me today\'s store performance for Seattle.')
     .describe('A prompt message to display.'),
+  targetStore: z
+    .string()
+    .default('Seattle')
+    .describe('The store/city to report on. One of "Seattle", "Boston" or "New York".'),
   useMock: z
     .string()
     .default('true')
@@ -18,11 +22,7 @@ const propertiesSchema = z.object({
   dataServiceUrl: z
     .string()
     .optional()
-    .describe('URL of the data service when useMock is "false".'),
-  theme: z
-    .string()
-    .default('light')
-    .describe('Theme mode for the retail dashboard UI. Accepts "light" or "dark".')
+    .describe('URL of the data service when useMock is "false".')
 }).superRefine((properties, context) => {
   const mockEnabled = (properties.useMock ?? 'true').trim().toLowerCase() !== 'false';
   if (!mockEnabled && !properties.dataServiceUrl) {
