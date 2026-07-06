@@ -10,7 +10,9 @@ The point of the sample is to show what makes SPFx Copilot Components different 
 
 > Copilot Components are MCP apps that run as SharePoint Framework code. Because they execute in the SharePoint page context, they can make the same delegated API calls any SPFx web part can — something the MCP app specification itself does not provide. This sample is built to highlight exactly that capability.
 
-_Inline balance card (left) + full-screen team absence calendar with profile photos, balance breakdown and an embedded request panel (right)._
+
+![](./assets/my%20time%20off%20-%20light.png)
+
 
 ## The three components
 
