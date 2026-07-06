@@ -15,7 +15,7 @@ The same React component renders in two modes inside the Copilot canvas:
 
 The sample ships with **mocked data** so anyone can deploy and demo in minutes — no line-of-business integration required. A swappable data service exposes a `useMock` flag (`true` for offline demos, `false` to read a live data service and Microsoft Graph for the signed-in user).
 
-![Concept mockup](./assets/concept-mockup.png)
+![Concept mockup](./assets/Zava-Retail-Agent-concept-mockup.png)
 
 _Inline (left) + full-screen (right)._
 
@@ -23,9 +23,7 @@ _Inline (left) + full-screen (right)._
 
 | Inline | Full screen |
 | --- | --- |
-| ![Inline screenshot](./assets/screenshot-inline.png) | ![Full-screen screenshot](./assets/screenshot-fullscreen.png) |
-
-![Demo GIF](./assets/demo.gif)
+| ![Inline screenshot](./assets/Zava-Retail-Agent-Inline.png) | ![Full-screen screenshot](./assets/Zava-Retail-Agent-FullScreen.png) |
 
 ## Used SharePoint Framework Version
 
@@ -53,13 +51,13 @@ _Inline (left) + full-screen (right)._
 
 | Solution          | Author(s)                                               |
 | ----------------- | ------------------------------------------------------- |
-| zava-retail-store | Author details (name, company, twitter alias with link) |
+| zava-retail-store | Paolo Pialorsi (Microsoft) | [GitHub](https://github.com/PaoloPia) | [LinkedIn](https://www.linkedin.com/in/paolopialorsi/) |
 
 ## Version history
 
 | Version | Date | Comments        |
 | ------- | ---- | --------------- |
-| 1.0     | TBD  | Initial release |
+| 1.0     | 07.06.2026  | Initial release |
 
 ## Disclaimer
 
@@ -85,13 +83,25 @@ heft test --clean --production && heft package-solution --production
 
 Other build commands can be listed using `heft --help`.
 
+## 60-second demo script
+
+A tight, repeatable flow for a live demo. All data is mock, so it works the same every time.
+
+1. **Invoke it** - in Microsoft 365 Copilot, select the **ZavaRetail Agent** agent and send: _"Show me the performance of our store in New York"_ The compact **inline card** renders.
+2. **Land the inline experience** (~10s) - call out the initial output with brief recap of performance (today's sales, customer satisfaction, sales trend, and top category).
+3. **Expand** (~10s) - click the **Open full dashboard** command on the lower part of the card. The **full-screen dashboard** animates in - sales vs target, transactions, avg basket, CSAT, NPS, conversion rate, sales trend, sales by category, customer satisfaction, top products today, recent customer feedback, and store/region comparison.
+4. **The "wow" moment** (~30s) - click **Filters**. Select the target store, target date, and enabled/disable any of the components/charts rendering in the dashboard. The whole dashboard dynamically updates accordingly to your settings.
+5. **Theming** (~10s) - flip the Copilot host to **dark mode** to show the whole experience re-theme instantly.
+
+> Tip: the day is always "today" and data follows current calendar, whenever you demo.
+
 ## Features
 
 Zava Retail Store demonstrates how to build a rich, theme-aware executive dashboard inside the Microsoft 365 Copilot canvas using an SPFx Copilot Component.
 
 This sample illustrates the following concepts:
 
-- **Copilot Component UX** — a `CopilotComponent` (`copilotType: "Ux"`) surfaced as a tool (`ZavaRetailTool`) a declarative agent can call, rendering its own React UI inside the Copilot host.
+- **Copilot Component UX** — a `CopilotComponent` (`copilotType: "UX"`) surfaced as a tool (`ZavaRetailTool`) a declarative agent can call, rendering its own React UI inside the Copilot host.
 - **Display-mode-aware rendering** — a single root React component (`ZavaRetailApp`) selects a dedicated **inline** or **full-screen** view from the host-advertised display mode; inline can request expansion to full screen.
 - **Swappable data service** — Microsoft Graph + data service access behind a `useMock` flag, with mock data fallback for fully offline demos.
 - **Theme awareness** — light/dark theme driven by the Copilot host context and Fluent UI v9 (`webLightTheme` / `webDarkTheme`).
