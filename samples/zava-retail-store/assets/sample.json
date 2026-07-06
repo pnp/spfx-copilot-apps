@@ -1,0 +1,82 @@
+[
+  {
+    "name": "pnp-sp-dev-spfx-copilot-apps-zava-retail-store",
+    "source": "pnp",
+    "title": "Zava Retail Store — Retail Performance Copilot App",
+    "shortDescription": "A SharePoint Copilot App (SPFx 1.24 Copilot Component) that renders an executive retail cockpit inside the Microsoft 365 Copilot canvas — a compact inline performance card that expands to a full-screen dashboard covering sales, category mix, customer satisfaction, feedback, top products and store comparisons.",
+    "url": "https://github.com/pnp/spfx-copilot-apps/tree/main/samples/zava-retail-store",
+    "downloadUrl": "https://pnp.github.io/download-partial/?url=https://github.com/pnp/spfx-copilot-apps/tree/main/samples/zava-retail-store",
+    "longDescription": [
+      "Zava Retail Store is a SharePoint Copilot App built as an SPFx 1.24 Copilot Component (not a classic web part). The same React component renders in two display modes inside the Microsoft 365 Copilot canvas: a compact inline card and an immersive full-screen executive dashboard. Copilot opens to a compact performance card — headline metrics and a sales trend — then can request expansion via requestDisplayModeAsync('fullscreen') to reveal the full experience.",
+      "The full-screen experience is an executive dashboard shell (app rail + top bar) composed of modular sections: a metrics row (sales vs target, transactions, avg basket, CSAT, NPS, conversion rate), a sales trend panel, sales by category, a customer satisfaction gauge, recent customer feedback, a top-products carousel and store/region comparison. A Filters dialog lets the user pick the target store and date and enable/disable individual panels, and the whole dashboard re-flows live to match the selection.",
+      "The sample ships with mocked, Microsoft Graph-shaped data behind a swappable data service exposing a useMock flag (true for fully offline demos, false to read a live data service and Microsoft Graph for the signed-in user), so a live implementation is a drop-in replacement. The Copilot Component is surfaced as a tool (ZavaRetailTool) a declarative agent can call, rendering its own React UI inside the Copilot host. Built with the Heft build system, React 17 and Fluent UI v9 with host-driven light/dark theming."
+    ],
+    "creationDateTime": "2026-07-06",
+    "updateDateTime": "2026-07-06",
+    "products": [
+      "SharePoint",
+      "Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "SAMPLE-TYPE",
+        "value": "SPFx-CopilotComponent"
+      },
+      {
+        "key": "CLIENT-SIDE-DEV",
+        "value": "React"
+      },
+      {
+        "key": "SPFX-VERSION",
+        "value": "1.24.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "name": "Zava-Retail-Agent-concept-mockup.png",
+        "type": "image",
+        "order": 100,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/zava-retail-store/assets/Zava-Retail-Agent-concept-mockup.png",
+        "alt": "Zava Retail Store scenario — inline card and full-screen dashboard"
+      },
+      {
+        "name": "Zava-Retail-Agent-Inline.png",
+        "type": "image",
+        "order": 101,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/zava-retail-store/assets/Zava-Retail-Agent-Inline.png",
+        "alt": "Inline Zava Retail performance card in the Copilot canvas"
+      },
+      {
+        "name": "Zava-Retail-Agent-FullScreen.png",
+        "type": "image",
+        "order": 102,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/zava-retail-store/assets/Zava-Retail-Agent-FullScreen.png",
+        "alt": "Full-screen Zava Retail executive dashboard"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "PaoloPia",
+        "pictureUrl": "https://github.com/PaoloPia.png",
+        "name": "Paolo Pialorsi"
+      }
+    ],
+    "references": [
+      {
+        "name": "Overview of the SharePoint Framework",
+        "description": "The SharePoint Framework (SPFx) is a page and web part model that provides full support for client-side SharePoint development, easy integration with SharePoint data, and support for open-source tooling.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/sharepoint-framework-overview"
+      },
+      {
+        "name": "Microsoft 365 Copilot",
+        "description": "Microsoft 365 Copilot combines the power of large language models with your organization's data to help you be more productive.",
+        "url": "https://www.microsoft.com/microsoft-365/copilot"
+      },
+      {
+        "name": "Use Microsoft Graph in your solution",
+        "description": "Microsoft Graph is the gateway to data and intelligence in Microsoft 365, exposing REST APIs and client libraries to access data across Microsoft 365 services.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/get-started/using-microsoft-graph-apis"
+      }
+    ]
+  }
+]
