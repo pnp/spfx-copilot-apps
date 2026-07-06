@@ -1,0 +1,34 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "time-off-overview-copilot-component": {
+      "components": [
+        {
+          "entrypoint": "./lib/copilotComponents/timeOffOverview/TimeOffOverviewCopilotComponent.js",
+          "manifest": "./src/copilotComponents/timeOffOverview/TimeOffOverviewCopilotComponent.manifest.json"
+        }
+      ]
+    },
+    "time-off-request-copilot-component": {
+      "components": [
+        {
+          "entrypoint": "./lib/copilotComponents/timeOffRequest/TimeOffRequestCopilotComponent.js",
+          "manifest": "./src/copilotComponents/timeOffRequest/TimeOffRequestCopilotComponent.manifest.json"
+        }
+      ]
+    },
+    "time-off-team-copilot-component": {
+      "components": [
+        {
+          "entrypoint": "./lib/copilotComponents/timeOffTeam/TimeOffTeamCopilotComponent.js",
+          "manifest": "./src/copilotComponents/timeOffTeam/TimeOffTeamCopilotComponent.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "TimeOffOverviewCopilotComponentStrings": "lib/copilotComponents/timeOffOverview/loc/{locale}.js"
+  }
+}

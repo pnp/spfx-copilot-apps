@@ -1,0 +1,41 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "time-off-client-side-solution",
+    "id": "CD347E22-EFEC-4D36-B277-24BCAA59ABE3",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "webApiPermissionRequests": [],
+    "developer": {
+      "name": "Contoso",
+      "websiteUrl": "https://www.contoso.com",
+      "privacyUrl": "https://www.contoso.com/privacy",
+      "termsOfUseUrl": "https://www.contoso.com/terms",
+      "mpnId": "Undefined-1.23.0-dev.140"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Time-Off (PTO) showcase: view balances, request leave, and manage team approvals inside Microsoft 365 Copilot."
+      },
+      "longDescription": {
+        "default": "My Time Off is a SharePoint Framework Copilot Components sample. It surfaces an employee's PTO inside Microsoft 365 Copilot as three interactive components — a personal overview, a request experience with a live Outlook calendar conflict check, and a team view with inline manager approvals. It showcases authenticated client-side API calls: every component reads and writes its data with the signed-in user's own delegated identity, calling SharePoint REST and Microsoft Graph directly from the browser, with no MCP server or middle tier."
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": ["Legal + HR", "Productivity", "Workflow & Process Management"]
+    },
+    "features": [
+      {
+        "title": "time-off Feature",
+        "description": "The feature that activates elements of the time-off solution.",
+        "id": "05945832-5397-4569-bbba-5d739e95924d",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/time-off.sppkg"
+  }
+}

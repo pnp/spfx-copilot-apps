@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "292a623e-3892-4783-9ddb-26de6481b3a8",
+  "alias": "TimeOffOverviewCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "GetMyTimeOff",
+      "description": {
+        "default": "Show the signed-in employee's time-off overview: remaining vacation, sick and personal day balances, upcoming booked leave, and recent request history. Use when the user asks about their PTO, vacation days, sick leave, time-off balance, or upcoming/past leave. Optionally pass leaveType (vacation, sick, or personal) to highlight one balance."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/timeOffOverview/TimeOffOverviewCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

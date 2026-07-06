@@ -1,0 +1,18 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "My Time Off"
+      },
+      "description": {
+        "default": "View your time-off balances, upcoming booked leave, and recent request history; request new time off with a live calendar conflict check; and see who's out across your team while managers approve or decline pending requests inline — all inside Microsoft 365 Copilot."
+      },
+      "components": [
+        "292a623e-3892-4783-9ddb-26de6481b3a8",
+        "3984541f-f7f2-4f2d-9f85-b643e5f480f3",
+        "70c58150-66c0-45f2-a60d-ee8b16792834"
+      ]
+    }
+  ]
+}
