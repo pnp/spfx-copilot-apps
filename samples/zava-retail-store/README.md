@@ -69,7 +69,7 @@ _Inline (left) + full-screen (right)._
 
 > **Ready-made package included.** Because this is a scenario sample that runs entirely on mock data - with no live customer data or line-of-business integration - the repository ships the fully built solution package so you can deploy and demo it in minutes without building anything. Grab the package here: [zava-retail-store.sppkg](./zava-retail-store.sppkg).
 >
-> To use it, upload `[zava-retail-store.sppkg` to your tenant **App Catalog**, enable solution in all sites (includes Copilot), and invoke the agent in Microsoft 365 Copilot. Prefer to build from source instead? Follow the steps below.
+> To use it, upload `zava-retail-store.sppkg` to your tenant **App Catalog**, enable solution in all sites (includes Copilot), and invoke the agent in Microsoft 365 Copilot. Prefer to build from source instead? Follow the steps below.
 
 - Clone this repository
 - Ensure that you are at the solution folder (`zava-retail-store`)
