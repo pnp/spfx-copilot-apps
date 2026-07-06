@@ -15,7 +15,7 @@
     {
       "name": "ZavaRetailTool",
       "description": {
-        "default": "ZavaRetail description"
+        "default": "Allows to retrieve and visualize retail store performance and customer satisfaction data for Zava Retail based on a specific target store."
       },
       "propertiesSchema": {
         "id": "$../../../lib/copilotComponents/zavaRetail/ZavaRetailCopilotComponentProperties.js:default;"

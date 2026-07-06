@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { BaseCopilotComponent } from '@microsoft/sp-copilot-component';
 
 import type { IZavaRetailCopilotComponentProperties } from './ZavaRetailCopilotComponentProperties';
-import { parseBoolean, parseOptionalString, parseTheme } from './propertyParsers';
+import { parseBoolean, parseOptionalString, parseTargetStore, parseTheme } from './propertyParsers';
 import ZavaRetailApp from './ZavaRetailApp';
 
 export default class ZavaRetailCopilotComponent extends BaseCopilotComponent<IZavaRetailCopilotComponentProperties> {
@@ -15,7 +15,8 @@ export default class ZavaRetailCopilotComponent extends BaseCopilotComponent<IZa
       displayMode: String(this.hostContext.displayMode),
       initialUseMock: parseBoolean(this.properties.useMock, true),
       initialDataServiceUrl: parseOptionalString(this.properties.dataServiceUrl),
-      initialTheme: parseTheme(this.properties.theme),
+      initialTargetStore: parseTargetStore(this.properties.targetStore),
+      theme: parseTheme(this.hostContext.theme),
       onRequestFullscreen: this._handleRequestFullscreen
     });
 

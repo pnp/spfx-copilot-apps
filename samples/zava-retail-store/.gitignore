@@ -37,3 +37,6 @@ obj
 
 # Styles Generated Code
 *.scss.ts
+
+# Test Prompts
+Prompts.txt

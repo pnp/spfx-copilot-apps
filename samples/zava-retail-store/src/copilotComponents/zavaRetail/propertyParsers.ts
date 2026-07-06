@@ -1,4 +1,4 @@
-import type { ZavaTheme } from './ZavaRetailTypes';
+import type { StoreKey, ZavaTheme } from './ZavaRetailTypes';
 
 /**
  * Parsers that convert the string-encoded component properties back into the concrete
@@ -25,6 +25,21 @@ export function parseBoolean(value: string | undefined, fallback: boolean): bool
 /** Parse a string such as "light"/"dark" into a ZavaTheme, defaulting to "light". */
 export function parseTheme(value: string | undefined): ZavaTheme {
   return value?.trim().toLowerCase() === 'dark' ? 'dark' : 'light';
+}
+
+/**
+ * Parse a store/city string (e.g. "Seattle", "New York", "newyork") into a StoreKey,
+ * defaulting to "seattle" when the value is missing or unrecognized.
+ */
+export function parseTargetStore(value: string | undefined): StoreKey {
+  const normalized = value?.trim().toLowerCase().replace(/[\s_-]+/g, '') ?? '';
+  if (normalized === 'boston') {
+    return 'boston';
+  }
+  if (normalized === 'newyork' || normalized === 'nyc' || normalized === 'newyorkcity') {
+    return 'newyork';
+  }
+  return 'seattle';
 }
 
 /** Normalize an optional string property, returning undefined when blank. */

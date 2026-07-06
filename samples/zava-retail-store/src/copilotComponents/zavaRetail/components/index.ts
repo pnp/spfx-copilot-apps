@@ -9,6 +9,7 @@ export { default as ProductCarousel } from './ProductCarousel';
 export { default as StoreComparison } from './StoreComparison';
 export { default as AppRail } from './AppRail';
 export { default as SettingsDialog } from './SettingsDialog';
+export { default as FiltersPanel } from './FiltersPanel';
 export { default as DashboardFooter } from './DashboardFooter';
 export { default as Sparkline } from './Sparkline';
 export { default as LineChart } from './LineChart';
