@@ -51,7 +51,7 @@ _Inline (left) + full-screen (right)._
 
 | Solution          | Author(s)                                               |
 | ----------------- | ------------------------------------------------------- |
-| zava-retail-store | Paolo Pialorsi (Microsoft) | [GitHub](https://github.com/PaoloPia) | [LinkedIn](https://www.linkedin.com/in/paolopialorsi/) |
+| zava-retail-store | Paolo Pialorsi (Microsoft) &#124; [GitHub](https://github.com/PaoloPia) &#124; [LinkedIn](https://www.linkedin.com/in/paolopialorsi/) |
 
 ## Version history
 
