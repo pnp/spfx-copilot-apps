@@ -3,7 +3,7 @@
   "solution": {
     "name": "zava-retail-store-client-side-solution",
     "id": "5d0a8f8a-2c29-4154-af18-d8ad17c693cd",
-    "version": "1.0.0.1",
+    "version": "1.0.0.6",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
@@ -30,7 +30,7 @@
         "title": "zava-retail-store Feature",
         "description": "The feature that activates elements of the zava-retail-store solution.",
         "id": "edc8481e-573d-4142-971f-702e391a0da6",
-        "version": "1.0.0.1"
+        "version": "1.0.0.6"
       }
     ]
   },

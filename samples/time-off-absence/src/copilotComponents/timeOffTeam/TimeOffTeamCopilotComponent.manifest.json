@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "70c58150-66c0-45f2-a60d-ee8b16792834",
+  "alias": "TimeOffTeamCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "GetTeamTimeOff",
+      "description": {
+        "default": "Show who on the team is out of office and, for a manager, the time-off requests waiting for them to approve. Use whenever the user asks who's out, who's on vacation or sick leave this week, who is away, the team's time off, time-off coverage, or about pending approvals / requests waiting for me to approve / time off I need to approve. Renders a live 'who's out' list of approved upcoming absences for the whole team and, when the signed-in user is an approver, an inbox where they can Approve or Decline each pending request inline; approving an upcoming request makes that person appear under who's out. Optional arguments: view ('whosOut' or 'approvals') to focus one section, and startDate / endDate (yyyy-mm-dd) for the window of interest."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/timeOffTeam/TimeOffTeamCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+[
+  {
+    "name": "pnp-sp-dev-spfx-copilot-apps-time-off-absence",
+    "source": "pnp",
+    "title": "My Time Off — Time-Off & Absence Copilot App",
+    "shortDescription": "A SharePoint Copilot App (SPFx 1.23 Copilot Components) that brings the employee time-off (PTO) experience inside the Microsoft 365 Copilot canvas — a personal overview, a request form with an Outlook conflict pre-check, and a team view with manager approvals and a full-screen absence calendar, all powered by delegated, client-side SharePoint REST and Microsoft Graph calls.",
+    "url": "https://github.com/pnp/spfx-copilot-apps/tree/main/samples/time-off-absence",
+    "downloadUrl": "https://pnp.github.io/download-partial/?url=https://github.com/pnp/spfx-copilot-apps/tree/main/samples/time-off-absence",
+    "longDescription": [
+      "My Time Off is a SharePoint Copilot App built as an SPFx 1.23 Copilot Components sample (not a classic web part). It ships three components that render directly in the Microsoft 365 Copilot chat: timeOffOverview (GetMyTimeOff) shows the signed-in user's balances, upcoming leave and request history; timeOffRequest (RequestTimeOff) is a booking form that checks the user's Outlook calendar for conflicts before writing a new request; and timeOffTeam (GetTeamTimeOff) surfaces who's out, a manager approvals inbox and a full-screen team absence calendar.",
+      "The headline capability the sample highlights is authenticated, delegated client-side API calls — something the MCP app specification itself does not provide. Every component reads and writes with the signed-in user's own identity, calling SharePoint REST (three lists: TimeOffRequests, LeaveBalances, CompanyHolidays) and Microsoft Graph (calendar conflict pre-check, manager and team roster resolution, and 48x48 profile photos) directly from the browser — no MCP server, no middle tier, no app-only secrets. New requests are routed to the submitter's line manager resolved via Graph (/me/manager) with a self-approval fallback that keeps single-user demo tenants working.",
+      "The data services call SharePoint and Graph live but never throw: on any failure they fall back to an in-memory data set so the components always render, and the team calendar self-heals to a demo roster when User.Read.All is not consented. A PnP PowerShell provisioning script creates and seeds the lists, and a TimeOffSite tenant property lets an admin repoint the components at a different lists site without rebuilding. Built with the Heft build system, React 17 and Fluent UI v9 with host-driven theming inside Copilot's sandboxed iframe."
+    ],
+    "creationDateTime": "2026-07-06",
+    "updateDateTime": "2026-07-06",
+    "products": [
+      "SharePoint",
+      "Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "SAMPLE-TYPE",
+        "value": "SPFx-CopilotComponent"
+      },
+      {
+        "key": "CLIENT-SIDE-DEV",
+        "value": "React"
+      },
+      {
+        "key": "SPFX-VERSION",
+        "value": "1.23.0"
+      }
+    ],
+    "thumbnails": [
+      {
+        "name": "concept-mockup.png",
+        "type": "image",
+        "order": 100,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/time-off-absence/assets/concept-mockup.png",
+        "alt": "My Time Off scenario — inline balance card and full-screen team absence calendar"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "jansenbe",
+        "pictureUrl": "https://github.com/jansenbe.png",
+        "name": "Bert Jansen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Overview of the SharePoint Framework",
+        "description": "The SharePoint Framework (SPFx) is a page and web part model that provides full support for client-side SharePoint development, easy integration with SharePoint data, and support for open-source tooling.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/sharepoint-framework-overview"
+      },
+      {
+        "name": "Microsoft 365 Copilot",
+        "description": "Microsoft 365 Copilot combines the power of large language models with your organization's data to help you be more productive.",
+        "url": "https://www.microsoft.com/microsoft-365/copilot"
+      },
+      {
+        "name": "Use Microsoft Graph in your solution",
+        "description": "Microsoft Graph is the gateway to data and intelligence in Microsoft 365, exposing REST APIs and client libraries to access data across Microsoft 365 services.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/get-started/using-microsoft-graph-apis"
+      },
+      {
+        "name": "PnP PowerShell",
+        "description": "PnP PowerShell is a cross-platform PowerShell module providing cmdlets to manage and provision SharePoint Online artifacts such as the lists this sample uses.",
+        "url": "https://pnp.github.io/powershell/"
+      }
+    ]
+  }
+]

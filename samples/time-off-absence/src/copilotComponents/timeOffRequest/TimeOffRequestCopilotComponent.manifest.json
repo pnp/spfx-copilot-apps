@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "3984541f-f7f2-4f2d-9f85-b643e5f480f3",
+  "alias": "TimeOffRequestCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "RequestTimeOff",
+      "description": {
+        "default": "Open an interactive form for the signed-in employee to request or book time off (PTO). Use whenever the user wants to book, request, submit, schedule or plan vacation, sick or personal leave for specific dates. The form pre-fills any provided leaveType, startDate, endDate and note, live-counts the working days (excluding weekends and company holidays), and checks the user's own Microsoft 365 calendar for conflicting meetings before they submit. Optional arguments: leaveType (vacation, sick or personal), startDate and endDate (yyyy-mm-dd), and a short note."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/timeOffRequest/TimeOffRequestCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

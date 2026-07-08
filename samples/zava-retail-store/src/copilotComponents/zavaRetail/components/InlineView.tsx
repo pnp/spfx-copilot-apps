@@ -49,8 +49,8 @@ export default function InlineView(props: IInlineViewProps): React.ReactElement 
       <div className={styles.inlineStoreCard}>
         <img
           className={styles.skyline}
-          src="https://images.unsplash.com/photo-1502175353174-a7a70e73b362?auto=format&fit=crop&w=1200&q=80"
-          alt="Seattle skyline"
+          src={data.skylineUrl}
+          alt={`${data.city} skyline`}
         />
         <div className={styles.skylineBadge}>
           <Building16Regular />

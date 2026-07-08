@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.24/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.24",
+  "version": "1.0.0",
+  "id": "5FF878ED-162F-404B-AF2B-C6DACC46F525",
+  "developer": {
+    "name": "Contoso",
+    "websiteUrl": "https://www.contoso.com",
+    "privacyUrl": "https://www.contoso.com/privacy",
+    "termsOfUseUrl": "https://www.contoso.com/terms"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "My Time Off",
+    "full": "My Time Off — PTO balances, requests & team approvals"
+  },
+  "description": {
+    "short": "View, request, and track time off across your team in Microsoft 365 Copilot.",
+    "full": "My Time Off surfaces an employee's PTO inside Microsoft 365 Copilot as three interactive SharePoint Copilot components: a personal overview of remaining vacation, sick and personal balances with upcoming leave and recent requests; a request experience that checks the user's Outlook calendar for conflicts before booking; and a team view where everyone sees who's out and managers approve or decline pending requests inline. Every component reads and writes its data with the signed-in user's own delegated identity, calling SharePoint and Microsoft Graph directly from the client."
+  },
+  "accentColor": "#FFFFFF",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "myTimeOffAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "permissions": ["identity"],
+  "validDomains": []
+}

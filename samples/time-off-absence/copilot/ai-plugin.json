@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "namespace": "myTimeOff",
+  "name_for_human": "My Time Off",
+  "description_for_human": "View your time-off balances and upcoming leave, request new time off with a live calendar conflict check, and see who's out across your team — inside Microsoft 365 Copilot.",
+  "description_for_model": "Surfaces an employee's time-off (PTO) experience as interactive SharePoint components, backed by authenticated client-side calls to SharePoint and Microsoft Graph. Three tools are available. GetMyTimeOff renders the signed-in user's remaining vacation, sick and personal day balances, upcoming booked leave, and recent request history; use it whenever the user asks about their own PTO, balances, or how many days they have left, and pass the optional leaveType argument (vacation, sick, or personal) to highlight a single balance. RequestTimeOff lets the user book new leave and checks their Outlook calendar for conflicts before submitting; use it when the user wants to request, book, or schedule time off. GetTeamTimeOff shows who is out across the user's team and lets managers approve or decline pending requests inline; use it when the user asks who is out, about team absences, or to review pending approvals.",
+  "contact_email": "publisher@contoso.com"
+}

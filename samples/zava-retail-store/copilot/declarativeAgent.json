@@ -6,8 +6,16 @@
   "instructions": "$[file('instruction.txt')]",
   "conversation_starters": [
     {
-      "title": "Get started",
-      "text": "What can you do?"
+      "title": "Seattle Store Performance",
+      "text": "Show me the performance of our store in Seattle"
+    },
+    {
+      "title": "New York Store Performance",
+      "text": "Show me the performance of our store in New York"
+    },
+    {
+      "title": "Boston Store Performance",
+      "text": "Show me the performance of our store in Boston"
     }
   ],
   "actions": [

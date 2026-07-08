@@ -1,4 +1,4 @@
-import type { IDashboardData, IProduct, ZavaTheme } from '../ZavaRetailTypes';
+import type { DashboardSection, IDashboardData, IProduct, SectionVisibility, StoreKey } from '../ZavaRetailTypes';
 
 /** Common data every dashboard sub-component needs. */
 export interface IDashboardSectionProps {
@@ -13,7 +13,6 @@ export interface IInlineViewProps {
 
 export interface IFullScreenViewProps {
   data: IDashboardData;
-  theme: ZavaTheme;
   useMock: boolean;
   dataServiceUrl: string;
   dataError?: string;
@@ -25,7 +24,25 @@ export interface IFullScreenViewProps {
   onSettingsOpenChange: (open: boolean) => void;
   onUseMockChange: (value: boolean) => void;
   onDataServiceUrlChange: (value: string) => void;
-  onThemeChange: (value: ZavaTheme) => void;
+  isFiltersOpen: boolean;
+  onFiltersOpenChange: (open: boolean) => void;
+  targetStore: StoreKey;
+  onTargetStoreChange: (store: StoreKey) => void;
+  dateOffset: number;
+  onDateOffsetChange: (offset: number) => void;
+  sectionVisibility: SectionVisibility;
+  onSectionVisibilityChange: (section: DashboardSection, visible: boolean) => void;
+}
+
+export interface IFiltersPanelProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  targetStore: StoreKey;
+  onTargetStoreChange: (store: StoreKey) => void;
+  dateOffset: number;
+  onDateOffsetChange: (offset: number) => void;
+  sectionVisibility: SectionVisibility;
+  onSectionVisibilityChange: (section: DashboardSection, visible: boolean) => void;
 }
 
 export interface IProductCarouselProps {
@@ -40,8 +57,6 @@ export interface ISettingsDialogProps {
   useMock: boolean;
   dataServiceUrl: string;
   dataError?: string;
-  theme: ZavaTheme;
   onUseMockChange: (value: boolean) => void;
   onDataServiceUrlChange: (value: string) => void;
-  onThemeChange: (value: ZavaTheme) => void;
 }

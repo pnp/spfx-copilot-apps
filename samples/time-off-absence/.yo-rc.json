@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.19.0",
+    "sdksVersions": {},
+    "version": "1.23.0-dev.140",
+    "libraryName": "time-off",
+    "libraryId": "deb6ffec-0f36-4b2e-8c6a-9c6a6eae082e",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "time-off",
+    "solutionShortDescription": "time-off description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "copilotComponent"
+  }
+}
