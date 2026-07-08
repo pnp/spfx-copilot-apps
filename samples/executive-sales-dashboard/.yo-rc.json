@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": true,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.17.0",
+    "sdksVersions": {},
+    "version": "1.24.0-beta.0",
+    "libraryName": "executive-sales-dashboard",
+    "libraryId": "f4286803-d264-4c4d-94fe-1e336fa6fcf8",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "executive-sales-dashboard",
+    "solutionShortDescription": "executive-sales-dashboard description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "copilotComponent"
+  }
+}

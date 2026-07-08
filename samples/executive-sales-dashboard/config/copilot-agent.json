@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "ExecDashboard Agent"
+      },
+      "description": {
+        "default": "ExecDashboard description"
+      },
+      "components": [
+        "0133fcd5-8a73-4e78-8a2e-aa248e38b79e"
+      ]
+    }
+  ]
+}

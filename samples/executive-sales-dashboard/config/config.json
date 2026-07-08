@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "exec-dashboard-copilot-component": {
+      "components": [
+        {
+          "entrypoint": "./lib/copilotComponents/execDashboard/ExecDashboardCopilotComponent.js",
+          "manifest": "./src/copilotComponents/execDashboard/ExecDashboardCopilotComponent.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "ExecDashboardCopilotComponentStrings": "lib/copilotComponents/execDashboard/loc/{locale}.js"
+  }
+}

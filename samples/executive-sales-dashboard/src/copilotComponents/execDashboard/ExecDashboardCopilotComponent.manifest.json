@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "0133fcd5-8a73-4e78-8a2e-aa248e38b79e",
+  "alias": "ExecDashboardCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "ExecDashboardTool",
+      "description": {
+        "default": "Allows the user to evaluate the sales and revenue performance dashboard of the company, with the ability to filter by region, product, and segment."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/execDashboard/ExecDashboardCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}
