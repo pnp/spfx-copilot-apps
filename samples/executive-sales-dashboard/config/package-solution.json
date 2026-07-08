@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "executive-sales-dashboard-client-side-solution",
+    "id": "f4286803-d264-4c4d-94fe-1e336fa6fcf8",
+    "version": "1.0.0.3",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.24.0-beta.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "executive-sales-dashboard description"
+      },
+      "longDescription": {
+        "default": "executive-sales-dashboard description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "executive-sales-dashboard Feature",
+        "description": "The feature that activates elements of the executive-sales-dashboard solution.",
+        "id": "b06d352f-eef3-4e02-b927-2845d2ea064d",
+        "version": "1.0.0.3"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/executive-sales-dashboard.sppkg"
+  }
+}

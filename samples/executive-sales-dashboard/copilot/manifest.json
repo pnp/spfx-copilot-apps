@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.24/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.24",
+  "version": "1.0.3",
+  "id": "318f4deb-4656-42fa-b829-6fd3049ef60b",
+  "developer": {
+    "name": "Zava",
+    "websiteUrl": "https://www.zava.com",
+    "privacyUrl": "https://www.zava.com/privacy",
+    "termsOfUseUrl": "https://www.zava.com/terms"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "ExecDashboard Agent",
+    "full": "ExecDashboard Agent"
+  },
+  "description": {
+    "short": "ExecDashboard description",
+    "full": "ExecDashboard description"
+  },
+  "accentColor": "#FFFFFF",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "execDashboardAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "permissions": ["identity"],
+  "validDomains": []
+}

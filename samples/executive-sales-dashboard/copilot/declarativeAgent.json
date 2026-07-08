@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.5/schema.json",
+  "version": "v1.5",
+  "name": "ExecDashboard Agent",
+  "description": "Agent to provide an executive sales and revenue dashboard in Microsoft 365 Copilot.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Sales and revenues",
+      "text": "Show me the sales and revenue dashboard."
+    }
+  ],
+  "actions": [
+    {
+      "id": "execDashboardAction",
+      "file": "ai-plugin.json"
+    }
+  ]
+}

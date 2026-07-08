@@ -1,0 +1,9 @@
+{
+  "$schema": "https://aka.ms/json-schemas/copilot-extensions/v2.1/plugin.schema.json",
+  "schema_version": "v2.4",
+  "namespace": "execDashboard",
+  "name_for_human": "ExecDashboard Agent",
+  "description_for_human": "ExecDashboard description",
+  "description_for_model": "ExecDashboard description",
+  "contact_email": "publisher@contoso.com"
+}
