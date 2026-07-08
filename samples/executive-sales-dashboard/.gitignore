@@ -40,3 +40,7 @@ obj
 prompts.txt
 steps.md
 .DS_Store
+
+!sharepoint/solution/
+sharepoint/solution/*
+!sharepoint/solution/executive-sales-dashboard.sppkg

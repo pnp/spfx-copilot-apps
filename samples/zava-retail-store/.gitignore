@@ -40,3 +40,10 @@ obj
 
 # Test Prompts
 Prompts.txt
+
+# Keep the packaged solution so this sample can be deployed and demoed without
+# building from source. Everything else under the build-output solution folder
+# stays ignored.
+!sharepoint/solution/
+sharepoint/solution/*
+!sharepoint/solution/zava-retail-store.sppkg
