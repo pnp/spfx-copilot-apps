@@ -3,11 +3,11 @@
     "name": "pnp-sp-dev-spfx-copilot-apps-time-off-absence",
     "source": "pnp",
     "title": "My Time Off — Time-Off & Absence Copilot App",
-    "shortDescription": "A SharePoint Copilot App (SPFx 1.23 Copilot Components) that brings the employee time-off (PTO) experience inside the Microsoft 365 Copilot canvas — a personal overview, a request form with an Outlook conflict pre-check, and a team view with manager approvals and a full-screen absence calendar, all powered by delegated, client-side SharePoint REST and Microsoft Graph calls.",
+    "shortDescription": "A SharePoint Copilot App (SPFx 1.24 Copilot Components) that brings the employee time-off (PTO) experience inside the Microsoft 365 Copilot canvas — a personal overview, a request form with an Outlook conflict pre-check, and a team view with manager approvals and a full-screen absence calendar, all powered by delegated, client-side SharePoint REST and Microsoft Graph calls.",
     "url": "https://github.com/pnp/spfx-copilot-apps/tree/main/samples/time-off-absence",
     "downloadUrl": "https://pnp.github.io/download-partial/?url=https://github.com/pnp/spfx-copilot-apps/tree/main/samples/time-off-absence",
     "longDescription": [
-      "My Time Off is a SharePoint Copilot App built as an SPFx 1.23 Copilot Components sample (not a classic web part). It ships three components that render directly in the Microsoft 365 Copilot chat: timeOffOverview (GetMyTimeOff) shows the signed-in user's balances, upcoming leave and request history; timeOffRequest (RequestTimeOff) is a booking form that checks the user's Outlook calendar for conflicts before writing a new request; and timeOffTeam (GetTeamTimeOff) surfaces who's out, a manager approvals inbox and a full-screen team absence calendar.",
+      "My Time Off is a SharePoint Copilot App built as an SPFx 1.24 Copilot Components sample (not a classic web part). It ships three components that render directly in the Microsoft 365 Copilot chat: timeOffOverview (GetMyTimeOff) shows the signed-in user's balances, upcoming leave and request history; timeOffRequest (RequestTimeOff) is a booking form that checks the user's Outlook calendar for conflicts before writing a new request; and timeOffTeam (GetTeamTimeOff) surfaces who's out, a manager approvals inbox and a full-screen team absence calendar.",
       "The headline capability the sample highlights is authenticated, delegated client-side API calls — something the MCP app specification itself does not provide. Every component reads and writes with the signed-in user's own identity, calling SharePoint REST (three lists: TimeOffRequests, LeaveBalances, CompanyHolidays) and Microsoft Graph (calendar conflict pre-check, manager and team roster resolution, and 48x48 profile photos) directly from the browser — no MCP server, no middle tier, no app-only secrets. New requests are routed to the submitter's line manager resolved via Graph (/me/manager) with a self-approval fallback that keeps single-user demo tenants working.",
       "The data services call SharePoint and Graph live but never throw: on any failure they fall back to an in-memory data set so the components always render, and the team calendar self-heals to a demo roster when User.Read.All is not consented. A PnP PowerShell provisioning script creates and seeds the lists, and a TimeOffSite tenant property lets an admin repoint the components at a different lists site without rebuilding. Built with the Heft build system, React 17 and Fluent UI v9 with host-driven theming inside Copilot's sandboxed iframe."
     ],
@@ -28,16 +28,44 @@
       },
       {
         "key": "SPFX-VERSION",
-        "value": "1.23.0"
+        "value": "1.24.0-beta.1"
       }
     ],
     "thumbnails": [
       {
-        "name": "concept-mockup.png",
+        "name": "introduction.png",
         "type": "image",
         "order": 100,
-        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/time-off-absence/assets/concept-mockup.png",
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/time-off-absence/assets/introduction.png",
         "alt": "My Time Off scenario — inline balance card and full-screen team absence calendar"
+      },
+      {
+        "name": "my time off - light.png",
+        "type": "image",
+        "order": 101,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/time-off-absence/assets/my%20time%20off%20-%20light.png",
+        "alt": "My Time Off personal overview (light theme)"
+      },
+      {
+        "name": "request time off - light.png",
+        "type": "image",
+        "order": 102,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/time-off-absence/assets/request%20time%20off%20-%20light.png",
+        "alt": "Request Time Off form with Outlook conflict pre-check (light theme)"
+      },
+      {
+        "name": "manager view - light.png",
+        "type": "image",
+        "order": 103,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/time-off-absence/assets/manager%20view%20-%20light.png",
+        "alt": "Team view with manager approvals and absence calendar (light theme)"
+      },
+      {
+        "name": "my time off - dark.png",
+        "type": "image",
+        "order": 104,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/time-off-absence/assets/my%20time%20off%20-%20dark.png",
+        "alt": "My Time Off personal overview (dark theme)"
       }
     ],
     "authors": [

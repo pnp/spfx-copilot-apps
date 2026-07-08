@@ -1,18 +1,17 @@
 # My Time Off — Time-Off & Absence Copilot App
 
-![SPFx](https://img.shields.io/badge/SPFx-1.23.0--dev.140-green.svg) ![Node](https://img.shields.io/badge/Node.js-22.x-339933.svg) ![React](https://img.shields.io/badge/React-17-61DAFB.svg) ![Data](https://img.shields.io/badge/Data-SharePoint%20%2B%20Graph-2D9CDB.svg) ![Modes](https://img.shields.io/badge/Modes-inline%20%2B%20fullscreen-5B3EE8.svg)
+![SPFx](https://img.shields.io/badge/SPFx-1.24.0--beta.1-yellow.svg) ![Node](https://img.shields.io/badge/Node.js-22.x-339933.svg) ![React](https://img.shields.io/badge/React-17-61DAFB.svg) ![Data](https://img.shields.io/badge/Data-SharePoint%20%2B%20Graph-2D9CDB.svg) ![Modes](https://img.shields.io/badge/Modes-inline%20%2B%20fullscreen-5B3EE8.svg)
 
 ## Summary
 
-**My Time Off** is a **SharePoint Copilot App** built as an SPFx 1.23 **Copilot Components** sample (not a classic web part). It brings an employee's time-off (PTO) experience _inside_ Microsoft 365 Copilot: instead of answering with plain text, Copilot renders three interactive SharePoint components — a personal **overview**, a **request** experience, and a **team** view with manager approvals — directly in the chat canvas.
+**My Time Off** is a **SharePoint Copilot App** built as an SPFx 1.24 **Copilot Components** sample (not a classic web part). It brings an employee's time-off (PTO) experience _inside_ Microsoft 365 Copilot: instead of answering with plain text, Copilot renders three interactive SharePoint components — a personal **overview**, a **request** experience, and a **team** view with manager approvals — directly in the chat canvas.
 
 The point of the sample is to show what makes SPFx Copilot Components different from a generic "MCP app": **authenticated, delegated client-side API calls.** Every component reads and writes its data with the _signed-in user's own identity_, calling **SharePoint REST** and **Microsoft Graph** directly from the browser — no MCP server, no middle tier, no app-only secrets.
 
 > Copilot Components are MCP apps that run as SharePoint Framework code. Because they execute in the SharePoint page context, they can make the same delegated API calls any SPFx web part can — something the MCP app specification itself does not provide. This sample is built to highlight exactly that capability.
 
 
-![](./assets/my%20time%20off%20-%20light.png)
-
+![Concept mockup](./assets/introduction.png)
 
 ## The three components
 
@@ -53,7 +52,7 @@ The Fluent v9 styling shell injects theme tokens twice — through `FluentProvid
 
 ## Used SharePoint Framework Version
 
-![version](https://img.shields.io/badge/SPFx-1.23.0--dev.140-green.svg)
+![version](https://img.shields.io/badge/SPFx-1.24.0--beta.1-yellow.svg)
 
 ## Applies to
 
@@ -72,7 +71,7 @@ The Fluent v9 styling shell injects theme tokens twice — through `FluentProvid
 - [Heft](https://heft.rushstack.io/) (`npm install -g @rushstack/heft`)
 - [PnP.PowerShell](https://pnp.github.io/powershell/) to provision the SharePoint lists (see [`scripts/README.md`](./scripts/README.md))
 
-> This solution uses the **Heft** build system (not Gulp) and **React 17** functional components, aligned with the SPFx 1.23 dev preview.
+> This solution uses the **Heft** build system (not Gulp) and **React 17** functional components, aligned with the SPFx 1.24 dev preview.
 
 ## Solution
 

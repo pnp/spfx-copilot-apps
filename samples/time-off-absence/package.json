@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "tslib": "2.3.1",
-    "@microsoft/sp-copilot-component": "1.23.0-dev.140",
+    "@microsoft/sp-copilot-component": "1.24.0-beta.1",
     "@microsoft/microsoft-graph-client": "3.0.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -23,10 +23,10 @@
     "zod-to-json-schema": "3.24.1"
   },
   "devDependencies": {
-    "@microsoft/eslint-plugin-spfx": "1.23.0-dev.140",
-    "@microsoft/eslint-config-spfx": "1.23.0-dev.140",
-    "@microsoft/spfx-web-build-rig": "1.23.0-dev.140",
-    "@microsoft/spfx-heft-plugins": "1.23.0-dev.140",
+    "@microsoft/eslint-plugin-spfx": "1.24.0-beta.1",
+    "@microsoft/eslint-config-spfx": "1.24.0-beta.1",
+    "@microsoft/spfx-web-build-rig": "1.24.0-beta.1",
+    "@microsoft/spfx-heft-plugins": "1.24.0-beta.1",
     "@rushstack/heft": "1.2.17",
     "@types/jest": "30.0.0",
     "@types/react": "17.0.45",
