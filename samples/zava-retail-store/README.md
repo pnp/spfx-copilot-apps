@@ -15,7 +15,7 @@ The same React component renders in two modes inside the Copilot canvas:
 
 The sample ships with **mocked data** so anyone can deploy and demo in minutes — no line-of-business integration required. A swappable data service exposes a `useMock` flag (`true` for offline demos, `false` to read a live data service and Microsoft Graph for the signed-in user).
 
-![Concept mockup](./assets/Zava-Retail-Agent-concept-mockup.png)
+![Concept mockup](./assets/concept-mockup.png)
 
 _Inline (left) + full-screen (right)._
 
@@ -23,7 +23,7 @@ _Inline (left) + full-screen (right)._
 
 | Inline | Full screen |
 | --- | --- |
-| ![Inline screenshot](./assets/Zava-Retail-Agent-Inline.png) | ![Full-screen screenshot](./assets/Zava-Retail-Agent-FullScreen.png) |
+| ![Inline screenshot](./assets/screenshot-inline.png) | ![Full-screen screenshot](./assets/screenshot-fullscreen.png) |
 
 ## Used SharePoint Framework Version
 
