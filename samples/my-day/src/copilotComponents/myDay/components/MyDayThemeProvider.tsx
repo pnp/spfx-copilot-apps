@@ -14,7 +14,12 @@ const useStyles = makeStyles({
     width: '100%',
     boxSizing: 'border-box',
     minWidth: 0,
-    backgroundColor: tokens.colorTransparentBackground
+    // Paint a theme-aware surface on the primary container. The Copilot host
+    // renders the component over its own (often white) surface, so a transparent
+    // provider lets that surface bleed through — in dark mode the child controls
+    // resolve dark tokens correctly but the root stays white. Using a themed
+    // neutral background makes the root div follow the host theme.
+    backgroundColor: tokens.colorNeutralBackground1
   }
 });
 
