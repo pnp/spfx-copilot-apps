@@ -33,24 +33,24 @@
     ],
     "thumbnails": [
       {
-        "name": "Zava-Retail-Agent-concept-mockup.png",
+        "name": "concept-mockup.png",
         "type": "image",
         "order": 100,
-        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/zava-retail-store/assets/Zava-Retail-Agent-concept-mockup.png",
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/zava-retail-store/assets/concept-mockup.png",
         "alt": "Zava Retail Store scenario — inline card and full-screen dashboard"
       },
       {
-        "name": "Zava-Retail-Agent-Inline.png",
+        "name": "screenshot-inline.png",
         "type": "image",
         "order": 101,
-        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/zava-retail-store/assets/Zava-Retail-Agent-Inline.png",
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/zava-retail-store/assets/screenshot-inline.png",
         "alt": "Inline Zava Retail performance card in the Copilot canvas"
       },
       {
-        "name": "Zava-Retail-Agent-FullScreen.png",
+        "name": "screenshot-fullscreen.png",
         "type": "image",
         "order": 102,
-        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/zava-retail-store/assets/Zava-Retail-Agent-FullScreen.png",
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/zava-retail-store/assets/screenshot-fullscreen.png",
         "alt": "Full-screen Zava Retail executive dashboard"
       }
     ],
