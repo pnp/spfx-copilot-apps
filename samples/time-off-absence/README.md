@@ -155,13 +155,13 @@ This produces:
 
 Other build commands can be listed using `heft --help`.
 
-### 4. Deploy & approve Microsoft Graph permissions
+### 4. Deploy the solution
 
 - Upload `sharepoint/solution/time-off.sppkg` to your **App Catalog** and deploy it (enable it in all sites so the Copilot Components are registered) + choose 'Add to Teams' to deploy the Agent to the Microsoft 365 Agent store
 
 ### 5. Make the components available to Copilot
 
-- Adding the app to a site (previous step) registers the Copilot Components
+- Adding the app to the app catalog and calling 'Add to Teams' (previous step) registers the Copilot Components
 
 ### 6. Try it in Copilot
 
