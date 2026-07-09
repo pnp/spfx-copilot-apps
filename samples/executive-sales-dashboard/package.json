@@ -22,7 +22,7 @@
     "zod-to-json-schema": "3.24.1",
     "@fluentui/react-components": "^9.70.0",
     "@fluentui/react-icons": "2.0.314",
-    "@microsoft/sp-http": "1.24.0-beta.0"
+    "@microsoft/sp-http": "1.24.0-beta.1"
   },
   "devDependencies": {
     "@microsoft/eslint-plugin-spfx": "1.24.0-beta.1",
