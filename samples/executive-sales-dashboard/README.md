@@ -61,7 +61,7 @@ _Inline (left) + full-screen (right)._
 
 ## Minimal Path to Awesome
 
-> **Ready-made package included.** Because this is a scenario sample that runs entirely on mock data - with no live customer data or line-of-business integration - the repository ships the fully built solution package so you can deploy and demo it in minutes without building anything. Grab the package here: [executive-sales-dashboard.sppkg](./executive-sales-dashboard.sppkg).
+> **Ready-made package included.** Because this is a scenario sample that runs entirely on mock data - with no live customer data or line-of-business integration - the repository ships the fully built solution package so you can deploy and demo it in minutes without building anything. Grab the package here: [/sharepoint/solution/executive-sales-dashboard.sppkg](./sharepoint/solution/executive-sales-dashboard.sppkg).
 >
 > To use it, upload `executive-sales-dashboard.sppkg` to your tenant **App Catalog**, enable solution in all sites (includes Copilot), and invoke the agent in Microsoft 365 Copilot. Prefer to build from source instead? Follow the steps below.
 
