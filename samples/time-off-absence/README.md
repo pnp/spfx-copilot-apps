@@ -1,6 +1,6 @@
 # My Time Off — Time-Off & Absence Copilot App
 
-![SPFx](https://img.shields.io/badge/SPFx-1.24.0--beta.1-yellow.svg) ![Node](https://img.shields.io/badge/Node.js-22.x-339933.svg) ![React](https://img.shields.io/badge/React-17-61DAFB.svg) ![Data](https://img.shields.io/badge/Data-SharePoint%20%2B%20Graph-2D9CDB.svg) ![Modes](https://img.shields.io/badge/Modes-inline%20%2B%20fullscreen-5B3EE8.svg)
+![SPFx](https://img.shields.io/badge/SPFx-1.24.0--beta.2-yellow.svg) ![Node](https://img.shields.io/badge/Node.js-22.x-339933.svg) ![React](https://img.shields.io/badge/React-17-61DAFB.svg) ![Data](https://img.shields.io/badge/Data-SharePoint%20%2B%20Graph-2D9CDB.svg) ![Modes](https://img.shields.io/badge/Modes-inline%20%2B%20fullscreen-5B3EE8.svg)
 
 ## Summary
 
@@ -52,7 +52,7 @@ The Fluent v9 styling shell injects theme tokens twice — through `FluentProvid
 
 ## Used SharePoint Framework Version
 
-![version](https://img.shields.io/badge/SPFx-1.24.0--beta.1-yellow.svg)
+![version](https://img.shields.io/badge/SPFx-1.24.0--beta.2-yellow.svg)
 
 ## Applies to
 

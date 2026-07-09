@@ -2,7 +2,7 @@
 
 > An executive retail cockpit that lives inside the Microsoft 365 Copilot canvas — store performance and customer satisfaction at a glance.
 
-![SPFx](https://img.shields.io/badge/version-1.24.0--beta.1-yellow.svg) ![Node](https://img.shields.io/badge/Node.js-22.x-339933.svg) ![React](https://img.shields.io/badge/React-17-61DAFB.svg) ![Fluent](https://img.shields.io/badge/UI-Fluent%20UI%20v9-5B3EE8.svg) ![Data](https://img.shields.io/badge/Data-Microsoft%20Graph-2D9CDB.svg) ![Modes](https://img.shields.io/badge/Modes-inline%20%2B%20fullscreen-5B3EE8.svg)
+![SPFx](https://img.shields.io/badge/version-1.24.0--beta.2-yellow.svg) ![Node](https://img.shields.io/badge/Node.js-22.x-339933.svg) ![React](https://img.shields.io/badge/React-17-61DAFB.svg) ![Fluent](https://img.shields.io/badge/UI-Fluent%20UI%20v9-5B3EE8.svg) ![Data](https://img.shields.io/badge/Data-Microsoft%20Graph-2D9CDB.svg) ![Modes](https://img.shields.io/badge/Modes-inline%20%2B%20fullscreen-5B3EE8.svg)
 
 ## Summary
 
@@ -27,7 +27,7 @@ _Inline (left) + full-screen (right)._
 
 ## Used SharePoint Framework Version
 
-![version](https://img.shields.io/badge/version-1.24.0--beta.1-yellow.svg)
+![version](https://img.shields.io/badge/version-1.24.0--beta.2-yellow.svg)
 
 ## Applies to
 
@@ -67,7 +67,7 @@ _Inline (left) + full-screen (right)._
 
 ## Minimal Path to Awesome
 
-> **Ready-made package included.** Because this is a scenario sample that runs entirely on mock data - with no live customer data or line-of-business integration - the repository ships the fully built solution package so you can deploy and demo it in minutes without building anything. Grab the package here: [zava-retail-store.sppkg](./zava-retail-store.sppkg).
+> **Ready-made package included.** Because this is a scenario sample that runs entirely on mock data - with no live customer data or line-of-business integration - the repository ships the fully built solution package so you can deploy and demo it in minutes without building anything. Grab the package here: [/sharepoint/solution/zava-retail-store.sppkg](./sharepoint//solution/zava-retail-store.sppkg).
 >
 > To use it, upload `zava-retail-store.sppkg` to your tenant **App Catalog**, enable solution in all sites (includes Copilot), and invoke the agent in Microsoft 365 Copilot. Prefer to build from source instead? Follow the steps below.
 
