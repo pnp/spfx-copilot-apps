@@ -1,4 +1,4 @@
-# SharePoint Copilot Apps Samples
+# SharePoint Copilot Apps Samples - UX in Copilot canvas
 
 This repository contains Microsoft and community provided samples that demonstrate how to build, extend, and customize **Copilot experiences for Microsoft 365 Copilot**. The goal is to provide a curated, open collection of reusable samples that help you get started faster when building Sharepoint Copilot Apps which provide you an option to expose UX components directly in the Microsoft 365 Copilot canvas.
 
@@ -6,6 +6,8 @@ See more details from the announcement blog post at [Going beyond text in Micros
 
 > [!NOTE]
 > This repository is a community effort, maintained together with the [Microsoft 365 & Power Platform Community](https://aka.ms/community/home). Samples are provided _as is_ and are not officially supported products. See [SUPPORT.md](./SUPPORT.md) for details.
+
+![SharePoint Skills Credly Badge](./assets/copilot-apps-teaser-slide.png)
 
 ## What you'll find here
 
