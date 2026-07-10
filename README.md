@@ -4,10 +4,10 @@ This repository contains Microsoft and community provided samples that demonstra
 
 See more details from the announcement blog post at [Going beyond text in Microsoft 365 Copilot – Introducing SharePoint Copilot Apps](https://devblogs.microsoft.com/microsoft365dev/going-beyond-text-in-microsoft-365-copilot-introducing-sharepoint-copilot-apps/).
 
+![SharePoint Skills Credly Badge](./assets/copilot-apps-teaser-slide.png)
+
 > [!NOTE]
 > This repository is a community effort, maintained together with the [Microsoft 365 & Power Platform Community](https://aka.ms/community/home). Samples are provided _as is_ and are not officially supported products. See [SUPPORT.md](./SUPPORT.md) for details.
-
-![SharePoint Skills Credly Badge](./assets/copilot-apps-teaser-slide.png)
 
 ## What you'll find here
 
