@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.7/schema.json",
+  "version": "v1.7",
+  "name": "PermissionsExplorer Agent",
+  "description": "PermissionsExplorer description",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Get started",
+      "text": "What can you do?"
+    }
+  ],
+  "actions": [
+    {
+      "id": "permissionsExplorerAction",
+      "file": "ai-plugin.json"
+    }
+  ]
+}
