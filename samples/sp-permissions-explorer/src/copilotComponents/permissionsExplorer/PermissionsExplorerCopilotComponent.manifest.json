@@ -13,9 +13,9 @@
 
   "tools": [
     {
-      "name": "PermissionsExplorerTool",
+      "name": "PermissionsExplorer",
       "description": {
-        "default": "PermissionsExplorer description"
+        "default": "Review who has access to a SharePoint site. Provide a site name or URL to see users, groups, external users and permission levels."
       },
       "propertiesSchema": {
         "id": "$../../../lib/copilotComponents/permissionsExplorer/PermissionsExplorerCopilotComponentProperties.js:default;"

@@ -4,30 +4,16 @@ import type {
   SPCopilotDisplayMode
 } from '@microsoft/sp-copilot-component';
 
-export interface IPermissionsExplorerStrings {
-  ExpandButtonLabel: string;
-  OpenSiteButtonLabel: string;
-  FollowUpButtonLabel: string;
-  ResizeButtonLabel: string;
-  CompactButtonLabel: string;
-  SiteBadgePrefix: string;
-  ThemeBadgePrefix: string;
-  ModeBadgePrefix: string;
-  GreetingPrefix: string;
-  UnknownTheme: string;
-  DefaultDisplayMode: string;
-  FollowUpMessage: string;
-}
+import type { IPermissionsToolInput } from '../models/IPermissionsToolInput';
+import type { IPermissionsExplorerService } from '../services/PermissionsExplorerService';
 
 export interface IPermissionsExplorerProps {
-  /** The message passed as a tool argument from the Copilot host. */
-  message: string;
-  /** User display name fetched from Microsoft Graph /me. */
-  userDisplayName: string;
-  /** Site title fetched from SharePoint REST /_api/web. */
-  siteTitle: string;
-  /** Absolute URL of the current SharePoint site. */
-  siteUrl: string;
+  /** Tool input provided by the Copilot host (site query, filter, principal query, ...). */
+  toolInput: IPermissionsToolInput;
+  /** Service facade used to resolve sites and fetch permissions. */
+  service: IPermissionsExplorerService;
+  /** Absolute URL of the current SharePoint site (host web). */
+  currentWebUrl: string;
   /** Host context (theme, display mode) from the Copilot host. */
   hostContext: ICopilotComponentHostContext;
   /** Bridge to communicate with the Copilot host (public API surface). */
@@ -42,6 +28,4 @@ export interface IPermissionsExplorerProps {
    * document rather than the top-level page.
    */
   targetDocument: Document | undefined;
-  /** Localized strings for UI labels. */
-  strings: IPermissionsExplorerStrings;
 }

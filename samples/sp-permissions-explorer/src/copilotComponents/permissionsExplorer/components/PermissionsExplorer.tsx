@@ -1,142 +1,302 @@
 import * as React from 'react';
 import {
+  Badge,
+  Body1,
+  Button,
   FluentProvider,
   IdPrefixProvider,
-  webLightTheme,
-  webDarkTheme,
+  Spinner,
   Title3,
-  Body1,
-  Badge,
-  Button,
-  Card,
-  CardHeader,
   makeStyles,
-  tokens
+  tokens,
+  webDarkTheme,
+  webLightTheme
 } from '@fluentui/react-components';
 import {
-  ArrowExpand24Regular,
-  Open24Regular,
-  Chat24Regular,
-  ResizeLarge24Regular
+  ArrowClockwiseRegular,
+  ArrowExpandRegular,
+  CopyRegular,
+  OpenRegular,
+  ShieldRegular
 } from '@fluentui/react-icons';
-import { createCopilotTextContent } from '@microsoft/sp-copilot-component';
 
+import type { IPermissionEntry } from '../models/IPermissionEntry';
+import { usePermissionFilters } from '../hooks/usePermissionFilters';
+import { usePermissionsExplorer } from '../hooks/usePermissionsExplorer';
+
+import AccessSummaryCards from './AccessSummaryCards';
+import EmptyState from './EmptyState';
+import ErrorState from './ErrorState';
 import type { IPermissionsExplorerProps } from './IPermissionsExplorerProps';
+import PermissionFilters from './PermissionFilters';
+import PermissionsTable from './PermissionsTable';
+import PrincipalDetailsPanel from './PrincipalDetailsPanel';
+import SitePicker from './SitePicker';
 
 const useStyles = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
     gap: tokens.spacingVerticalM,
-    padding: tokens.spacingHorizontalM
+    padding: tokens.spacingHorizontalM,
+    minHeight: '100%',
+    boxSizing: 'border-box'
   },
   header: {
     display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    gap: tokens.spacingHorizontalM
+  },
+  headerText: {
+    display: 'flex',
     flexDirection: 'column',
-    gap: tokens.spacingVerticalXS
+    gap: tokens.spacingVerticalXXS,
+    flexGrow: 1,
+    minWidth: '240px'
   },
-  badges: {
+  subtitle: {
+    color: tokens.colorNeutralForeground3,
+    wordBreak: 'break-all'
+  },
+  badgeRow: {
     display: 'flex',
     gap: tokens.spacingHorizontalS,
     flexWrap: 'wrap'
   },
-  actions: {
+  toolbar: {
     display: 'flex',
-    gap: tokens.spacingHorizontalS,
-    flexWrap: 'wrap'
+    gap: tokens.spacingHorizontalXS,
+    flexWrap: 'wrap',
+    marginLeft: 'auto'
+  },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: tokens.spacingVerticalXXL
   }
 });
 
-const EXPANDED_WIDTH: number = 600;
-const EXPANDED_HEIGHT: number = 400;
-const COMPACT_WIDTH: number = 400;
-const COMPACT_HEIGHT: number = 250;
+function buildSummaryText(
+  title: string,
+  webUrl: string,
+  total: number,
+  users: number,
+  groups: number,
+  external: number
+): string {
+  return `Access review for ${title} (${webUrl}) — ${total} principals, ${users} users, ${groups} groups, ${external} external.`;
+}
 
-/**
- * Main React UI for the Copilot Component starter template.
- *
- * Demonstrates:
- * - **Theming** — wraps content in `<FluentProvider>` with a theme derived
- *   from the host's `hostContext.theme` (`'light' | 'dark'`).
- * - **Host context** — surfaces the current display mode, theme, and
- *   available display modes as live badges.
- * - **Bridge actions** — four buttons that exercise different bridge methods
- *   to show how a component communicates with the Copilot host.
- */
-export default function PermissionsExplorer(props: IPermissionsExplorerProps): React.ReactElement {
+function getClipboard(targetDocument: Document | undefined): Clipboard | undefined {
+  const view = targetDocument?.defaultView ?? (typeof window !== 'undefined' ? window : undefined);
+  return view?.navigator?.clipboard;
+}
+
+export default function PermissionsExplorer(
+  props: IPermissionsExplorerProps
+): React.ReactElement {
   const {
-    message, userDisplayName, siteTitle, siteUrl, hostContext,
-    bridge, onRequestDisplayMode, onRequestSizeChange, strings
+    toolInput,
+    service,
+    currentWebUrl,
+    hostContext,
+    bridge,
+    onRequestDisplayMode,
+    targetDocument
   } = props;
   const styles = useStyles();
 
-  const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
+  const explorer = usePermissionsExplorer(service, toolInput, currentWebUrl);
+  const {
+    status,
+    sites,
+    selectedSite,
+    summary,
+    entries,
+    error,
+    expansions,
+    selectSite,
+    refresh,
+    expandGroup,
+    collapseGroup
+  } = explorer;
+
+  const filters = usePermissionFilters(entries, toolInput.filter);
+  const {
+    filter,
+    setFilter,
+    searchText,
+    setSearchText,
+    externalOnly,
+    setExternalOnly,
+    directOnly,
+    setDirectOnly,
+    filteredEntries
+  } = filters;
+
+  const [selectedEntry, setSelectedEntry] = React.useState<IPermissionEntry | undefined>(undefined);
+  const [detailsOpen, setDetailsOpen] = React.useState<boolean>(false);
 
   const theme = hostContext.theme === 'dark' ? webDarkTheme : webLightTheme;
 
-  // Request the Copilot host to switch this component to fullscreen mode.
+  const handleSelectRow = React.useCallback((entry: IPermissionEntry): void => {
+    setSelectedEntry(entry);
+    setDetailsOpen(true);
+  }, []);
+
+  const handleCloseDetails = React.useCallback((): void => {
+    setDetailsOpen(false);
+  }, []);
+
   const handleExpand = React.useCallback(async (): Promise<void> => {
     await onRequestDisplayMode('fullscreen');
   }, [onRequestDisplayMode]);
 
-  // Ask the host to open the site URL in the user's browser.
-  const handleOpenLink = React.useCallback(async (): Promise<void> => {
-    await bridge.openLinkAsync(siteUrl);
-  }, [bridge, siteUrl]);
-
-  // Send a follow-up message into the Copilot conversation on behalf of the user.
-  // This triggers Copilot to respond, demonstrating how a component can drive the chat.
-  const handleFollowUp = React.useCallback(async (): Promise<void> => {
-    await bridge.sendFollowUpMessageAsync([
-      createCopilotTextContent(strings.FollowUpMessage.replace('{0}', siteTitle))
-    ]);
-  }, [bridge, siteTitle, strings]);
-
-  // Toggle between compact and expanded sizes by requesting a resize from the host.
-  const handleResize = React.useCallback(async (): Promise<void> => {
-    if (isExpanded) {
-      await onRequestSizeChange(COMPACT_WIDTH, COMPACT_HEIGHT);
-    } else {
-      await onRequestSizeChange(EXPANDED_WIDTH, EXPANDED_HEIGHT);
+  const handleOpenSite = React.useCallback(async (): Promise<void> => {
+    if (selectedSite) {
+      await bridge.openLinkAsync(selectedSite.webUrl);
     }
-    setIsExpanded(!isExpanded);
-  }, [onRequestSizeChange, isExpanded]);
+  }, [bridge, selectedSite]);
+
+  const handleRefresh = React.useCallback((): void => {
+    refresh();
+  }, [refresh]);
+
+  const handleCopySummary = React.useCallback(async (): Promise<void> => {
+    if (!summary) return;
+    const text = buildSummaryText(
+      summary.title,
+      summary.webUrl,
+      summary.totalPrincipals,
+      summary.userCount,
+      summary.groupCount + summary.m365GroupCount,
+      summary.externalUserCount
+    );
+    const clipboard = getClipboard(targetDocument);
+    if (clipboard) {
+      try {
+        await clipboard.writeText(text);
+      } catch {
+        // Clipboard may reject in restricted hosts; fail silently.
+      }
+    }
+  }, [summary, targetDocument]);
+
+  const renderBody = (): React.ReactElement => {
+    if (status === 'resolving' || status === 'loading') {
+      return (
+        <div className={styles.center}>
+          <Spinner label="Loading permissions…" />
+        </div>
+      );
+    }
+    if (status === 'multiple') {
+      return <SitePicker sites={sites} onSelect={selectSite} />;
+    }
+    if (status === 'notfound') {
+      return (
+        <EmptyState
+          title="No site found"
+          message="No matching site was found."
+          hint="Try the full site URL."
+        />
+      );
+    }
+    if (status === 'error' && error) {
+      return <ErrorState kind={error.kind} message={error.message} onRetry={refresh} />;
+    }
+    if (status === 'ready' && summary) {
+      return (
+        <>
+          <AccessSummaryCards summary={summary} />
+          <PermissionFilters
+            filter={filter}
+            onFilterChange={setFilter}
+            searchText={searchText}
+            onSearchChange={setSearchText}
+            externalOnly={externalOnly}
+            onExternalOnlyChange={setExternalOnly}
+            directOnly={directOnly}
+            onDirectOnlyChange={setDirectOnly}
+            resultCount={filteredEntries.length}
+            totalCount={entries.length}
+          />
+          <PermissionsTable
+            entries={filteredEntries}
+            expansions={expansions}
+            principalQuery={toolInput.principalQuery}
+            service={service}
+            onExpandGroup={expandGroup}
+            onCollapseGroup={collapseGroup}
+            onSelectRow={handleSelectRow}
+          />
+          <PrincipalDetailsPanel
+            entry={selectedEntry}
+            open={detailsOpen}
+            onClose={handleCloseDetails}
+          />
+        </>
+      );
+    }
+    return <></>;
+  };
 
   return (
-    <IdPrefixProvider value="copilot-component-">
-      <FluentProvider theme={theme} targetDocument={props.targetDocument} style={{ minHeight: '100%' }}>
+    <IdPrefixProvider value="permissions-explorer-">
+      <FluentProvider
+        theme={theme}
+        targetDocument={targetDocument}
+        style={{ minHeight: '100%' }}
+      >
         <div className={styles.root}>
-          <Card>
-            <CardHeader
-              header={<Title3>{strings.GreetingPrefix} {userDisplayName}!</Title3>}
-              description={<Body1>{message}</Body1>}
-            />
-
-            <div className={styles.badges}>
-              <Badge appearance="outline">{strings.SiteBadgePrefix} {siteTitle}</Badge>
-              <Badge appearance="outline" color="informative">
-                {strings.ThemeBadgePrefix} {hostContext.theme || strings.UnknownTheme}
-              </Badge>
-              <Badge appearance="outline" color="subtle">
-                {strings.ModeBadgePrefix} {hostContext.displayMode || strings.DefaultDisplayMode}
-              </Badge>
+          <div className={styles.header}>
+            <div className={styles.headerText}>
+              <Title3>SharePoint Access Review</Title3>
+              {selectedSite && (
+                <>
+                  <Body1>{selectedSite.title}</Body1>
+                  <Body1 className={styles.subtitle}>{selectedSite.webUrl}</Body1>
+                </>
+              )}
+              <div className={styles.badgeRow}>
+                <Badge appearance="tint" color="informative" icon={<ShieldRegular />}>
+                  Read-only review
+                </Badge>
+              </div>
             </div>
-          </Card>
-
-          <div className={styles.actions}>
-            <Button appearance="primary" icon={<ArrowExpand24Regular />} onClick={handleExpand}>
-              {strings.ExpandButtonLabel}
-            </Button>
-            <Button appearance="secondary" icon={<Open24Regular />} onClick={handleOpenLink}>
-              {strings.OpenSiteButtonLabel}
-            </Button>
-            <Button appearance="secondary" icon={<Chat24Regular />} onClick={handleFollowUp}>
-              {strings.FollowUpButtonLabel}
-            </Button>
-            <Button appearance="secondary" icon={<ResizeLarge24Regular />} onClick={handleResize}>
-              {isExpanded ? strings.CompactButtonLabel : strings.ResizeButtonLabel}
-            </Button>
+            <div className={styles.toolbar} role="toolbar" aria-label="Review actions">
+              <Button
+                appearance="subtle"
+                icon={<ArrowClockwiseRegular />}
+                aria-label="Refresh permissions"
+                onClick={handleRefresh}
+                disabled={!selectedSite}
+              />
+              <Button
+                appearance="subtle"
+                icon={<CopyRegular />}
+                aria-label="Copy summary to clipboard"
+                onClick={handleCopySummary}
+                disabled={!summary}
+              />
+              <Button
+                appearance="subtle"
+                icon={<OpenRegular />}
+                aria-label="Open site in new tab"
+                onClick={handleOpenSite}
+                disabled={!selectedSite}
+              />
+              <Button
+                appearance="subtle"
+                icon={<ArrowExpandRegular />}
+                aria-label="Expand to fullscreen"
+                onClick={handleExpand}
+              />
+            </div>
           </div>
+          {renderBody()}
         </div>
       </FluentProvider>
     </IdPrefixProvider>

@@ -3,83 +3,63 @@ import * as ReactDOM from 'react-dom';
 
 import { BaseCopilotComponent } from '@microsoft/sp-copilot-component';
 import type { SPCopilotDisplayMode } from '@microsoft/sp-copilot-component';
-import type { MSGraphClientV3 } from '@microsoft/sp-http';
-import { SPHttpClient, type SPHttpClientResponse } from '@microsoft/sp-http';
 
 import PermissionsExplorer from './components/PermissionsExplorer';
 import type { IPermissionsExplorerProps } from './components/IPermissionsExplorerProps';
+import type { IPermissionsToolInput } from './models/IPermissionsToolInput';
+import { PermissionsExplorerService } from './services/PermissionsExplorerService';
+import type { IPermissionsExplorerService } from './services/PermissionsExplorerService';
+import type { IExplorerServiceContext } from './services/IExplorerServiceContext';
 import type { IPermissionsExplorerCopilotComponentProperties } from './PermissionsExplorerCopilotComponentProperties';
 
-import * as strings from 'PermissionsExplorerCopilotComponentStrings';
-
 /**
- * SPFx Copilot Component that renders a React-based UI demonstrating the
- * platform's headline capabilities:
+ * SPFx Copilot Component that renders a read-only SharePoint Access Review.
  *
- * - **Brokered SSO data calls** — Microsoft Graph (`/me`) and SharePoint REST
- *   (`/_api/web`) with zero token code. The SPFx runtime's Pairwise Broker
- *   automatically provisions tokens for `SPHttpClient` and `MSGraphClientV3`.
- *
- * - **Host context & theming** — reads `hostContext.theme` and
- *   `hostContext.displayMode` to adapt to the Copilot host environment.
- *
- * - **Bridge actions** — demonstrates `requestDisplayModeAsync`,
- *   `openLinkAsync`, `sendFollowUpMessageAsync`, and `requestSizeChangeAsync`.
- *
- * Lifecycle:
- *  1. `onInit()` — fetches user and site data (runs once before first render).
- *  2. `render()` — mounts the React tree into `this.context.domElement`.
- *     Re-invoked by the framework on host-context changes.
- *  3. `onTeardown()` — unmounts React before the host tears down the iframe.
+ * Data access is performed through a service facade (`IPermissionsExplorerService`)
+ * that internally leverages the SPFx runtime's Pairwise Broker for SSO — the UI
+ * never handles tokens directly. Microsoft Graph and SharePoint REST calls are
+ * confined to the service layer.
  */
 export default class PermissionsExplorerCopilotComponent extends BaseCopilotComponent<IPermissionsExplorerCopilotComponentProperties> {
-  private _userDisplayName: string = '';
-  private _siteTitle: string = '';
-  private _siteUrl: string = '';
+  private _service: IPermissionsExplorerService | undefined;
 
-  protected async onInit(): Promise<void> {
-    this._siteUrl = this.context.pageContext.web.absoluteUrl;
-
-    // Fetch user info from Microsoft Graph (brokered SSO — no token code needed).
-    // Wrapped in try/catch so the component still renders in the workbench where
-    // real services may not be available.
-    try {
-      const graphClient: MSGraphClientV3 = await this.context.msGraphClientFactory.getClient('3');
-      const me: { displayName?: string } = await graphClient.api('/me').select('displayName').get();
-      this._userDisplayName = me.displayName || 'User';
-    } catch {
-      this._userDisplayName = this.context.pageContext.user?.displayName || 'User';
+  private getService(): IPermissionsExplorerService {
+    if (!this._service) {
+      const ctx: IExplorerServiceContext = {
+        spHttpClient: this.context.spHttpClient,
+        currentWebUrl: this.context.pageContext.web.absoluteUrl,
+        getGraphClient: () => this.context.msGraphClientFactory.getClient('3')
+      };
+      this._service = new PermissionsExplorerService(ctx);
     }
-
-    // Fetch site info from SharePoint REST API (brokered SSO).
-    try {
-      const response: SPHttpClientResponse = await this.context.spHttpClient.get(
-        `${this._siteUrl}/_api/web?$select=Title`,
-        SPHttpClient.configurations.v1
-      );
-      const webInfo: { Title?: string } = await response.json();
-      this._siteTitle = webInfo.Title || 'SharePoint Site';
-    } catch {
-      this._siteTitle = 'SharePoint Site';
-    }
+    return this._service;
   }
 
   protected render(): void {
+    const toolInput: IPermissionsToolInput = {
+      siteQuery: this.properties.siteQuery ?? '',
+      siteUrl: this.properties.siteUrl,
+      filter: this.properties.filter,
+      principalQuery: this.properties.principalQuery,
+      includeGroups: this.properties.includeGroups,
+      includeExternalUsers: this.properties.includeExternalUsers,
+      includeInheritedPermissions: this.properties.includeInheritedPermissions,
+      mode: this.properties.mode
+    };
+
     const props: IPermissionsExplorerProps = {
-      message: this.properties.message,
-      userDisplayName: this._userDisplayName,
-      siteTitle: this._siteTitle,
-      siteUrl: this._siteUrl,
+      toolInput,
+      service: this.getService(),
+      currentWebUrl: this.context.pageContext.web.absoluteUrl,
       hostContext: this.hostContext,
       bridge: this.context.copilotBridge,
-      onRequestDisplayMode: async (mode: SPCopilotDisplayMode) => {
+      onRequestDisplayMode: async (mode: SPCopilotDisplayMode): Promise<void> => {
         await this.requestDisplayModeAsync(mode);
       },
-      onRequestSizeChange: async (width: number, height: number) => {
+      onRequestSizeChange: async (width: number, height: number): Promise<void> => {
         await this.requestSizeChangeAsync(width, height);
       },
-      targetDocument: this.context.domElement.ownerDocument,
-      strings
+      targetDocument: this.context.domElement.ownerDocument
     };
 
     ReactDOM.render(React.createElement(PermissionsExplorer, props), this.context.domElement);
