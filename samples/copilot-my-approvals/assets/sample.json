@@ -1,0 +1,72 @@
+[
+  {
+    "name": "pnp-spfx-copilot-apps-copilot-my-approvals",
+    "source": "pnp",
+    "title": "MyApprovals Agent - Act on Microsoft 365 approvals from Copilot chat",
+    "shortDescription": "View and act on your Microsoft 365 approvals directly from Copilot chat.",
+    "url": "https://github.com/pnp/spfx-copilot-apps/tree/main/samples/copilot-my-approvals",
+    "downloadUrl": "https://pnp.github.io/download-partial/?url=https://github.com/pnp/spfx-copilot-apps/tree/main/samples/copilot-my-approvals",
+    "longDescription": [
+      "MyApprovals brings your pending Microsoft 365 approval requests into Microsoft 365 Copilot. Ask the MyApprovals agent about your approvals and it displays them inline or in a fullscreen overview, showing the requester, status, and details for each item. Approve, reject, or re-assign a request, and contact the requester by email, all without leaving the conversation.",
+      "Built with a SharePoint Copilot App (SPFx 1.24.0-beta.2, @microsoft/sp-copilot-component), the same MyApprovalsCopilotComponent renders both the compact inline card and the expanded fullscreen view, reading brokered Microsoft Graph and SharePoint REST calls with zero token-acquisition code."
+    ],
+    "creationDateTime": "2026-07-12",
+    "updateDateTime": "2026-07-12",
+    "products": [
+      "SharePoint",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "SAMPLE-TYPE",
+        "value": "SPFx-Copilot-Component"
+      },
+      {
+        "key": "CLIENT-SIDE-DEV",
+        "value": "React"
+      },
+      {
+        "key": "SPFX-VERSION",
+        "value": "1.24.0-beta.2"
+      }
+    ],
+    "thumbnails": [
+      {
+        "type": "image",
+        "order": 100,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/copilot-my-approvals/assets/copilot-spfx-agent-approvals-01.png",
+        "alt": "Compact inline view of the MyApprovals Copilot component inside a Microsoft 365 Copilot chat, showing a greeting, three action buttons, and a list of pending approvals."
+      },
+      {
+        "type": "image",
+        "order": 101,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/copilot-my-approvals/assets/copilot-spfx-agent-approvals-02.png",
+        "alt": "Expanded fullscreen view of the MyApprovals Copilot component, showing a status filter dropdown and a detailed list of approvals with Approve, Reject, and Re-assign buttons for each."
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "maschroeder-z",
+        "pictureUrl": "https://github.com/maschroeder-z.png",
+        "name": "Marc A. Schröder-Zhou"
+      }
+    ],
+    "references": [
+      {
+        "name": "Overview of SharePoint Copilot Apps",
+        "description": "Extend Microsoft 365 Copilot with custom, interactive experiences built using the familiar SharePoint Framework (SPFx) tools and client-side development model.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/copilot/overview-copilot-apps"
+      },
+      {
+        "name": "Build agents for Microsoft 365 Copilot",
+        "description": "Extend Microsoft 365 Copilot with declarative agents, plugins, and connectors to tailor Copilot to your organization's needs.",
+        "url": "https://learn.microsoft.com/microsoft-365-copilot/extensibility/"
+      },
+      {
+        "name": "Overview of the SharePoint Framework",
+        "description": "The SharePoint Framework (SPFx) is a page and web part model that provides full support for client-side SharePoint development.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/sharepoint-framework-overview"
+      }
+    ]
+  }
+]

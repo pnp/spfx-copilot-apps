@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "copilot-approval-manager",
+    "id": "bff71ddd-ed34-4143-9780-a07584aa88f6",
+    "version": "1.0.0.4",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "webApiPermissionRequests": [
+      {
+        "resource": "Microsoft Graph",
+        "scope": "ApprovalSolution.ReadWrite"
+      },
+      {
+        "resource": "Microsoft Graph",
+        "scope": "GroupMember.Read.All"
+      },
+      {
+        "resource": "Microsoft Graph",
+        "scope": "Mail.Send"
+      }
+    ],
+    "developer": {
+      "name": "Marc A. Schröder-Zhou",
+      "websiteUrl": "https://www.dev-sky.net",
+      "privacyUrl": "https://www.dev-sky.net/PrivacyPolicy/app-privacy.html",
+      "termsOfUseUrl": "https://www.dev-sky.net/PrivacyPolicy/app-terms.html",
+      "mpnId": "6499491"
+    },    
+    "iconPath": "assets/96x96.png",
+    "metadata": {
+      "shortDescription": {
+        "default": "View and act on your Microsoft 365 approvals directly from Copilot chat."
+      },
+      "longDescription": {
+        "default": "MyApprovals brings your pending Microsoft 365 approval requests into Microsoft 365 Copilot. Ask the MyApprovals agent about your approvals and it displays them inline or in a fullscreen overview, showing the requester, status, and details for each item. Approve, reject, or re-assign a request, and contact the requester by email, all without leaving the conversation."
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "copilot-my-approvals Feature",
+        "description": "The feature that activates elements of the copilot-my-approvals solution.",
+        "id": "e5076903-fce3-4dd5-b85f-648210c9b094",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/copilot-my-approvals.sppkg"
+  }
+}

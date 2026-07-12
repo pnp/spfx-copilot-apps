@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.7/schema.json",
+  "version": "v1.7",
+  "name": "My Approval Agent UI",
+  "description": "Your assistant for Microsoft 365 approvals. Ask about your pending approval requests, review who requested them and their status, and approve, reject, or re-assign them, or contact the requester, without leaving the conversation.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "My pending approvals",
+      "text": "Show me my pending approval requests"
+    },
+    {
+      "title": "All my approvals",
+      "text": "Show all my approvals, including completed and canceled ones"
+    },
+    {
+      "title": "Approve or reject",
+      "text": "Help me approve or reject a pending approval"
+    },
+    {
+      "title": "Contact a requester",
+      "text": "I need to ask a requester for more information about their request"
+    }
+  ],
+  "actions": [
+    {
+      "id": "myApprovalsAction",
+      "file": "ai-plugin.json"
+    }
+  ]
+}
