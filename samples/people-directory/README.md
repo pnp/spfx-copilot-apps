@@ -32,7 +32,13 @@ From the rendered UI, the signed-in user can:
 
 ## Prerequisites
 
-This solution reads live directory data through the Microsoft Graph `/users` endpoint (beta) via the SPFx-brokered `MSGraphClientV3` client. `config/package-solution.json` does not currently declare a `webApiPermissionRequests` block for this, so before relying on it in a tenant, add and admin-approve a Graph delegated permission such as `User.ReadBasic.All` (or `User.Read.All` if additional profile fields are needed) in **SharePoint Admin Center → Advanced → API access**.
+This solution reads live directory data through the Microsoft Graph `/users` endpoint (beta) via the SPFx-brokered `MSGraphClientV3` client, so beyond the usual SPFx tenant setup it needs the Microsoft Graph permission declared in [`config/package-solution.json`](./config/package-solution.json) approved by a tenant admin:
+
+| Permission      | Why it's needed |
+| ---------------- | ---------------- |
+| `User.Read.All` | Search the tenant's users by name and read profile fields (`jobTitle`, `department`, `userType`, `accountEnabled`) used to render and filter results. |
+
+After deploying the `.sppkg` to the App Catalog, a tenant admin must approve this once in the **SharePoint Admin Center → Advanced → API access**. Any time a requested scope changes, it needs to be re-approved there before it takes effect.
 
 ## Solution
 
