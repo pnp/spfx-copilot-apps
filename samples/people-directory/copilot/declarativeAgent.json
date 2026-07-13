@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.7/schema.json",
+  "version": "v1.7",
+  "name": "People Directory Agent",
+  "description": "People Directory Agent",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Get started",
+      "text": "What can you do?"
+    },
+    {
+      "title": "Find a person",
+      "text": "Find me Dharati Patel"
+    },
+    {
+      "title": "Browse the directory",
+      "text": "Show me the people directory"
+    },
+    {
+      "title": "Look up a colleague",
+      "text": "Look up John's contact info"
+    }
+  ],
+  "actions": [
+    {
+      "id": "peopleDirectoryAction",
+      "file": "ai-plugin.json"
+    }
+  ]
+}

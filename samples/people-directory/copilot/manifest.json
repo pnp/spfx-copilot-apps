@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.29",
+  "version": "1.0.3",
+  "id": "00b2254b-7886-4f12-a825-9e384a642dcb",
+  "developer": {
+    "name": "Siddharth Vaghasia",
+    "websiteUrl": "https://www.siddharthvaghasia.com",
+    "privacyUrl": "https://www.siddharthvaghasia.com/privacy",
+    "termsOfUseUrl": "https://www.siddharthvaghasia.com/terms"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "People Directory Agent",
+    "full": "People Directory Agent"
+  },
+  "description": {
+    "short": "People Directory Agent",
+    "full": "People Directory Agent"
+  },
+  "accentColor": "#FFFFFF",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "peopleDirectoryAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "permissions": ["identity"],
+  "validDomains": []
+}

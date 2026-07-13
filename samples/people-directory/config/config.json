@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "people-directory-copilot-component": {
+      "components": [
+        {
+          "entrypoint": "./lib/copilotComponents/peopleDirectory/PeopleDirectoryCopilotComponent.js",
+          "manifest": "./src/copilotComponents/peopleDirectory/PeopleDirectoryCopilotComponent.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "PeopleDirectoryCopilotComponentStrings": "lib/copilotComponents/peopleDirectory/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
+  }
+}
