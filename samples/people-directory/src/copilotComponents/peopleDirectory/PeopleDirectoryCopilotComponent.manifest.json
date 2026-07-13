@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "872a0b51-eb89-4db2-86d8-a1e832736984",
+  "alias": "PeopleDirectoryCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "search_microsoft_365_people",
+      "description": {
+        "default": "This tool is to load people directory Copilot component app"
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/peopleDirectory/PeopleDirectoryCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "People Directory Agent"
+      },
+      "description": {
+        "default": "People Directory description"
+      },
+      "components": [
+        "872a0b51-eb89-4db2-86d8-a1e832736984"
+      ]
+    }
+  ]
+}
