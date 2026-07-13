@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "namespace": "myApprovals",
+  "name_for_human": "Manage my approval requests",
+  "description_for_human": "View and act on your Microsoft 365 approval requests, right from Copilot chat.",
+  "description_for_model": "Plugin for viewing and acting on the signed-in user's Microsoft 365 approval requests from the Approvals app. Supports listing pending, completed, canceled, and created approvals with the requester, status, and details for each; approving, rejecting, or re-assigning a request; and emailing the requester for more information. Use this plugin when the user asks about their approvals or pending requests, wants to see what is awaiting their sign-off, or wants to approve, reject, or otherwise act on an approval.",
+  "contact_email": "zhou@dev-sky.net",
+  "functions": [
+    {
+      "name": "MyApprovalsTool",
+      "description": "Shows the signed-in user's Microsoft 365 approval requests (from the Approvals app), including who requested each one, its status, and details, and lets the user approve, reject, or re-assign a request, or contact the requester by email, without leaving the conversation. Use this tool whenever the user asks about their approvals or pending requests, wants to see what is waiting for their sign-off, or wants to approve, reject, or otherwise act on an approval.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "A message to display."
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "RemoteMCPServer",
+      "auth": {
+        "type": "None"
+      },
+      "spec": {
+        "url": "{{TENANT_MCP_URL}}",
+        "mcp_tool_description": {
+          "tools": [
+            {
+              "name": "MyApprovalsTool",
+              "description": "Shows the signed-in user's Microsoft 365 approval requests (from the Approvals app), including who requested each one, its status, and details, and lets the user approve, reject, or re-assign a request, or contact the requester by email, without leaving the conversation. Use this tool whenever the user asks about their approvals or pending requests, wants to see what is waiting for their sign-off, or wants to approve, reject, or otherwise act on an approval.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "A message to display."
+                  }
+                },
+                "required": [
+                  "message"
+                ]
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "destructiveHint": false
+              },
+              "_meta": {
+                "openai/outputTemplate": "ui://spfx/component.html",
+                "openai/widgetAccessible": true,
+                "ui/csp": {
+                  "frameDomains": [
+                    "{{TENANT_ORIGIN}}"
+                  ],
+                  "resourceDomains": [
+                    "{{TENANT_ORIGIN}}"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "run_for_functions": [
+        "MyApprovalsTool"
+      ]
+    }
+  ]
+}

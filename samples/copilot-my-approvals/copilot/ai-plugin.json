@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "namespace": "myApprovals",
+  "name_for_human": "Manage my approval requests",
+  "description_for_human": "View and act on your Microsoft 365 approval requests, right from Copilot chat.",
+  "description_for_model": "Plugin for viewing and acting on the signed-in user's Microsoft 365 approval requests from the Approvals app. Supports listing pending, completed, canceled, and created approvals with the requester, status, and details for each; approving, rejecting, or re-assigning a request; and emailing the requester for more information. Use this plugin when the user asks about their approvals or pending requests, wants to see what is awaiting their sign-off, or wants to approve, reject, or otherwise act on an approval.",
+  "contact_email": "zhou@dev-sky.net"
+}

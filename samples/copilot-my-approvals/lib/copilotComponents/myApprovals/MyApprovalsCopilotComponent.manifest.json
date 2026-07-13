@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "c10faeb8-a5e0-4877-8869-ab74b3622bd9",
+  "alias": "MyApprovalsCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "MyApprovalsTool",
+      "description": {
+        "default": "Shows the signed-in user's Microsoft 365 approval requests (from the Approvals app), including who requested each one, its status, and details, and lets the user approve, reject, or re-assign a request, or contact the requester by email, without leaving the conversation. Use this tool whenever the user asks about their approvals or pending requests, wants to see what is waiting for their sign-off, or wants to approve, reject, or otherwise act on an approval."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/myApprovals/MyApprovalsCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

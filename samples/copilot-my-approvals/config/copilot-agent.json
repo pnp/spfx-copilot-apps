@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "My Approval Helper"
+      },
+      "description": {
+        "default": "Shows your pending Microsoft 365 approval requests and lets you approve, reject, or re-assign them, and contact requesters, directly from Copilot chat."
+      },
+      "components": [
+        "c10faeb8-a5e0-4877-8869-ab74b3622bd9"
+      ]
+    }
+  ]
+}

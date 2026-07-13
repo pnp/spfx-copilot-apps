@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": true,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.21.1",
+    "sdksVersions": {},
+    "version": "1.24.0-beta.2",
+    "libraryName": "copilot-my-approvals",
+    "libraryId": "bff71ddd-ed34-4143-9780-a07584aa88f6",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "CopilotMyApprovals",
+    "solutionShortDescription": "CopilotMyApprovals description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "copilotComponent"
+  }
+}

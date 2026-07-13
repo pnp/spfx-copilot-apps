@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.29",
+  "version": "1.0.0",
+  "id": "1f645f50-9495-43ba-97af-a1221c14edc7",
+  "developer": {
+    "name": "Marc A. Schröder-Zhou",
+    "websiteUrl": "https://www.dev-sky.net",
+    "privacyUrl": "https://www.dev-sky.net/PrivacyPolicy/app-privacy.html",
+    "termsOfUseUrl": "https://www.dev-sky.net/PrivacyPolicy/app-terms.html"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "My approval UI Agent",
+    "full": "MyApprovals Agent"
+  },
+  "description": {
+    "short": "View and act on your Microsoft 365 approvals in Copilot chat.",
+    "full": "MyApprovals brings your Microsoft 365 approval requests into Microsoft 365 Copilot. View pending, completed, canceled, and created approvals with the requester, status, and details for each one, either inline in the conversation or in a fullscreen overview. Approve, reject, or re-assign a request, or email the requester for more information, all without leaving the chat."
+  },
+  "accentColor": "#FFFFFF",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "myApprovalsAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "permissions": ["identity"],
+  "validDomains": []
+}
