@@ -14,12 +14,12 @@
     "updateDateTime": "2026-07-12",
     "products": [
       "SharePoint",
-      "Microsoft 365 Copilot"
+      "Copilot"
     ],
     "metadata": [
       {
         "key": "SAMPLE-TYPE",
-        "value": "SPFx-Copilot-Component"
+        "value": "SPFx-CopilotComponent"
       },
       {
         "key": "CLIENT-SIDE-DEV",
@@ -32,12 +32,14 @@
     ],
     "thumbnails": [
       {
+        "name": "copilot-spfx-agent-approvals-01.png",
         "type": "image",
         "order": 100,
         "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/copilot-my-approvals/assets/copilot-spfx-agent-approvals-01.png",
         "alt": "Compact inline view of the MyApprovals Copilot component inside a Microsoft 365 Copilot chat, showing a greeting, three action buttons, and a list of pending approvals."
       },
       {
+        "name": "copilot-spfx-agent-approvals-02.png",
         "type": "image",
         "order": 101,
         "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/copilot-my-approvals/assets/copilot-spfx-agent-approvals-02.png",

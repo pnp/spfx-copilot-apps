@@ -1,0 +1,81 @@
+[
+  {
+    "name": "pnp-sp-dev-spfx-copilot-apps-people-directory",
+    "source": "pnp",
+    "title": "People Directory - Find Microsoft 365 People in Copilot Chat",
+    "shortDescription": "An SPFx Copilot Component that searches Microsoft 365 users in Copilot chat, with inline and fullscreen results, filters, and direct Teams/email actions.",
+    "url": "https://github.com/pnp/spfx-copilot-apps/tree/main/samples/people-directory",
+    "downloadUrl": "https://pnp.github.io/download-partial/?url=https://github.com/pnp/spfx-copilot-apps/tree/main/samples/people-directory",
+    "longDescription": [
+      "People Directory is a SharePoint Framework Copilot Component that brings Microsoft 365 people search directly into the Copilot canvas. A declarative agent calls the component as a tool and it renders a live, interactive people search experience in both inline and fullscreen display modes.",
+      "The sample reads real tenant directory data through the SPFx-brokered Microsoft Graph client using /users (beta), supports internal-only and active-only filters, shows profile photos and key identity details, and provides direct actions to start a Teams chat or send email to selected users."
+    ],
+    "creationDateTime": "2026-07-13",
+    "updateDateTime": "2026-07-13",
+    "products": [
+      "SharePoint",
+      "Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "SAMPLE-TYPE",
+        "value": "SPFx-CopilotComponent"
+      },
+      {
+        "key": "CLIENT-SIDE-DEV",
+        "value": "React"
+      },
+      {
+        "key": "SPFX-VERSION",
+        "value": "1.24.0-beta.2"
+      }
+    ],
+    "thumbnails": [
+      {
+        "name": "1.png",
+        "type": "image",
+        "order": 100,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/people-directory/assets/1.png",
+        "alt": "Inline people search results rendered in Microsoft 365 Copilot chat."
+      },
+      {
+        "name": "2.png",
+        "type": "image",
+        "order": 101,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/people-directory/assets/2.png",
+        "alt": "Fullscreen People Directory overview in Microsoft 365 Copilot."
+      },
+      {
+        "name": "3.png",
+        "type": "image",
+        "order": 102,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/people-directory/assets/3.png",
+        "alt": "Person result row with profile details and Teams chat/email actions."
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "siddharth-vaghasia",
+        "pictureUrl": "https://github.com/siddharth-vaghasia.png",
+        "name": "Siddharth Vaghasia"
+      }
+    ],
+    "references": [
+      {
+        "name": "Getting started with SharePoint Framework",
+        "description": "Set up your development environment and start building SharePoint Framework solutions.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment"
+      },
+      {
+        "name": "Microsoft 365 Copilot extensibility",
+        "description": "Build and extend experiences for Microsoft 365 Copilot with agents and tools.",
+        "url": "https://learn.microsoft.com/microsoft-365-copilot/extensibility/"
+      },
+      {
+        "name": "Use Microsoft Graph in your solution",
+        "description": "Use Microsoft Graph from SharePoint Framework solutions to access Microsoft 365 data.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/web-parts/get-started/using-microsoft-graph-apis"
+      }
+    ]
+  }
+]
