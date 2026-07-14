@@ -1,3 +1,5 @@
+import type { PermissionOperation } from './IWriteAction';
+
 export type PermissionFilter =
   | 'all'
   | 'users'
@@ -6,8 +8,7 @@ export type PermissionFilter =
   | 'fullControl'
   | 'edit'
   | 'read'
-  | 'directOnly'
-  | 'inheritedOnly';
+  | 'directOnly';
 
 export type ExplorerMode = 'summary' | 'details' | 'userLookup';
 
@@ -18,6 +19,10 @@ export interface IPermissionsToolInput {
   principalQuery?: string;
   includeGroups?: boolean;
   includeExternalUsers?: boolean;
-  includeInheritedPermissions?: boolean;
   mode?: ExplorerMode;
+  operation?: PermissionOperation;
+  sourcePermissionLevel?: string;
+  targetPermissionLevel?: string;
+  targetGroupQuery?: string;
+  requireConfirmation?: boolean;
 }

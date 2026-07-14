@@ -5,6 +5,7 @@ import { SharePointRestService } from './SharePointRestService';
 import { mapSpPrincipalType } from '../utils/principalTypeMapper';
 import { isExternalUser } from '../utils/externalUserDetector';
 import { IGNORED_PERMISSION_LEVELS } from '../utils/permissionLevels';
+import { isLimitedAccessSystemPrincipal } from '../utils/systemPrincipals';
 import { HttpError } from '../utils/retryPolicy';
 
 interface ISpMemberRaw {
@@ -29,11 +30,8 @@ interface ISpCollection<T> {
   value: T[];
 }
 
-interface ISpHasUniqueRaw {
-  value?: boolean;
-}
-
 interface ISpUserRaw {
+  Id?: number;
   Title?: string;
   LoginName?: string;
   PrincipalType?: number;
@@ -45,9 +43,30 @@ interface ISpUserRaw {
  */
 export class PermissionsService {
   private readonly sp: SharePointRestService;
+  private currentUserLoginPromise: Promise<string | undefined> | undefined;
 
   public constructor(sp: SharePointRestService) {
     this.sp = sp;
+  }
+
+  /**
+   * Resolves the current user's LoginName via /_api/web/currentuser and caches
+   * the promise on the instance. Returns undefined when the call fails so that
+   * callers can treat the result as "no exclusion possible" without throwing.
+   */
+  private getCurrentUserLoginName(site: IResolvedSite): Promise<string | undefined> {
+    if (this.currentUserLoginPromise === undefined) {
+      this.currentUserLoginPromise = (async () => {
+        try {
+          const url = this.sp.ensureAbsolute(site.webUrl, '/_api/web/currentuser?$select=LoginName');
+          const raw = await this.sp.getJson<{ LoginName?: string }>(url);
+          return typeof raw?.LoginName === 'string' && raw.LoginName.length > 0 ? raw.LoginName : undefined;
+        } catch {
+          return undefined;
+        }
+      })();
+    }
+    return this.currentUserLoginPromise;
   }
 
   /**
@@ -56,15 +75,6 @@ export class PermissionsService {
    */
   public async getSummary(site: IResolvedSite, entries?: IPermissionEntry[]): Promise<IPermissionsSummary> {
     const resolvedEntries = entries ?? await this.getPermissions(site);
-
-    let hasUnique: boolean | undefined;
-    try {
-      const url = this.sp.ensureAbsolute(site.webUrl, '/_api/web/hasuniqueroleassignments');
-      const raw = await this.sp.getJson<ISpHasUniqueRaw>(url);
-      hasUnique = typeof raw?.value === 'boolean' ? raw.value : undefined;
-    } catch {
-      hasUnique = undefined;
-    }
 
     let userCount = 0;
     let groupCount = 0;
@@ -98,8 +108,7 @@ export class PermissionsService {
       userCount,
       groupCount,
       m365GroupCount,
-      externalUserCount,
-      hasUniquePermissions: hasUnique
+      externalUserCount
     };
   }
 
@@ -107,6 +116,10 @@ export class PermissionsService {
    * Loads the site's role assignments and maps each to an IPermissionEntry.
    * Entries whose only permission level was "Limited Access" retain the
    * label so the UI can still surface them.
+   *
+   * The internal "Limited Access System Group" principal is excluded from the
+   * results, and the current user's own direct Limited-Access-only entry is
+   * also excluded, mirroring how SharePoint's own permissions UI hides them.
    */
   public async getPermissions(site: IResolvedSite): Promise<IPermissionEntry[]> {
     const select = [
@@ -126,6 +139,7 @@ export class PermissionsService {
 
     const entries: IPermissionEntry[] = [];
     const ignoredLower = IGNORED_PERMISSION_LEVELS.map((l) => l.toLowerCase());
+    const currentUserLoginLower = ((await this.getCurrentUserLoginName(site)) ?? '').toLowerCase();
 
     for (const assignment of assignments) {
       const principalId = typeof assignment.PrincipalId === 'number' ? assignment.PrincipalId : undefined;
@@ -142,13 +156,9 @@ export class PermissionsService {
           allNames.push(b.Name);
         }
       }
-      let permissionLevels = allNames.filter((n) => ignoredLower.indexOf(n.toLowerCase()) < 0);
-
-      // If filtering removed everything, keep a "Limited Access" placeholder
-      // so the entry is still visible in the UI.
-      if (permissionLevels.length === 0) {
-        permissionLevels = ['Limited Access'];
-      }
+      const filtered = allNames.filter((n) => ignoredLower.indexOf(n.toLowerCase()) < 0);
+      const isLimitedAccessOnly = filtered.length === 0;
+      const permissionLevels = isLimitedAccessOnly ? ['Limited Access'] : filtered;
 
       const source =
         principalType === 'SharePointGroup'
@@ -156,6 +166,23 @@ export class PermissionsService {
           : principalType === 'Microsoft365Group'
             ? 'Microsoft365Group'
             : 'Direct';
+
+      // Exclude SharePoint's internal "Limited Access System Group" plumbing
+      // principal; it cannot be removed and is hidden by the native UI.
+      if (isLimitedAccessSystemPrincipal(member.Title)) {
+        continue;
+      }
+
+      // Exclude the current user's own direct Limited-Access-only entry, which
+      // SharePoint synthesizes and does not surface in its own permissions UI.
+      if (
+        isLimitedAccessOnly &&
+        source === 'Direct' &&
+        currentUserLoginLower.length > 0 &&
+        (loginName ?? '').toLowerCase() === currentUserLoginLower
+      ) {
+        continue;
+      }
 
       entries.push({
         id: principalId !== undefined ? String(principalId) : `${loginName ?? 'unknown'}`,
@@ -179,7 +206,7 @@ export class PermissionsService {
    * when the current user does not have permission to enumerate the group.
    */
   public async expandGroup(site: IResolvedSite, principalId: number): Promise<IPermissionEntry[]> {
-    const path = `/_api/web/sitegroups/getbyid(${principalId})/users?$select=Title,LoginName,PrincipalType,Email`;
+    const path = `/_api/web/sitegroups/getbyid(${principalId})/users?$select=Id,Title,LoginName,PrincipalType,Email`;
     const url = this.sp.ensureAbsolute(site.webUrl, path);
 
     try {
@@ -193,6 +220,7 @@ export class PermissionsService {
         const principalType = mapSpPrincipalType(spPrincipalType, loginName);
         members.push({
           id: `${principalId}:${loginName ?? u.Title ?? ''}`,
+          principalId: typeof u.Id === 'number' ? u.Id : undefined,
           displayName: u.Title ?? '',
           loginName,
           email,

@@ -4,6 +4,11 @@ import {
   Body1,
   Button,
   Caption1,
+  Menu,
+  MenuItem,
+  MenuList,
+  MenuPopover,
+  MenuTrigger,
   Spinner,
   Table,
   TableBody,
@@ -18,10 +23,13 @@ import {
   ChevronDownRegular,
   ChevronRightRegular,
   InfoRegular,
+  MoreHorizontalRegular,
+  PersonDeleteRegular,
   WarningRegular
 } from '@fluentui/react-icons';
 
 import type { IPermissionEntry, PrincipalType } from '../models/IPermissionEntry';
+import type { IPendingWriteAction } from '../models/IWriteAction';
 import type { IPermissionsExplorerService } from '../services/PermissionsExplorerService';
 import type { IGroupExpansionState } from '../hooks/usePermissionsExplorer';
 
@@ -30,9 +38,11 @@ export interface IPermissionsTableProps {
   expansions: Record<string, IGroupExpansionState>;
   principalQuery?: string;
   service: IPermissionsExplorerService;
+  canManage: boolean;
   onExpandGroup: (entry: IPermissionEntry) => void;
   onCollapseGroup: (entryId: string) => void;
   onSelectRow: (entry: IPermissionEntry) => void;
+  onRequestAction: (action: IPendingWriteAction) => void;
 }
 
 type BadgeColor =
@@ -131,8 +141,6 @@ function sourceColor(source: IPermissionEntry['source']): BadgeColor {
       return 'informative';
     case 'Microsoft365Group':
       return 'success';
-    case 'Inherited':
-      return 'subtle';
     default:
       return 'subtle';
   }
@@ -144,9 +152,11 @@ export const PermissionsTable: React.FC<IPermissionsTableProps> = (props) => {
     expansions,
     principalQuery,
     service,
+    canManage,
     onExpandGroup,
     onCollapseGroup,
-    onSelectRow
+    onSelectRow,
+    onRequestAction
   } = props;
   const styles = useStyles();
 
@@ -256,6 +266,54 @@ export const PermissionsTable: React.FC<IPermissionsTableProps> = (props) => {
                         aria-label={`View details for ${entry.displayName}`}
                         onClick={() => onSelectRow(entry)}
                       />
+                      {canManage && (() => {
+                        const isSpGroup = entry.principalType === 'SharePointGroup'
+                          && typeof entry.principalId === 'number';
+                        const hasDirect = entry.source === 'Direct'
+                          || entry.permissionLevels.some((l) => l !== 'Limited Access');
+                        if (!isSpGroup && !hasDirect) return null;
+                        const firstLevel = entry.permissionLevels.find((l) => l !== 'Limited Access')
+                          ?? entry.permissionLevels[0] ?? '';
+                        return (
+                          <Menu>
+                            <MenuTrigger disableButtonEnhancement>
+                              <Button
+                                appearance="subtle"
+                                size="small"
+                                icon={<MoreHorizontalRegular />}
+                                aria-label={`Manage ${entry.displayName}`}
+                              />
+                            </MenuTrigger>
+                            <MenuPopover>
+                              <MenuList>
+                                {isSpGroup && (
+                                  <MenuItem
+                                    onClick={() => onRequestAction({ operation: 'addToSharePointGroup', entry })}
+                                  >
+                                    Add member
+                                  </MenuItem>
+                                )}
+                                {!isSpGroup && hasDirect && (
+                                  <MenuItem
+                                    onClick={() => onRequestAction({
+                                      operation: 'changePermissionLevel',
+                                      entry,
+                                      fromRoleName: firstLevel
+                                    })}
+                                  >
+                                    Change permission level
+                                  </MenuItem>
+                                )}
+                                <MenuItem
+                                  onClick={() => onRequestAction({ operation: 'removeAccess', entry })}
+                                >
+                                  Remove access
+                                </MenuItem>
+                              </MenuList>
+                            </MenuPopover>
+                          </Menu>
+                        );
+                      })()}
                     </div>
                   </TableCell>
                 </TableRow>
@@ -329,13 +387,30 @@ export const PermissionsTable: React.FC<IPermissionsTableProps> = (props) => {
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          <Button
-                            appearance="subtle"
-                            size="small"
-                            icon={<InfoRegular />}
-                            aria-label={`View details for ${member.displayName}`}
-                            onClick={() => onSelectRow(member)}
-                          />
+                          <div className={styles.actions}>
+                            <Button
+                              appearance="subtle"
+                              size="small"
+                              icon={<InfoRegular />}
+                              aria-label={`View details for ${member.displayName}`}
+                              onClick={() => onSelectRow(member)}
+                            />
+                            {canManage
+                              && typeof entry.principalId === 'number'
+                              && typeof member.principalId === 'number' && (
+                              <Button
+                                appearance="subtle"
+                                size="small"
+                                icon={<PersonDeleteRegular />}
+                                aria-label={`Remove ${member.displayName} from ${entry.displayName}`}
+                                onClick={() => onRequestAction({
+                                  operation: 'removeFromSharePointGroup',
+                                  entry,
+                                  member
+                                })}
+                              />
+                            )}
+                          </div>
                         </TableCell>
                       </TableRow>
                     );

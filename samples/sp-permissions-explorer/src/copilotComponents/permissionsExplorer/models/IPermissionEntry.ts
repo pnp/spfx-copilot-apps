@@ -10,7 +10,6 @@ export type PermissionSource =
   | 'Direct'
   | 'SharePointGroup'
   | 'Microsoft365Group'
-  | 'Inherited'
   | 'Unknown';
 
 export interface IPermissionEntry {

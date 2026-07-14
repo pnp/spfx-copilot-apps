@@ -40,8 +40,6 @@ function passesFilter(entry: IPermissionEntry, filter: PermissionFilter): boolea
       return hasRead(entry.permissionLevels);
     case 'directOnly':
       return entry.source === 'Direct';
-    case 'inheritedOnly':
-      return entry.source === 'Inherited';
     default:
       return true;
   }

@@ -6,5 +6,4 @@ export interface IPermissionsSummary {
   groupCount: number;         // SharePoint groups
   m365GroupCount: number;
   externalUserCount: number;
-  hasUniquePermissions: boolean | undefined; // undefined = could not determine
 }

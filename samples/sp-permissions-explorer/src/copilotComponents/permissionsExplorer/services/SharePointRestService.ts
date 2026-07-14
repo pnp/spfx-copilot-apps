@@ -1,4 +1,4 @@
-import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
+import { SPHttpClient, SPHttpClientResponse, ISPHttpClientOptions } from '@microsoft/sp-http';
 import { IExplorerServiceContext } from './IExplorerServiceContext';
 import { HttpError, withRetry } from '../utils/retryPolicy';
 
@@ -51,6 +51,69 @@ export class SharePointRestService {
 
       const body = (await response.json()) as T;
       return body;
+    });
+  }
+
+  /**
+   * Issues a POST request against an absolute SharePoint REST URL. Used for
+   * write operations whose parameters are encoded in the URL (no response body
+   * is required). Throws HttpError on non-2xx responses. The SPFx SPHttpClient
+   * automatically attaches the request digest.
+   */
+  public async post(absoluteUrl: string, body?: unknown): Promise<void> {
+    await withRetry<void>(async () => {
+      const options: ISPHttpClientOptions = {
+        headers: {
+          Accept: 'application/json;odata=nometadata',
+          'Content-Type': 'application/json;odata=nometadata',
+          'odata-version': ''
+        },
+        body: body !== undefined ? JSON.stringify(body) : undefined
+      };
+      const response: SPHttpClientResponse = await this.ctx.spHttpClient.post(
+        absoluteUrl,
+        SPHttpClient.configurations.v1,
+        options
+      );
+      if (!response.ok) {
+        const retryAfterMs = this.parseRetryAfter(response.headers.get('Retry-After'));
+        throw new HttpError(
+          `SharePoint REST write failed with status ${response.status}`,
+          response.status,
+          retryAfterMs
+        );
+      }
+    });
+  }
+
+  /**
+   * Issues a POST request and returns the parsed JSON body typed as T. Throws
+   * HttpError on non-2xx responses.
+   */
+  public async postJson<T>(absoluteUrl: string, body?: unknown): Promise<T> {
+    return withRetry<T>(async () => {
+      const options: ISPHttpClientOptions = {
+        headers: {
+          Accept: 'application/json;odata=nometadata',
+          'Content-Type': 'application/json;odata=nometadata',
+          'odata-version': ''
+        },
+        body: body !== undefined ? JSON.stringify(body) : undefined
+      };
+      const response: SPHttpClientResponse = await this.ctx.spHttpClient.post(
+        absoluteUrl,
+        SPHttpClient.configurations.v1,
+        options
+      );
+      if (!response.ok) {
+        const retryAfterMs = this.parseRetryAfter(response.headers.get('Retry-After'));
+        throw new HttpError(
+          `SharePoint REST write failed with status ${response.status}`,
+          response.status,
+          retryAfterMs
+        );
+      }
+      return (await response.json()) as T;
     });
   }
 

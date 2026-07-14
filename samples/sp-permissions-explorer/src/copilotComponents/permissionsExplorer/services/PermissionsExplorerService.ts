@@ -2,12 +2,14 @@ import { IResolvedSite } from '../models/IResolvedSite';
 import { IPermissionEntry } from '../models/IPermissionEntry';
 import { IPermissionsSummary } from '../models/IPermissionsSummary';
 import { IPermissionsToolInput } from '../models/IPermissionsToolInput';
+import { IManageCapability, IRoleDefinitionInfo, IWriteActionResult } from '../models/IWriteAction';
 
 import { IExplorerServiceContext } from './IExplorerServiceContext';
 import { SharePointRestService } from './SharePointRestService';
 import { SiteResolverService } from './SiteResolverService';
 import { PermissionsService } from './PermissionsService';
 import { PrincipalResolverService } from './PrincipalResolverService';
+import { PermissionWriteService } from './PermissionWriteService';
 
 /**
  * Public facade consumed by the UI. Keeps a single seam so the frontend agent
@@ -19,6 +21,13 @@ export interface IPermissionsExplorerService {
   getPermissions(site: IResolvedSite): Promise<IPermissionEntry[]>;
   expandGroup(site: IResolvedSite, principalId: number): Promise<IPermissionEntry[]>;
   matchesPrincipal(entry: IPermissionEntry, query: string): boolean;
+  getCapabilities(site: IResolvedSite): Promise<IManageCapability>;
+  getRoleDefinitions(site: IResolvedSite): Promise<IRoleDefinitionInfo[]>;
+  grantAccess(site: IResolvedSite, loginName: string, roleName: string): Promise<IWriteActionResult>;
+  removeAccess(site: IResolvedSite, entry: IPermissionEntry): Promise<IWriteActionResult>;
+  changePermissionLevel(site: IResolvedSite, entry: IPermissionEntry, fromRoleName: string, toRoleName: string): Promise<IWriteActionResult>;
+  addUserToGroup(site: IResolvedSite, groupPrincipalId: number, loginName: string): Promise<IWriteActionResult>;
+  removeUserFromGroup(site: IResolvedSite, groupPrincipalId: number, userPrincipalId: number): Promise<IWriteActionResult>;
 }
 
 /**
@@ -31,6 +40,7 @@ export class PermissionsExplorerService implements IPermissionsExplorerService {
   private readonly siteResolver: SiteResolverService;
   private readonly permissions: PermissionsService;
   private readonly principals: PrincipalResolverService;
+  private readonly writes: PermissionWriteService;
   private readonly entriesCache: Map<string, IPermissionEntry[]>;
 
   public constructor(ctx: IExplorerServiceContext) {
@@ -38,6 +48,7 @@ export class PermissionsExplorerService implements IPermissionsExplorerService {
     this.siteResolver = new SiteResolverService(ctx, sp);
     this.permissions = new PermissionsService(sp);
     this.principals = new PrincipalResolverService();
+    this.writes = new PermissionWriteService(sp);
     this.entriesCache = new Map<string, IPermissionEntry[]>();
   }
 
@@ -78,6 +89,50 @@ export class PermissionsExplorerService implements IPermissionsExplorerService {
    */
   public matchesPrincipal(entry: IPermissionEntry, query: string): boolean {
     return this.principals.matches(entry, query);
+  }
+
+  public async getCapabilities(site: IResolvedSite): Promise<IManageCapability> {
+    return this.writes.getCapabilities(site);
+  }
+
+  public async getRoleDefinitions(site: IResolvedSite): Promise<IRoleDefinitionInfo[]> {
+    return this.writes.getRoleDefinitions(site);
+  }
+
+  public async grantAccess(site: IResolvedSite, loginName: string, roleName: string): Promise<IWriteActionResult> {
+    const result = await this.writes.grantAccess(site, loginName, roleName);
+    this.invalidate(site, result);
+    return result;
+  }
+
+  public async removeAccess(site: IResolvedSite, entry: IPermissionEntry): Promise<IWriteActionResult> {
+    const result = await this.writes.removeAccess(site, entry);
+    this.invalidate(site, result);
+    return result;
+  }
+
+  public async changePermissionLevel(site: IResolvedSite, entry: IPermissionEntry, fromRoleName: string, toRoleName: string): Promise<IWriteActionResult> {
+    const result = await this.writes.changePermissionLevel(site, entry, fromRoleName, toRoleName);
+    this.invalidate(site, result);
+    return result;
+  }
+
+  public async addUserToGroup(site: IResolvedSite, groupPrincipalId: number, loginName: string): Promise<IWriteActionResult> {
+    const result = await this.writes.addUserToGroup(site, groupPrincipalId, loginName);
+    this.invalidate(site, result);
+    return result;
+  }
+
+  public async removeUserFromGroup(site: IResolvedSite, groupPrincipalId: number, userPrincipalId: number): Promise<IWriteActionResult> {
+    const result = await this.writes.removeUserFromGroup(site, groupPrincipalId, userPrincipalId);
+    this.invalidate(site, result);
+    return result;
+  }
+
+  private invalidate(site: IResolvedSite, result: IWriteActionResult): void {
+    if (result.status === 'success') {
+      this.entriesCache.delete(this.cacheKey(site));
+    }
   }
 
   private cacheKey(site: IResolvedSite): string {

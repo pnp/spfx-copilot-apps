@@ -4,6 +4,12 @@ import type { IPermissionEntry } from '../models/IPermissionEntry';
 import type { IPermissionsSummary } from '../models/IPermissionsSummary';
 import type { IPermissionsToolInput } from '../models/IPermissionsToolInput';
 import type { IResolvedSite } from '../models/IResolvedSite';
+import type {
+  IManageCapability,
+  IPendingWriteAction,
+  IRoleDefinitionInfo,
+  IWriteActionResult
+} from '../models/IWriteAction';
 import type { IPermissionsExplorerService } from '../services/PermissionsExplorerService';
 import { HttpError } from '../utils/retryPolicy';
 
@@ -35,6 +41,9 @@ export interface IUsePermissionsExplorerResult {
   entries: IPermissionEntry[];
   error?: IExplorerError;
   expansions: Record<string, IGroupExpansionState>;
+  capability?: IManageCapability;
+  roleDefinitions: IRoleDefinitionInfo[];
+  performWriteAction: (action: IPendingWriteAction) => Promise<IWriteActionResult>;
   selectSite: (site: IResolvedSite) => void;
   refresh: () => void;
   expandGroup: (entry: IPermissionEntry) => void;
@@ -67,6 +76,8 @@ export function usePermissionsExplorer(
   const [entries, setEntries] = React.useState<IPermissionEntry[]>([]);
   const [error, setError] = React.useState<IExplorerError | undefined>(undefined);
   const [expansions, setExpansions] = React.useState<Record<string, IGroupExpansionState>>({});
+  const [capability, setCapability] = React.useState<IManageCapability | undefined>(undefined);
+  const [roleDefinitions, setRoleDefinitions] = React.useState<IRoleDefinitionInfo[]>([]);
 
   const mountedRef = React.useRef<boolean>(true);
   React.useEffect(() => {
@@ -82,6 +93,8 @@ export function usePermissionsExplorer(
       setStatus('loading');
       setError(undefined);
       setExpansions({});
+      setCapability(undefined);
+      setRoleDefinitions([]);
       try {
         const loaded = await service.getPermissions(site);
         if (!mountedRef.current) return;
@@ -90,6 +103,21 @@ export function usePermissionsExplorer(
         setEntries(loaded);
         setSummary(s);
         setStatus('ready');
+        void (async (): Promise<void> => {
+          try {
+            const [cap, defs] = await Promise.all([
+              service.getCapabilities(site),
+              service.getRoleDefinitions(site)
+            ]);
+            if (!mountedRef.current) return;
+            setCapability(cap);
+            setRoleDefinitions(defs);
+          } catch {
+            if (!mountedRef.current) return;
+            setCapability({ canManagePermissions: false, determined: false });
+            setRoleDefinitions([]);
+          }
+        })();
       } catch (err: unknown) {
         if (!mountedRef.current) return;
         setEntries([]);
@@ -193,6 +221,49 @@ export function usePermissionsExplorer(
     };
   }, [service, siteQuery, siteUrl, currentWebUrl, loadForSite]);
 
+  const performWriteAction = React.useCallback(
+    async (action: IPendingWriteAction): Promise<IWriteActionResult> => {
+      const site = selectedSite;
+      if (!site) {
+        return { status: 'error', message: 'No site is selected.' };
+      }
+      let result: IWriteActionResult;
+      switch (action.operation) {
+        case 'grantAccess':
+          result = await service.grantAccess(site, action.loginName ?? '', action.toRoleName ?? '');
+          break;
+        case 'removeAccess':
+          result = action.entry
+            ? await service.removeAccess(site, action.entry)
+            : { status: 'error', message: 'No principal selected.' };
+          break;
+        case 'changePermissionLevel':
+          result = action.entry
+            ? await service.changePermissionLevel(site, action.entry, action.fromRoleName ?? '', action.toRoleName ?? '')
+            : { status: 'error', message: 'No principal selected.' };
+          break;
+        case 'addToSharePointGroup':
+          result = action.entry && typeof action.entry.principalId === 'number'
+            ? await service.addUserToGroup(site, action.entry.principalId, action.loginName ?? '')
+            : { status: 'error', message: 'No group selected.' };
+          break;
+        case 'removeFromSharePointGroup':
+          result = action.entry && typeof action.entry.principalId === 'number'
+            && action.member && typeof action.member.principalId === 'number'
+            ? await service.removeUserFromGroup(site, action.entry.principalId, action.member.principalId)
+            : { status: 'error', message: 'This member cannot be resolved for removal.' };
+          break;
+        default:
+          result = { status: 'error', message: 'Unsupported operation.' };
+      }
+      if (result.status === 'success') {
+        refresh();
+      }
+      return result;
+    },
+    [selectedSite, service, refresh]
+  );
+
   return {
     status,
     sites,
@@ -201,6 +272,9 @@ export function usePermissionsExplorer(
     entries,
     error,
     expansions,
+    capability,
+    roleDefinitions,
+    performWriteAction,
     selectSite,
     refresh,
     expandGroup,

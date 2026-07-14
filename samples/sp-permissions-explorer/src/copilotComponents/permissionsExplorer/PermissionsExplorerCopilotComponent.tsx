@@ -42,8 +42,12 @@ export default class PermissionsExplorerCopilotComponent extends BaseCopilotComp
       principalQuery: this.properties.principalQuery,
       includeGroups: this.properties.includeGroups,
       includeExternalUsers: this.properties.includeExternalUsers,
-      includeInheritedPermissions: this.properties.includeInheritedPermissions,
-      mode: this.properties.mode
+      mode: this.properties.mode,
+      operation: this.properties.operation,
+      sourcePermissionLevel: this.properties.sourcePermissionLevel,
+      targetPermissionLevel: this.properties.targetPermissionLevel,
+      targetGroupQuery: this.properties.targetGroupQuery,
+      requireConfirmation: this.properties.requireConfirmation
     };
 
     const props: IPermissionsExplorerProps = {

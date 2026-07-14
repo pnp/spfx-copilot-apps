@@ -29,8 +29,7 @@ const propertiesSchema = z.object({
       'fullControl',
       'edit',
       'read',
-      'directOnly',
-      'inheritedOnly'
+      'directOnly'
     ])
     .optional()
     .describe('Which subset of permissions to emphasise.'),
@@ -46,14 +45,37 @@ const propertiesSchema = z.object({
     .boolean()
     .optional()
     .describe('Whether to emphasise external/guest users.'),
-  includeInheritedPermissions: z
-    .boolean()
-    .optional()
-    .describe('Whether to include inherited permissions.'),
   mode: z
     .enum(['summary', 'details', 'userLookup'])
     .optional()
-    .describe('summary=overview, details=full table, userLookup=find a specific person.')
+    .describe('summary=overview, details=full table, userLookup=find a specific person.'),
+  operation: z
+    .enum([
+      'review',
+      'grantAccess',
+      'removeAccess',
+      'changePermissionLevel',
+      'addToSharePointGroup',
+      'removeFromSharePointGroup'
+    ])
+    .optional()
+    .describe('Intended permission operation. Any write operation still requires explicit in-UI confirmation before it runs.'),
+  sourcePermissionLevel: z
+    .string()
+    .optional()
+    .describe('Current permission level to change from, e.g. "Edit".'),
+  targetPermissionLevel: z
+    .string()
+    .optional()
+    .describe('Permission level to grant or change to, e.g. "Read".'),
+  targetGroupQuery: z
+    .string()
+    .optional()
+    .describe('User (name/email/UPN) or target SharePoint group involved in the operation.'),
+  requireConfirmation: z
+    .boolean()
+    .optional()
+    .describe('Whether UI confirmation is required before executing a write action. Always treated as required.')
 });
 
 export type IPermissionsExplorerCopilotComponentProperties = z.infer<typeof propertiesSchema>;

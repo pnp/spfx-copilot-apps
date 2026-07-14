@@ -17,10 +17,12 @@ import {
   ArrowExpandRegular,
   CopyRegular,
   OpenRegular,
+  PersonAddRegular,
   ShieldRegular
 } from '@fluentui/react-icons';
 
 import type { IPermissionEntry } from '../models/IPermissionEntry';
+import type { IPendingWriteAction } from '../models/IWriteAction';
 import { usePermissionFilters } from '../hooks/usePermissionFilters';
 import { usePermissionsExplorer } from '../hooks/usePermissionsExplorer';
 
@@ -32,6 +34,7 @@ import PermissionFilters from './PermissionFilters';
 import PermissionsTable from './PermissionsTable';
 import PrincipalDetailsPanel from './PrincipalDetailsPanel';
 import SitePicker from './SitePicker';
+import WriteActionDialog from './WriteActionDialog';
 
 const useStyles = makeStyles({
   root: {
@@ -117,11 +120,16 @@ export default function PermissionsExplorer(
     entries,
     error,
     expansions,
+    capability,
+    roleDefinitions,
+    performWriteAction,
     selectSite,
     refresh,
     expandGroup,
     collapseGroup
   } = explorer;
+
+  const canManage: boolean = capability?.canManagePermissions === true;
 
   const filters = usePermissionFilters(entries, toolInput.filter);
   const {
@@ -138,6 +146,8 @@ export default function PermissionsExplorer(
 
   const [selectedEntry, setSelectedEntry] = React.useState<IPermissionEntry | undefined>(undefined);
   const [detailsOpen, setDetailsOpen] = React.useState<boolean>(false);
+  const [pendingAction, setPendingAction] = React.useState<IPendingWriteAction | undefined>(undefined);
+  const autoPrefillDoneRef = React.useRef<string | undefined>(undefined);
 
   const theme = hostContext.theme === 'dark' ? webDarkTheme : webLightTheme;
 
@@ -163,6 +173,29 @@ export default function PermissionsExplorer(
   const handleRefresh = React.useCallback((): void => {
     refresh();
   }, [refresh]);
+
+  React.useEffect(() => {
+    if (status !== 'ready' || !canManage || !selectedSite) return;
+    const key = selectedSite.webUrl;
+    if (autoPrefillDoneRef.current === key) return;
+    const op = toolInput.operation;
+    if (op === 'grantAccess') {
+      autoPrefillDoneRef.current = key;
+      setPendingAction({
+        operation: 'grantAccess',
+        loginName: toolInput.targetGroupQuery ?? toolInput.principalQuery,
+        toRoleName: toolInput.targetPermissionLevel
+      });
+    }
+  }, [
+    status,
+    canManage,
+    selectedSite,
+    toolInput.operation,
+    toolInput.targetGroupQuery,
+    toolInput.principalQuery,
+    toolInput.targetPermissionLevel
+  ]);
 
   const handleCopySummary = React.useCallback(async (): Promise<void> => {
     if (!summary) return;
@@ -228,14 +261,11 @@ export default function PermissionsExplorer(
             expansions={expansions}
             principalQuery={toolInput.principalQuery}
             service={service}
+            canManage={canManage}
             onExpandGroup={expandGroup}
             onCollapseGroup={collapseGroup}
             onSelectRow={handleSelectRow}
-          />
-          <PrincipalDetailsPanel
-            entry={selectedEntry}
-            open={detailsOpen}
-            onClose={handleCloseDetails}
+            onRequestAction={setPendingAction}
           />
         </>
       );
@@ -261,9 +291,17 @@ export default function PermissionsExplorer(
                 </>
               )}
               <div className={styles.badgeRow}>
-                <Badge appearance="tint" color="informative" icon={<ShieldRegular />}>
-                  Read-only review
-                </Badge>
+                {canManage ? (
+                  <Badge appearance="tint" color="success" icon={<ShieldRegular />}>
+                    Management enabled
+                  </Badge>
+                ) : (
+                  <Badge appearance="tint" color="informative" icon={<ShieldRegular />}>
+                    {capability && capability.determined === false
+                      ? 'Read-only (permissions unverified)'
+                      : 'Read-only review'}
+                  </Badge>
+                )}
               </div>
             </div>
             <div className={styles.toolbar} role="toolbar" aria-label="Review actions">
@@ -288,6 +326,16 @@ export default function PermissionsExplorer(
                 onClick={handleOpenSite}
                 disabled={!selectedSite}
               />
+              {selectedSite && canManage && (
+                <>
+                  <Button
+                    appearance="subtle"
+                    icon={<PersonAddRegular />}
+                    aria-label="Grant access"
+                    onClick={() => setPendingAction({ operation: 'grantAccess' })}
+                  />
+                </>
+              )}
               <Button
                 appearance="subtle"
                 icon={<ArrowExpandRegular />}
@@ -297,6 +345,17 @@ export default function PermissionsExplorer(
             </div>
           </div>
           {renderBody()}
+          <PrincipalDetailsPanel
+            entry={selectedEntry}
+            open={detailsOpen}
+            onClose={handleCloseDetails}
+          />
+          <WriteActionDialog
+            action={pendingAction}
+            roleDefinitions={roleDefinitions}
+            onExecute={performWriteAction}
+            onClose={() => setPendingAction(undefined)}
+          />
         </div>
       </FluentProvider>
     </IdPrefixProvider>

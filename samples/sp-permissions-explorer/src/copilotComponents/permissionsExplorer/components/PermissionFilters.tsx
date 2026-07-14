@@ -43,8 +43,7 @@ const FILTER_OPTIONS: IFilterOption[] = [
   { value: 'fullControl', label: 'Full Control' },
   { value: 'edit', label: 'Edit' },
   { value: 'read', label: 'Read' },
-  { value: 'directOnly', label: 'Direct only' },
-  { value: 'inheritedOnly', label: 'Inherited only' }
+  { value: 'directOnly', label: 'Direct only' }
 ];
 
 const useStyles = makeStyles({
