@@ -198,6 +198,41 @@ export class PermissionsService {
       });
     }
 
+    // Eagerly load members for every SharePoint group so the search bar can
+    // match users that only exist inside groups, and so the UI can show a
+    // member count and disable expansion of empty groups. The number of
+    // SharePoint groups per site is small (typically < ~15), so bounded
+    // parallelism via Promise.all is sufficient.
+    const expandableEntries = entries.filter(
+      (e): e is IPermissionEntry & { principalId: number } =>
+        e.isGroupExpandable === true && typeof e.principalId === 'number'
+    );
+    const memberResults = await Promise.all(
+      expandableEntries.map(async (entry) => {
+        try {
+          const members = await this.expandGroup(site, entry.principalId);
+          return { entry, members };
+        } catch {
+          // Treat 403/401 (surfaced as HttpError by expandGroup) and any
+          // other per-group failure as "restricted / unknown" rather than
+          // failing the whole permissions load. Keep isGroupExpandable = true
+          // so the UI can still surface a "Restricted" note when the user
+          // tries to expand. Member payloads are never logged.
+          return { entry, restricted: true as const };
+        }
+      })
+    );
+
+    for (const result of memberResults) {
+      if ('restricted' in result) {
+        result.entry.membersRestricted = true;
+      } else {
+        result.entry.groupMembers = result.members;
+        result.entry.memberCount = result.members.length;
+        result.entry.isGroupExpandable = result.members.length > 0;
+      }
+    }
+
     return entries;
   }
 

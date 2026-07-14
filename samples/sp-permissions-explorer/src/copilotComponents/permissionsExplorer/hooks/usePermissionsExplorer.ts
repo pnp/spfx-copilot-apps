@@ -146,6 +146,17 @@ export function usePermissionsExplorer(
   const expandGroup = React.useCallback(
     (entry: IPermissionEntry): void => {
       if (!selectedSite || typeof entry.principalId !== 'number') return;
+      if (entry.membersRestricted === true) {
+        setExpansions((prev) => ({ ...prev, [entry.id]: { status: 'denied', members: [] } }));
+        return;
+      }
+      if (Array.isArray(entry.groupMembers)) {
+        setExpansions((prev) => ({
+          ...prev,
+          [entry.id]: { status: 'loaded', members: entry.groupMembers as IPermissionEntry[] }
+        }));
+        return;
+      }
       setExpansions((prev) => ({ ...prev, [entry.id]: { status: 'loading', members: [] } }));
       const site = selectedSite;
       const principalId = entry.principalId;

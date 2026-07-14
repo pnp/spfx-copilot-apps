@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "id": "8302e875-4609-43a6-8a02-d8667678fd07",
   "developer": {
-    "name": "Contoso",
-    "websiteUrl": "https://www.contoso.com",
+    "name": "Aimery Thomas",
+    "websiteUrl": "https://github.com/a1mery",
     "privacyUrl": "https://www.contoso.com/privacy",
     "termsOfUseUrl": "https://www.contoso.com/terms"
   },
@@ -14,12 +14,12 @@
     "outline": "outline.png"
   },
   "name": {
-    "short": "PermissionsExplorer Agent",
-    "full": "PermissionsExplorer Agent"
+    "short": "Permissions Explorer Agent",
+    "full": "Permissions Explorer Agent"
   },
   "description": {
-    "short": "PermissionsExplorer description",
-    "full": "PermissionsExplorer description"
+    "short": "Permissions Explorer description",
+    "full": "Permissions Explorer description"
   },
   "accentColor": "#FFFFFF",
   "copilotAgents": {

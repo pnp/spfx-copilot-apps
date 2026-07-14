@@ -53,6 +53,13 @@ function matchesSearch(entry: IPermissionEntry, needle: string): boolean {
   for (const level of entry.permissionLevels) {
     if (level.toLowerCase().indexOf(needle) >= 0) return true;
   }
+  if (entry.groupMembers) {
+    for (const member of entry.groupMembers) {
+      if (member.displayName.toLowerCase().indexOf(needle) >= 0) return true;
+      if (member.email && member.email.toLowerCase().indexOf(needle) >= 0) return true;
+      if (member.loginName && member.loginName.toLowerCase().indexOf(needle) >= 0) return true;
+    }
+  }
   return false;
 }
 

@@ -96,6 +96,12 @@ const useStyles = makeStyles({
     alignItems: 'center',
     gap: tokens.spacingHorizontalXS,
     color: tokens.colorNeutralForeground2
+  },
+  principalHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: tokens.spacingHorizontalXS
   }
 });
 
@@ -209,7 +215,21 @@ export const PermissionsTable: React.FC<IPermissionsTableProps> = (props) => {
                 <TableRow className={rowClass}>
                   <TableCell>
                     <div>
-                      <Body1>{entry.displayName}</Body1>
+                      <div className={styles.principalHeader}>
+                        <Body1>{entry.displayName}</Body1>
+                        {entry.principalType === 'SharePointGroup' && entry.membersRestricted === true && (
+                          <Badge appearance="tint" color="warning" size="small">
+                            Restricted
+                          </Badge>
+                        )}
+                        {entry.principalType === 'SharePointGroup'
+                          && entry.membersRestricted !== true
+                          && typeof entry.memberCount === 'number' && (
+                            <Badge appearance="tint" size="small">
+                              {entry.memberCount === 1 ? '1 member' : `${entry.memberCount} members`}
+                            </Badge>
+                          )}
+                      </div>
                       {(entry.email || entry.loginName) && (
                         <div className={styles.secondary}>
                           {entry.email ?? entry.loginName}
@@ -247,12 +267,13 @@ export const PermissionsTable: React.FC<IPermissionsTableProps> = (props) => {
                   </TableCell>
                   <TableCell>
                     <div className={styles.actions}>
-                      {entry.isGroupExpandable && (
+                      {entry.isGroupExpandable && entry.memberCount !== 0 && (
                         <Button
                           appearance="subtle"
                           size="small"
                           icon={isExpanded ? <ChevronDownRegular /> : <ChevronRightRegular />}
                           aria-label={isExpanded ? 'Collapse group members' : 'Expand group members'}
+                          disabled={entry.memberCount === 0}
                           onClick={() => {
                             if (isExpanded) onCollapseGroup(entry.id);
                             else onExpandGroup(entry);
