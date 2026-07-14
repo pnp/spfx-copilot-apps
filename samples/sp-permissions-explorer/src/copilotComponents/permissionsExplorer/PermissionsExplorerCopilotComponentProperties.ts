@@ -14,7 +14,7 @@ const propertiesSchema = z.object({
     .string()
     .default('')
     .describe(
-      'Site title, partial title, or absolute URL of the SharePoint site to review. Extract from the user prompt, e.g. "EIB Architecture".'
+      'Site title, partial title, or absolute URL of the SharePoint site to review. Extract from the user prompt, e.g. "Project Management".'
     ),
   siteUrl: z
     .string()
@@ -36,7 +36,7 @@ const propertiesSchema = z.object({
   principalQuery: z
     .string()
     .optional()
-    .describe('Name, email or UPN of a person or group to look up, e.g. "Nicolas Lazzerini".'),
+    .describe('Name, email or UPN of a person or group to look up, e.g. "Adele Vance".'),
   includeGroups: z
     .boolean()
     .optional()
