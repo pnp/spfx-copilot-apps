@@ -5,7 +5,6 @@ import { IPermissionsToolInput } from '../models/IPermissionsToolInput';
 
 import { IExplorerServiceContext } from './IExplorerServiceContext';
 import { SharePointRestService } from './SharePointRestService';
-import { GraphClientService } from './GraphClientService';
 import { SiteResolverService } from './SiteResolverService';
 import { PermissionsService } from './PermissionsService';
 import { PrincipalResolverService } from './PrincipalResolverService';
@@ -36,8 +35,7 @@ export class PermissionsExplorerService implements IPermissionsExplorerService {
 
   public constructor(ctx: IExplorerServiceContext) {
     const sp = new SharePointRestService(ctx);
-    const graph = new GraphClientService(ctx);
-    this.siteResolver = new SiteResolverService(ctx, sp, graph);
+    this.siteResolver = new SiteResolverService(ctx, sp);
     this.permissions = new PermissionsService(sp);
     this.principals = new PrincipalResolverService();
     this.entriesCache = new Map<string, IPermissionEntry[]>();

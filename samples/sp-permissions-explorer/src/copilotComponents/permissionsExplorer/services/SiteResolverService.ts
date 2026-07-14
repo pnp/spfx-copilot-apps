@@ -1,7 +1,6 @@
 import { IResolvedSite } from '../models/IResolvedSite';
 import { IExplorerServiceContext } from './IExplorerServiceContext';
 import { SharePointRestService } from './SharePointRestService';
-import { GraphClientService } from './GraphClientService';
 import { HttpError } from '../utils/retryPolicy';
 
 interface ISpWebRaw {
@@ -9,33 +8,27 @@ interface ISpWebRaw {
   ServerRelativeUrl: string;
 }
 
-interface IGraphSiteRaw {
-  id?: string;
-  displayName?: string;
-  name?: string;
-  webUrl?: string;
-}
-
-interface IGraphSitesResponse {
-  value: IGraphSiteRaw[];
-}
+interface ISearchCell { Key?: string; Value?: string; }
+interface ISearchRow { Cells?: ISearchCell[]; }
+interface ISearchTable { Rows?: ISearchRow[]; }
+interface ISearchRelevantResults { Table?: ISearchTable; }
+interface ISearchPrimaryResult { RelevantResults?: ISearchRelevantResults; }
+interface ISearchResponse { PrimaryQueryResult?: ISearchPrimaryResult; }
 
 const HTTP_URL_REGEX = /^https?:\/\//i;
 
 /**
  * Resolves site inputs (an explicit URL or a search query) into a list of
- * candidate SharePoint sites. Uses Microsoft Graph site search when a URL is
- * not provided.
+ * candidate SharePoint sites. Uses the SharePoint Search REST API for
+ * tenant-wide site discovery when a URL is not provided.
  */
 export class SiteResolverService {
   private readonly sp: SharePointRestService;
-  private readonly graph: GraphClientService;
   private readonly ctx: IExplorerServiceContext;
 
-  public constructor(ctx: IExplorerServiceContext, sp: SharePointRestService, graph: GraphClientService) {
+  public constructor(ctx: IExplorerServiceContext, sp: SharePointRestService) {
     this.ctx = ctx;
     this.sp = sp;
-    this.graph = graph;
   }
 
   /**
@@ -57,7 +50,7 @@ export class SiteResolverService {
       return [];
     }
 
-    return this.searchViaGraph(query);
+    return this.searchViaSharePoint(query);
   }
 
   private pickExplicitUrl(input: { siteQuery: string; siteUrl?: string }): string | undefined {
@@ -91,13 +84,31 @@ export class SiteResolverService {
     }
   }
 
-  private async searchViaGraph(query: string): Promise<IResolvedSite[]> {
+  private async searchViaSharePoint(query: string): Promise<IResolvedSite[]> {
+    const sanitized = query.replace(/'/g, "''").replace(/"/g, '');
+    const kql = `${sanitized}* contentclass:STS_Site`;
+    const params = [
+      `querytext='${encodeURIComponent(kql)}'`,
+      `selectproperties='${encodeURIComponent('Title,SPWebUrl,SiteId')}'`,
+      'rowlimit=25',
+      'trimduplicates=true',
+      `clienttype='${encodeURIComponent('ContentSearchRegular')}'`
+    ].join('&');
+    const url = this.sp.ensureAbsolute(this.ctx.currentWebUrl, `/_api/search/query?${params}`);
+
     try {
-      const response = await this.graph.get<IGraphSitesResponse>('/sites', { search: query });
-      const value = Array.isArray(response?.value) ? response.value : [];
+      const response = await this.sp.getJson<ISearchResponse>(url);
+      const rows = response?.PrimaryQueryResult?.RelevantResults?.Table?.Rows ?? [];
       const mapped: IResolvedSite[] = [];
-      for (const raw of value) {
-        const webUrl = raw.webUrl ?? '';
+      for (const row of rows) {
+        const cells = row.Cells ?? [];
+        const map: { [key: string]: string } = {};
+        for (const cell of cells) {
+          if (cell.Key !== undefined && cell.Value !== undefined) {
+            map[cell.Key] = cell.Value;
+          }
+        }
+        const webUrl = map.SPWebUrl ?? '';
         if (webUrl.length === 0) {
           continue;
         }
@@ -105,9 +116,11 @@ export class SiteResolverService {
         if (lower.indexOf('-my.sharepoint.com') >= 0 || lower.indexOf('/personal/') >= 0) {
           continue;
         }
+        const title = map.Title ?? '';
+        const siteId = map.SiteId ?? '';
         mapped.push({
-          id: raw.id,
-          title: raw.displayName ?? raw.name ?? webUrl,
+          id: siteId.length > 0 ? siteId : undefined,
+          title: title.length > 0 ? title : webUrl,
           webUrl
         });
       }

@@ -17,8 +17,8 @@ import type { IPermissionsExplorerCopilotComponentProperties } from './Permissio
  *
  * Data access is performed through a service facade (`IPermissionsExplorerService`)
  * that internally leverages the SPFx runtime's Pairwise Broker for SSO — the UI
- * never handles tokens directly. Microsoft Graph and SharePoint REST calls are
- * confined to the service layer.
+ * never handles tokens directly. SharePoint REST calls are confined to the
+ * service layer.
  */
 export default class PermissionsExplorerCopilotComponent extends BaseCopilotComponent<IPermissionsExplorerCopilotComponentProperties> {
   private _service: IPermissionsExplorerService | undefined;
@@ -27,8 +27,7 @@ export default class PermissionsExplorerCopilotComponent extends BaseCopilotComp
     if (!this._service) {
       const ctx: IExplorerServiceContext = {
         spHttpClient: this.context.spHttpClient,
-        currentWebUrl: this.context.pageContext.web.absoluteUrl,
-        getGraphClient: () => this.context.msGraphClientFactory.getClient('3')
+        currentWebUrl: this.context.pageContext.web.absoluteUrl
       };
       this._service = new PermissionsExplorerService(ctx);
     }
