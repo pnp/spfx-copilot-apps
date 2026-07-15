@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.24/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.24",
+  "version": "1.0.4",
+  "id": "d7047d6d-52e0-46b8-84fc-242f0c4ebcab",
+  "developer": {
+    "name": "Archon Gnosis",
+    "websiteUrl": "https://www.archongnosis.com.au",
+    "privacyUrl": "https://www.archongnosis.com.au",
+    "termsOfUseUrl": "https://www.archongnosis.com.au"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "Copilot Readiness",
+    "full": "Copilot Readiness Action Centre"
+  },
+  "description": {
+    "short": "Turn Copilot readiness findings into action.",
+    "full": "Review Copilot readiness assessments, investigate affected resources and create governed SharePoint remediation actions."
+  },
+  "accentColor": "#0F6CBD",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "copilotReadinessActionCentreAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "permissions": ["identity"],
+  "validDomains": []
+}

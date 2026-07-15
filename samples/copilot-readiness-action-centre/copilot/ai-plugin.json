@@ -1,0 +1,9 @@
+{
+  "$schema": "https://aka.ms/json-schemas/copilot-extensions/v2.1/plugin.schema.json",
+  "schema_version": "v2.4",
+  "namespace": "copilotReadiness",
+  "name_for_human": "Copilot Readiness",
+  "description_for_human": "Review readiness findings and create remediation actions.",
+  "description_for_model": "Use this action whenever the user asks about Microsoft 365 Copilot readiness, deployment risks, oversharing, governance gaps, sensitive information, site ownership, search readiness, remediation plans, or readiness scores. Render the interactive readiness action centre so the user can review evidence and create controlled SharePoint remediation tasks.",
+  "contact_email": "daniel@archongnosis.com.au"
+}

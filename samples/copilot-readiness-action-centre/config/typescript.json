@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/heft/v0/typescript.schema.json",
+  "additionalModuleKindsToEmit": [
+    {
+      "moduleKind": "commonjs",
+      "outFolderName": "lib-commonjs"
+    }
+  ],
+  "staticAssetsToCopy": {
+    "fileExtensions": [
+      ".json",
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".gif",
+      ".svg",
+      ".woff",
+      ".woff2",
+      ".eot",
+      ".ttf"
+    ]
+  }
+}
