@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "copilot-readiness-action-centre-component": {
+      "components": [
+        {
+          "entrypoint": "./lib/copilotComponents/readinessActionCentre/ReadinessActionCentreCopilotComponent.js",
+          "manifest": "./src/copilotComponents/readinessActionCentre/ReadinessActionCentreCopilotComponent.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {}
+}

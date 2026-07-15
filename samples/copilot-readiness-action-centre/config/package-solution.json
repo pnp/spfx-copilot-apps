@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "copilot-readiness-action-centre-client-side-solution",
+    "id": "463fb074-c8cf-43d8-9d7f-423b93a131b0",
+    "version": "1.0.4.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "Archon Gnosis",
+      "websiteUrl": "https://www.archongnosis.com.au",
+      "privacyUrl": "https://www.archongnosis.com.au",
+      "termsOfUseUrl": "https://www.archongnosis.com.au",
+      "mpnId": "Undefined-1.24.0-beta.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Review Microsoft 365 Copilot readiness risks and create governed remediation actions."
+      },
+      "longDescription": {
+        "default": "A SharePoint Copilot App for reviewing readiness assessments, investigating risks, selecting affected resources, assigning owners and creating remediation actions in SharePoint."
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": [
+        "Productivity"
+      ]
+    },
+    "features": [
+      {
+        "title": "Copilot Readiness Action Centre Feature",
+        "description": "Activates the Copilot Readiness Action Centre agent and UX component.",
+        "id": "fc7c2014-f6f9-4a78-bf72-a7e5613fbcf6",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/copilot-readiness-action-centre.sppkg"
+  }
+}

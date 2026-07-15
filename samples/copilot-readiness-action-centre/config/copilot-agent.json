@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "Copilot Readiness Action Centre"
+      },
+      "description": {
+        "default": "Review Copilot readiness risks and create governed remediation actions."
+      },
+      "components": [
+        "7a2e0bb3-badb-4c8a-ae84-765865d1077a"
+      ]
+    }
+  ]
+}

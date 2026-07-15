@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "7a2e0bb3-badb-4c8a-ae84-765865d1077a",
+  "alias": "ReadinessActionCentreCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+  "capabilities": {
+    "availableDisplayModes": [
+      "inline",
+      "fullscreen"
+    ]
+  },
+  "tools": [
+    {
+      "name": "CopilotReadinessActionCentre",
+      "description": {
+        "default": "Open the interactive Copilot Readiness Action Centre to review scores, risks, affected resources and create remediation actions."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/readinessActionCentre/ReadinessActionCentreCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}
