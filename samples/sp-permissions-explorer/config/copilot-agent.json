@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "PermissionsExplorer Agent"
+      },
+      "description": {
+        "default": "PermissionsExplorer description"
+      },
+      "components": [
+        "b81b853e-5202-4906-a41f-c54e2bcedb4a"
+      ]
+    }
+  ]
+}

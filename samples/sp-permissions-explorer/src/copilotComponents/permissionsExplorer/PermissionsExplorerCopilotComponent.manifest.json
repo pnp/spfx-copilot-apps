@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "b81b853e-5202-4906-a41f-c54e2bcedb4a",
+  "alias": "PermissionsExplorerCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "PermissionsExplorer",
+      "description": {
+        "default": "Review who has access to a SharePoint site. Provide a site name or URL to see users, groups, external users and permission levels."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/permissionsExplorer/PermissionsExplorerCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

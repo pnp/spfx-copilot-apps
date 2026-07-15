@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "sp-permissions-explorer-client-side-solution",
+    "id": "def16cb7-b73e-45d9-b362-cb6313b62bfe",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.24.0-beta.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "sp-permissions-explorer description"
+      },
+      "longDescription": {
+        "default": "sp-permissions-explorer description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "sp-permissions-explorer Feature",
+        "description": "The feature that activates elements of the sp-permissions-explorer solution.",
+        "id": "4378accd-5c17-44c8-b176-7a7d4dda4735",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/sp-permissions-explorer.sppkg"
+  }
+}

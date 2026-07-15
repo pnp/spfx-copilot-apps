@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.29",
+  "version": "1.0.0",
+  "id": "8302e875-4609-43a6-8a02-d8667678fd07",
+  "developer": {
+    "name": "Aimery Thomas",
+    "websiteUrl": "https://github.com/a1mery",
+    "privacyUrl": "https://www.contoso.com/privacy",
+    "termsOfUseUrl": "https://www.contoso.com/terms"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "Permissions Explorer Agent",
+    "full": "Permissions Explorer Agent"
+  },
+  "description": {
+    "short": "Permissions Explorer description",
+    "full": "Permissions Explorer description"
+  },
+  "accentColor": "#FFFFFF",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "permissionsExplorerAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "permissions": ["identity"],
+  "validDomains": []
+}

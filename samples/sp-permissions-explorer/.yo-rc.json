@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": true,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.14.0",
+    "sdksVersions": {},
+    "version": "1.24.0-beta.2",
+    "libraryName": "sp-permissions-explorer",
+    "libraryId": "def16cb7-b73e-45d9-b362-cb6313b62bfe",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "sp-permissions-explorer",
+    "solutionShortDescription": "sp-permissions-explorer description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "copilotComponent"
+  }
+}

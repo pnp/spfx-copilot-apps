@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "permissions-explorer-copilot-component": {
+      "components": [
+        {
+          "entrypoint": "./lib/copilotComponents/permissionsExplorer/PermissionsExplorerCopilotComponent.js",
+          "manifest": "./src/copilotComponents/permissionsExplorer/PermissionsExplorerCopilotComponent.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "PermissionsExplorerCopilotComponentStrings": "lib/copilotComponents/permissionsExplorer/loc/{locale}.js"
+  }
+}
