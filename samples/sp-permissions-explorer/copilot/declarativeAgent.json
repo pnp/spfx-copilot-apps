@@ -6,8 +6,12 @@
   "instructions": "$[file('instruction.txt')]",
   "conversation_starters": [
     {
-      "title": "Get started",
-      "text": "What can you do?"
+      "title": "Review site access",
+      "text": "Who has access to this site?"
+    },
+    {
+      "title": "Check a person",
+      "text": "Does Adele Vance have access to this site?"
     }
   ],
   "actions": [

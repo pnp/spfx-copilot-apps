@@ -18,8 +18,8 @@
     "full": "Permissions Explorer Agent"
   },
   "description": {
-    "short": "Permissions Explorer description",
-    "full": "Permissions Explorer description"
+    "short": "Review who can access a SharePoint site and inspect permission details.",
+    "full": "Explore SharePoint site access in Copilot with summaries, principal lookup, and permission details."
   },
   "accentColor": "#FFFFFF",
   "copilotAgents": {
