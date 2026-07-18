@@ -1,0 +1,80 @@
+[
+  {
+    "name": "pnp-spfx-copilot-apps-apps-directory",
+    "source": "pnp",
+    "title": "Apps directory",
+    "shortDescription": "Apps directory - Workplace Application Catalogue",
+    "url": "https://github.com/pnp/spfx-copilot-apps/tree/main/samples/apps-directory",
+    "downloadUrl": "https://pnp.github.io/download-partial/?url=https://github.com/pnp/spfx-copilot-apps/tree/main/samples/apps-directory",
+    "longDescription": [
+      "Apps directory brings your organisation's full application catalogue into Microsoft 365 Copilot. Browse apps by category, search by name or keyword, mark your most-used apps as favourites for quick access, and launch any app directly from the Copilot chat. You can also add custom app shortcuts and filter the directory to show only your personal favourites."
+    ],
+    "creationDateTime": "2026-07-16",
+    "updateDateTime": "2026-07-16",
+    "products": [
+      "SharePoint",
+      "Microsoft 365 Copilot"
+    ],
+    "metadata": [
+      {
+        "key": "SAMPLE-TYPE",
+        "value": "SPFx-CopilotComponent"
+      },
+      {
+        "key": "CLIENT-SIDE-DEV",
+        "value": "React"
+      },
+      {
+        "key": "SPFX-VERSION",
+        "value": "1.24.0-beta.2"
+      }
+    ],
+    "thumbnails": [
+      {
+        "name": "preview.png",
+        "type": "image",
+        "order": 100,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/apps-directory/assets/preview.png",
+        "alt": "Inline Apps directory card in the Copilot canvas"
+      },
+      {
+        "name": "screenshot-fullscreen.png",
+        "type": "image",
+        "order": 101,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/apps-directory/assets/screenshot-fullscreen.png",
+        "alt": "Full-screen Apps directory view"
+      },
+      {
+        "name": "screenshot-dark.png",
+        "type": "image",
+        "order": 102,
+        "url": "https://github.com/pnp/spfx-copilot-apps/raw/main/samples/apps-directory/assets/screenshot-dark.png",
+        "alt": "Apps directory full-screen view in dark mode"
+      }
+    ],
+    "authors": [
+      {
+        "gitHubAccount": "saurabh7019",
+        "pictureUrl": "https://github.com/saurabh7019.png",
+        "name": "Saurabh Tripathi"
+      }
+    ],
+    "references": [
+      {
+        "name": "Build agents for Microsoft 365 Copilot",
+        "description": "Extend Microsoft 365 Copilot with declarative agents, plugins, and connectors to tailor Copilot to your organization's needs.",
+        "url": "https://learn.microsoft.com/microsoft-365-copilot/extensibility/"
+      },
+      {
+        "name": "Overview of the SharePoint Framework",
+        "description": "The SharePoint Framework (SPFx) is a page and web part model that provides full support for client-side SharePoint development.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/sharepoint-framework-overview"
+      },
+      {
+        "name": "Build SharePoint Copilot Apps",
+        "description": "Hands-on lab for building SharePoint Copilot Apps using the SPFx Copilot component model.",
+        "url": "https://microsoft.github.io/copilot-camp/pages/sharepoint/sharepoint-copilot-apps/"
+      }
+    ]
+  }
+]

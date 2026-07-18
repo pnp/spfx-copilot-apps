@@ -1,0 +1,19 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": true,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.18.0",
+    "sdksVersions": {},
+    "version": "1.24.0-beta.2",
+    "libraryName": "react-copilot-agent-apps-directory",
+    "libraryId": "92767de1-111a-4524-8b06-9eb125b29f2e",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "react-copilot-agent-apps-directory",
+    "solutionShortDescription": "react-copilot-agent-apps-directory description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "copilotComponent"
+  }
+}

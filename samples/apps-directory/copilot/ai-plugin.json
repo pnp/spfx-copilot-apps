@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "namespace": "appsDirectory",
+  "name_for_human": "Apps directory",
+  "description_for_human": "Browse and launch your workplace applications directly from Copilot.",
+  "description_for_model": "Always call this tool when the user asks about workplace apps, tools, or applications - do not answer from memory. The tool renders an interactive visual component that lets the user browse, search, and launch apps. Pass a category to filter by business area, a searchQuery to find apps by name or topic, or showFavoritesOnly=true to show the user's pinned apps. Call without parameters to show the full directory.",
+  "contact_email": "publisher@contoso.com"
+}

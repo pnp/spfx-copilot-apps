@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "Apps directory"
+      },
+      "description": {
+        "default": "Browse and launch your workplace applications directly from Copilot."
+      },
+      "components": [
+        "e95a4616-89c9-45e2-b506-ac0a9f1c1087"
+      ]
+    }
+  ]
+}

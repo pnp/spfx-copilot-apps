@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "react-copilot-agent-apps-directory-client-side-solution",
+    "id": "92767de1-111a-4524-8b06-9eb125b29f2e",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.24.0-beta.2"
+    },
+    "webApiPermissionRequests": [
+      {
+        "resource": "Microsoft Graph",
+        "scope": "Files.ReadWrite"
+      }
+    ],
+    "metadata": {
+      "shortDescription": {
+        "default": "react-copilot-agent-apps-directory description"
+      },
+      "longDescription": {
+        "default": "react-copilot-agent-apps-directory description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "react-copilot-agent-apps-directory Feature",
+        "description": "The feature that activates elements of the react-copilot-agent-apps-directory solution.",
+        "id": "54b230ba-3799-48e9-ad63-bb14e34ab40f",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/react-copilot-agent-apps-directory.sppkg"
+  }
+}

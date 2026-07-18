@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "e95a4616-89c9-45e2-b506-ac0a9f1c1087",
+  "alias": "AppsDirectoryCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "AppsDirectoryTool",
+      "description": {
+        "default": "Show the workplace apps directory. Supports filtering by category, keyword, or showing only favorites."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/appsDirectory/AppsDirectoryCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

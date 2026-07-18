@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.7/schema.json",
+  "version": "v1.7",
+  "name": "Apps directory",
+  "description": "Browse and launch your workplace applications directly from Copilot.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Open Apps directory",
+      "text": "Show me all my workplace apps"
+    },
+    {
+      "title": "Browse by Category",
+      "text": "Show me the Human Resources apps"
+    },
+    {
+      "title": "Search for an App",
+      "text": "Find the DocuSign app"
+    },
+    {
+      "title": "My Favorites",
+      "text": "Show me my favorite apps"
+    }
+  ],
+  "actions": [
+    {
+      "id": "appsDirectoryAction",
+      "file": "ai-plugin.json"
+    }
+  ]
+}
