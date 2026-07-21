@@ -1,6 +1,7 @@
 define([], function() {
   return {
-    "OpenDirectoryLabel": "Open Directory",
+    "ExpandButtonLabel": "Expand",
+    "AppsDirectoryTitle": "Apps directory",
     "FavouritesLabel": "Favourites",
     "CustomAppButtonLabel": "Custom app",
     "CustomAppTitleLabel": "Title:",
@@ -12,6 +13,6 @@ define([], function() {
     "AddingLabel": "Adding...",
     "DeleteConfirmLabel": "Delete?",
     "SearchPlaceholder": "Search apps...",
-    "YourToolsLabel": "Your tools"
+    "YourToolsLabel": "Your tools"    
   }
 });

@@ -1,5 +1,6 @@
 declare interface IAppsDirectoryCopilotComponentStrings {
-    OpenDirectoryLabel: string;
+    ExpandButtonLabel: string;
+    AppsDirectoryTitle: string;
     FavouritesLabel: string;
     CustomAppButtonLabel: string;
     CustomAppTitleLabel: string;
