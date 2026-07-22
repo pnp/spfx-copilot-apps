@@ -8,7 +8,8 @@ import type { IApp } from '../models/IApp';
 import type { AppsDirectoryService } from '../services/AppsDirectoryService';
 
 export interface IAppsDirectoryStrings {
-    OpenDirectoryLabel: string;
+    ExpandButtonLabel: string;
+    AppsDirectoryTitle: string;
     FavouritesLabel: string;
     CustomAppButtonLabel: string;
     CustomAppTitleLabel: string;

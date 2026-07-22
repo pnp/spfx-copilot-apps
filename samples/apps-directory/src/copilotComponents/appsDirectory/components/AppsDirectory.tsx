@@ -1,11 +1,13 @@
 import * as React from 'react';
 import {
+    Button,
     FluentProvider,
     IdPrefixProvider,
     webLightTheme,
     webDarkTheme,
     Input,
     Spinner,
+    Text,
     makeStyles,
     tokens,
 } from '@fluentui/react-components';
@@ -31,39 +33,7 @@ const useStyles = makeStyles({
         padding: tokens.spacingHorizontalM,
         paddingTop: tokens.spacingVerticalM,
     },
-    openDirItem: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        cursor: 'pointer',
-        width: '65px',
-        textAlign: 'center',
-        gap: tokens.spacingVerticalXS,
-        padding: tokens.spacingVerticalXS,
-        borderRadius: tokens.borderRadiusMedium,
-        border: 'none',
-        background: 'none',
-        ':hover': {
-            backgroundColor: tokens.colorNeutralBackground1Hover,
-        },
-    },
-    openDirIconCircle: {
-        width: '40px',
-        height: '40px',
-        borderRadius: '50%',
-        backgroundColor: tokens.colorBrandBackground,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: tokens.colorNeutralForegroundInverted,
-    },
-    openDirLabel: {
-        fontSize: tokens.fontSizeBase100,
-        lineHeight: tokens.lineHeightBase100,
-        color: tokens.colorBrandForeground1,
-        fontWeight: tokens.fontWeightSemibold,
-        wordBreak: 'break-word',
-    },
+
     fullscreenLayout: {
         display: 'flex',
         height: '100%',
@@ -100,6 +70,13 @@ const useStyles = makeStyles({
     loadingContainer: {
         paddingTop: tokens.spacingVerticalS,
         paddingBottom: tokens.spacingVerticalS,
+    },
+    inlineHeader: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingInline: tokens.spacingHorizontalM,
+        paddingTop: tokens.spacingVerticalXS,
     },
 });
 
@@ -195,8 +172,6 @@ export default function AppsDirectory(props: IAppsDirectoryProps): React.ReactEl
                 }
             } catch {
                 // ODB unavailable – fall back to common favorites only
-            } finally {
-                setIsLoading(false);
             }
 
             const appliedApps = allApps.map(app => ({
@@ -223,6 +198,7 @@ export default function AppsDirectory(props: IAppsDirectoryProps): React.ReactEl
             setApps(mergedApps);
             setCategories(appsDirectoryService.groupByCategory(appsForCategories));
             setFavorites(appsDirectoryService.getFavorites(mergedApps));
+            setIsLoading(false);
         };
 
         loadData().catch(() => undefined);
@@ -250,12 +226,7 @@ export default function AppsDirectory(props: IAppsDirectoryProps): React.ReactEl
             a.id === appId ? { ...a, isFavorite: !currentStatus } : a
         );
 
-        const updatedFavorites = favorites.reduce((acc: IApp[], fav) => {
-            if (fav.id === appId && typeof fav.id === 'number') {
-                return !currentStatus ? [...acc, fav] : acc;
-            }
-            return [...acc, fav];
-        }, []);
+        const updatedFavorites = favorites.filter(fav => fav.id !== appId);
 
         if (!currentStatus) {
             updatedFavorites.push({ ...app, isFavorite: true });
@@ -352,22 +323,28 @@ export default function AppsDirectory(props: IAppsDirectoryProps): React.ReactEl
     }, [category, searchQuery, displayCategories, isFavoritesOnly, favorites, gridFavorites]);
 
     const renderInline = (): React.ReactElement => (
-        <div className={styles.quickLinksGrid}>
-            <button
-                className={styles.openDirItem}
-                onClick={() => { onRequestDisplayMode('fullscreen').catch(() => undefined); }}
-                title={strings.OpenDirectoryLabel}
-                type="button"
-            >
-                <div className={styles.openDirIconCircle}>
-                    <ArrowExpand24Regular />
-                </div>
-                <span className={styles.openDirLabel}>{strings.OpenDirectoryLabel}</span>
-            </button>
-            {inlineApps.map(app => (
-                <AppCard key={app.id} app={app} showStar={false} bridge={bridge} />
-            ))}
-        </div>
+        <>
+            <div className={styles.inlineHeader}>
+                <Text weight="semibold">{strings.AppsDirectoryTitle}</Text>
+                <Button
+                    appearance="subtle"
+                    icon={<ArrowExpand24Regular />}
+                    title={strings.ExpandButtonLabel}
+                    aria-label={strings.ExpandButtonLabel}
+                    onClick={() => { onRequestDisplayMode('fullscreen').catch(() => undefined); }}
+                >
+                    {strings.ExpandButtonLabel}
+                </Button>
+            </div>
+            <div className={styles.quickLinksGrid}>
+            {isLoading && inlineApps.length === 0
+                ? <Spinner size="small" />
+                : inlineApps.map(app => (
+                    <AppCard key={app.id} app={app} showStar={false} bridge={bridge} />
+                ))
+            }
+            </div>
+        </>
     );
 
     const renderFavoritesPanel = (panelClassName: string): React.ReactElement => (
