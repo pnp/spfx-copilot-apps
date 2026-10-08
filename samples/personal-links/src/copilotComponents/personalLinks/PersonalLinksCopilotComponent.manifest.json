@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "219195b9-6a4f-4231-82b4-c008d33fcdd2",
+  "alias": "PersonalLinksCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "PersonalLinksTool",
+      "description": {
+        "default": "Use when the signed-in user asks to see, open, or maintain their own reusable personal links or shortcuts, including requests to add, edit, delete, find, or reorder a saved link. Render the interactive Personal Links experience inline. Do not use for general web search, a one-time URL open, browser favorites, organization-managed bookmarks, SharePoint navigation, or another person's links."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/personalLinks/PersonalLinksCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

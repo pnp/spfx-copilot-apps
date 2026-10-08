@@ -1,0 +1,43 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.29",
+  "version": "1.0.0",
+  "id": "a90f8981-60cd-4b2f-a5cf-985475e943ac",
+  "developer": {
+    "name": "Microsoft 365 Community",
+    "websiteUrl": "https://aka.ms/community/home",
+    "privacyUrl": "https://aka.ms/community/home",
+    "termsOfUseUrl": "https://aka.ms/community/home"
+  },
+  "name": {
+    "short": "Personal Links",
+    "full": "Personal Links - your collection across Microsoft 365"
+  },
+  "description": {
+    "short": "Your personal links across Microsoft 365 and devices.",
+    "full": "Open and manage the same personal link collection in a Teams personal app, SharePoint, and Copilot. The deployed Personal Links SPFx solution stores each user's links in their least-privilege OneDrive App Folder for a consistent cross-device experience."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#075FCE",
+  "defaultInstallScope": "personal",
+  "staticTabs": [
+    {
+      "entityId": "a90f8981-60cd-4b2f-a5cf-985475e943ac",
+      "name": "Personal Links",
+      "contentUrl": "https://{teamSiteDomain}/_layouts/15/TeamsLogon.aspx?SPFX=true&dest=/_layouts/15/teamshostedapp.aspx%3Fteams%26personal%26componentId=a90f8981-60cd-4b2f-a5cf-985475e943ac%26forceLocale={locale}",
+      "scopes": ["personal"],
+      "context": ["personalTab"]
+    }
+  ],
+  "validDomains": [
+    "*.login.microsoftonline.com",
+    "*.sharepoint.com"
+  ],
+  "webApplicationInfo": {
+    "id": "00000003-0000-0ff1-ce00-000000000000",
+    "resource": "https://{teamSiteDomain}"
+  }
+}

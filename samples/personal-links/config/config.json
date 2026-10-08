@@ -1,0 +1,23 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "personal-links-components": {
+      "components": [
+        {
+          "entrypoint": "./lib/copilotComponents/personalLinks/PersonalLinksCopilotComponent.js",
+          "manifest": "./src/copilotComponents/personalLinks/PersonalLinksCopilotComponent.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/webparts/personalLinks/PersonalLinksWebPart.js",
+          "manifest": "./src/webparts/personalLinks/PersonalLinksWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "PersonalLinksCopilotComponentStrings": "lib/copilotComponents/personalLinks/loc/{locale}.js",
+    "PersonalLinksWebPartStrings": "lib/webparts/personalLinks/loc/{locale}.js"
+  }
+}

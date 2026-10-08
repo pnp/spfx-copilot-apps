@@ -1,0 +1,59 @@
+[
+  {
+    "name": "pnp-spfx-copilot-components-personal-links",
+    "source": "pnp",
+    "title": "Personal Links",
+    "shortDescription": "One UX across Copilot and SharePoint, with cross-device App Folder storage",
+    "url": "https://github.com/pnp/spfx-copilot-components/tree/main/samples/personal-links",
+    "downloadUrl": "https://pnp.github.io/download-partial/?url=https://github.com/pnp/spfx-copilot-components/tree/main/samples/personal-links",
+    "longDescription": [
+      "Personal Links demonstrates two reusable patterns together: render one shared Fluent UI experience in Copilot and SharePoint, and store each user's component state in the least-privilege OneDrive App Folder so the same personal link collection follows them across hosts and devices."
+    ],
+    "creationDateTime": "2026-10-08",
+    "updateDateTime": "2026-10-09",
+    "products": [
+      "SharePoint",
+      "Microsoft Copilot",
+      "Microsoft Teams"
+    ],
+    "metadata": [
+      {
+        "key": "SAMPLE-TYPE",
+        "value": "SPFx-CopilotComponent"
+      },
+      {
+        "key": "CLIENT-SIDE-DEV",
+        "value": "React"
+      },
+      {
+        "key": "SPFX-VERSION",
+        "value": "1.24.0-rc.0"
+      }
+    ],
+    "thumbnails": [],
+    "authors": [
+      {
+        "gitHubAccount": "VesaJuvonen",
+        "pictureUrl": "https://github.com/VesaJuvonen.png",
+        "name": "Vesa Juvonen"
+      }
+    ],
+    "references": [
+      {
+        "name": "Using app folder in OneDrive and SharePoint",
+        "description": "Microsoft Graph guidance for least-privilege application storage.",
+        "url": "https://learn.microsoft.com/graph/onedrive-sharepoint-appfolder"
+      },
+      {
+        "name": "Build Microsoft 365 Copilot extensibility",
+        "description": "Microsoft 365 Copilot extensibility documentation.",
+        "url": "https://learn.microsoft.com/microsoft-365-copilot/extensibility/"
+      },
+      {
+        "name": "SharePoint Framework overview",
+        "description": "SharePoint Framework architecture and development guidance.",
+        "url": "https://learn.microsoft.com/sharepoint/dev/spfx/sharepoint-framework-overview"
+      }
+    ]
+  }
+]

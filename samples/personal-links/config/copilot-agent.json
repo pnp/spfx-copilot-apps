@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "Personal Links"
+      },
+      "description": {
+        "default": "Open and manage one personal link collection across Copilot, SharePoint, Teams, and devices."
+      },
+      "components": [
+        "219195b9-6a4f-4231-82b4-c008d33fcdd2"
+      ]
+    }
+  ]
+}

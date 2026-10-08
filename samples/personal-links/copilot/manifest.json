@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.29",
+  "version": "1.0.0",
+  "id": "522bbab4-9d3e-4f4f-9687-c9ad53e872f3",
+  "developer": {
+    "name": "Contoso",
+    "websiteUrl": "https://aka.ms/community/home",
+    "privacyUrl": "https://aka.ms/community/home",
+    "termsOfUseUrl": "https://aka.ms/community/home"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "Personal Links",
+    "full": "Personal Links"
+  },
+  "description": {
+    "short": "Your personal links across Microsoft 365 and devices.",
+    "full": "Open and manage one personal link collection through the same polished experience in Copilot and SharePoint. Least-privilege OneDrive App Folder storage keeps your links available across devices."
+  },
+  "accentColor": "#075FCE",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "personalLinksAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "permissions": ["identity"],
+  "validDomains": []
+}

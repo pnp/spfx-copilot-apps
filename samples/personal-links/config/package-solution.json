@@ -1,0 +1,45 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "personal-links-client-side-solution",
+    "id": "078bf4c7-0d48-43e6-9c29-5eb9c30a8d7e",
+    "version": "1.0.0.3",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "developer": {
+      "name": "Microsoft 365 & Power Platform Community",
+      "websiteUrl": "https://aka.ms/community/home",
+      "privacyUrl": "https://aka.ms/community/home",
+      "termsOfUseUrl": "https://aka.ms/community/home",
+      "mpnId": "M365PNP"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "One personal link collection across Copilot, SharePoint, Teams, and devices."
+      },
+      "longDescription": {
+        "default": "The same Fluent personal-links experience runs in Copilot and SharePoint, with least-privilege OneDrive App Folder storage keeping each user's links consistent across devices."
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "Personal Links Feature",
+        "description": "Activates the shared Personal Links Copilot component and SharePoint web part.",
+        "id": "1dabdbb8-cf60-46df-895b-d66d7df4877e",
+        "version": "1.0.0.0"
+      }
+    ],
+    "webApiPermissionRequests": [
+      {
+        "resource": "Microsoft Graph",
+        "scope": "Files.ReadWrite.AppFolder"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/personal-links.sppkg"
+  }
+}

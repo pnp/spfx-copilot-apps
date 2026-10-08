@@ -1,0 +1,9 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "namespace": "personalLinks",
+  "name_for_human": "Personal Links",
+  "description_for_human": "Open and manage your personal link collection across Microsoft 365 and devices.",
+  "description_for_model": "Use Personal Links when the signed-in user asks to see, open, or maintain their own reusable personal links or shortcuts, including requests to add, edit, delete, find, or reorder a saved link. The action renders the interactive Personal Links experience inline. Do not use it for general web search, a one-time URL open, browser favorites, organization-managed bookmarks, SharePoint navigation, or another person's links.",
+  "contact_email": "pnp@microsoft.com"
+}

@@ -1,0 +1,20 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": false,
+    "isCreatingSolution": false,
+    "nodeVersion": "22.23.2",
+    "sdksVersions": {},
+    "version": "1.24.0-rc.0",
+    "libraryName": "personal-links",
+    "libraryId": "078bf4c7-0d48-43e6-9c29-5eb9c30a8d7e",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "personal-links",
+    "solutionShortDescription": "Personal links across Copilot and SharePoint.",
+    "skipFeatureDeployment": true,
+    "componentType": "webpart",
+    "template": "react",
+    "componentName": "PersonalLinks"
+  }
+}

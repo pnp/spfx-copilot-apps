@@ -1,0 +1,27 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.8/schema.json",
+  "version": "v1.8",
+  "name": "Personal Links",
+  "description": "Open and manage your personal link collection across Microsoft 365 and devices.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Show my personal links",
+      "text": "Show my personal links."
+    },
+    {
+      "title": "Add a personal link",
+      "text": "Help me add a personal link."
+    },
+    {
+      "title": "Find a saved link",
+      "text": "Help me find a link I saved."
+    }
+  ],
+  "actions": [
+    {
+      "id": "personalLinksAction",
+      "file": "ai-plugin.json"
+    }
+  ]
+}
