@@ -30,7 +30,29 @@
         "value": "1.24.0-rc.0"
       }
     ],
-    "thumbnails": [],
+    "thumbnails": [
+      {
+        "name": "personal-links-compact.png",
+        "type": "image",
+        "order": 100,
+        "url": "https://github.com/pnp/spfx-copilot-components/raw/main/samples/personal-links/assets/personal-links-compact.png",
+        "alt": "Compact Personal Links experience showing six temporary demonstration links in a Fluent UI card grid."
+      },
+      {
+        "name": "personal-links-full.png",
+        "type": "image",
+        "order": 101,
+        "url": "https://github.com/pnp/spfx-copilot-components/raw/main/samples/personal-links/assets/personal-links-full.png",
+        "alt": "Full Personal Links experience showing the shared link collection, search, ordering actions, and always-available link editor."
+      },
+      {
+        "name": "personal-links-editor.png",
+        "type": "image",
+        "order": 102,
+        "url": "https://github.com/pnp/spfx-copilot-components/raw/main/samples/personal-links/assets/personal-links-editor.png",
+        "alt": "Add a personal link dialog with title, web address, description, and a curated Fluent icon picker."
+      }
+    ],
     "authors": [
       {
         "gitHubAccount": "VesaJuvonen",

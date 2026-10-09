@@ -18,8 +18,11 @@ only the delegated Microsoft Graph `Files.ReadWrite.AppFolder` permission.
 For a presenter-ready setup, UX walkthrough, failure demonstration, and code tour, see
 [`DEMO-SCRIPT.md`](./DEMO-SCRIPT.md).
 
-> Screenshots will be added after the authenticated Copilot and SharePoint tenant validation gates are
-> complete. `assets/sample.json` intentionally does not reference placeholder or unvalidated images.
+![Compact Personal Links experience with temporary demonstration data](assets/personal-links-compact.png)
+
+![Full Personal Links experience with the link collection and always-available editor](assets/personal-links-full.png)
+
+![Add a personal link dialog with the curated Fluent icon picker](assets/personal-links-editor.png)
 
 ## Compatibility
 
@@ -392,10 +395,10 @@ The separate Teams package is validated with:
 .\teams-app\package-app.ps1 -Check
 ```
 
-The ready-to-deploy version 1.0.0.3 SPPKG is 158,572 bytes with SHA-256:
+The ready-to-deploy version 1.0.0.3 SPPKG is 158,579 bytes with SHA-256:
 
 ```text
-185965DA2F6ED6C2078814D05CE53D235CD4E64939D6B29761C163D6CD8CCD81
+4776FDA62E733AC21A11C43949A90BA1DCA07B020587DEDFD23FF2928F38B833
 ```
 
 The isolated `TeamsSPFxApp.zip` is 15,840 bytes with SHA-256

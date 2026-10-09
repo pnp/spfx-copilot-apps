@@ -126,6 +126,7 @@ const useStyles = makeStyles({
   },
   compactContent: {
     display: 'grid',
+    gridTemplateColumns: 'minmax(0, 1fr)',
     gap: tokens.spacingVerticalM,
     padding: tokens.spacingHorizontalL
   },

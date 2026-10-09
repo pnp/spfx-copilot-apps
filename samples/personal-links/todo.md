@@ -24,12 +24,12 @@ No feature implementation starts until the Phase 0 approval item is checked.
 > deployable package are implemented. Permission/setup failures are actionable, and the web part has a
 > non-persistent seeded demo mode. The latest production gate passed 11 tests with zero lint warnings.
 > The final package uses one shared JavaScript bundle, contains one current Copilot agent ZIP and zero
-> Teams web-part ZIPs, and the version 1.0.0.3 SPPKG is 158,572 bytes with SHA-256
-> `185965DA2F6ED6C2078814D05CE53D235CD4E64939D6B29761C163D6CD8CCD81`. The separately packaged
+> Teams web-part ZIPs, and the version 1.0.0.3 SPPKG is 158,579 bytes with SHA-256
+> `4776FDA62E733AC21A11C43949A90BA1DCA07B020587DEDFD23FF2928F38B833`. The separately packaged
 > 15,840-byte Teams personal app has SHA-256
 > `A3FE833AC5B7AF7DCC19DFF603A1A00A67A0C22F7B97186CB5D07C6A6FEDC292`. The solution remains blocked
-> only on Copilot/Teams tenant validation, accessibility/theme/zoom checks, and final publication
-> screenshots.
+> only on Copilot/Teams tenant validation, accessibility/theme/zoom checks, and optional host-specific
+> publication evidence beyond the three checked-in core screenshots.
 
 ## Product objective
 
@@ -494,7 +494,8 @@ The dependency order is:
 
 ### Acceptance gate
 
-- [ ] Save and inspect representative Compact and Full screenshots using the same sample records.
+- [x] Save and inspect representative Compact and Full screenshots using the same seeded demonstration
+  records, plus the Compact Add dialog and icon picker.
 - [ ] Compare product-bar height, accent rhythm, brand alignment, status placement, and visual hierarchy
   side by side with the Zava One reference screenshot.
 - [ ] Confirm the Full experience is visually useful on large canvases and the Compact experience remains
@@ -624,10 +625,10 @@ The dependency order is:
 - [x] Run the clean production build and package-solution command.
 - [x] Audit the `.sppkg` for current hashed assets, generated agent/plugin metadata, bundle sizes, stale
   files, and duplicate assets.
-- [x] Record the release baseline: one shared production application bundle (438,931 bytes raw), two
-  JavaScript assets including localization (439,451 bytes raw total), one
+- [x] Record the release baseline: one shared production application bundle (438,968 bytes raw), two
+  JavaScript assets including localization (439,488 bytes raw total), one
   `ClientSideAssets/personal-links.zip`, zero `TeamsSPFxApp.zip` entries, and a version 1.0.0.3,
-  158,572-byte SPPKG.
+  158,579-byte SPPKG.
 - [x] Commit the validated ready-to-deploy `.sppkg` according to repository policy.
 
 ### Documentation
@@ -638,7 +639,10 @@ The dependency order is:
 - [x] Document deployment/configuration for SharePoint, Copilot, and SharePoint full-page app.
 - [x] Document that Teams requires a separately uploaded manual companion package and is not part of the
   default primary-solution output.
-- [ ] Add real Compact, Full, dark, narrow, SharePoint, and Copilot screenshots.
+- [x] Add real Compact, Full, and editor screenshots from the authenticated SharePoint-hosted component
+  and reference them from the README and sample gallery metadata.
+- [ ] Add optional dark, narrow, and authenticated Copilot-host screenshots when those publication
+  evidence gates are available.
 - [x] Document test/build results, accessibility scope, tenant prerequisites, limitations, and recovery
   behavior.
 
